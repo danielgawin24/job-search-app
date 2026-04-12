@@ -1,0 +1,3590 @@
+[
+  {
+    "name": ".net",
+    "patterns": [
+      "\\b\\.net\\b",
+      "\\bmicrosoft\\.net stack\\b",
+      "\\b\\.net stack\\b",
+      "\\b\\.net\\s?\\d*(\\.\\d+)?\\b",
+      "\\.net\\s+\\d+\\.\\d+"
+    ]
+  },
+  {
+    "name": ".net core",
+    "patterns": [
+      "\\.net core environment\\b",
+      "\\.net core platform\\b",
+      "\\b\\.net core\\s?\\d*(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": ".net framework",
+    "patterns": [
+      "\\b\\.net framework\\b",
+      "\\b\\.net framework\\s?\\d*(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": ".net core",
+    "patterns": [
+      "\\b\\.net core\\b",
+      "\\b\\.net core\\s?\\d+(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": ".net maui",
+    "patterns": [
+      "\\b\\.net maui\\b",
+      "\\bmaui\\b"
+    ]
+  },
+  {
+    "name": "aider",
+    "patterns": [
+      "\\baider\\b",
+      "\\baider\\s+ai\\b"
+    ]
+  },
+  {
+    "name": "adobe after effects",
+    "patterns": [
+      "\\badobe after effect\\b",
+      "\\badobe after effects\\b",
+      "\\bafter effect\\b",
+      "\\bafter effects\\b"
+    ]
+  },
+  {
+    "name": "adobe photoshop",
+    "patterns": [
+      "\\badobe photoshop\\b"
+    ]
+  },
+  {
+    "name": "adobe indesign",
+    "patterns": [
+      "\\badobe indesign\\b"
+    ]
+  },
+  {
+    "name": "adobe xd",
+    "patterns": [
+      "\\badobe xd\\b"
+    ]
+  },
+  {
+    "name": "adobe creative cloud",
+    "patterns": [
+      "\\badobe creative cloud\\b",
+      "\\badobe cc\\b",
+      "\\badobe creative suite\\b"
+    ]
+  },
+  {
+    "name": "adobe aem",
+    "patterns": [
+      "\\badobe aem\\b",
+      "\\badobe aem digital solutions\\b"
+    ]
+  },
+  {
+    "name": "adobe analytics",
+    "patterns": [
+      "\\badobe analytics\\b"
+    ]
+  },
+  {
+    "name": "adobe commerce",
+    "patterns": [
+      "\\badobe commerce\\b"
+    ]
+  },
+  {
+    "name": "adobe journey optimizer",
+    "patterns": [
+      "\\badobe journey optimizer\\b"
+    ]
+  },
+  {
+    "name": "adobe workfront",
+    "patterns": [
+      "\\badobe workfront\\b"
+    ]
+  },
+  {
+    "name": "adobe forms",
+    "patterns": [
+      "\\badobe forms\\b"
+    ]
+  },
+  {
+    "name": "adobe marketing",
+    "patterns": [
+      "\\badobe marketing\\b"
+    ]
+  },
+  {
+    "name": "adobe platform",
+    "patterns": [
+      "\\badobe platform\\b"
+    ]
+  },
+  {
+    "name": "adobe manager",
+    "patterns": [
+      "\\badobe manager\\b"
+    ]
+  },
+  {
+    "name": "agile",
+    "patterns": [
+      "\\bagile\\b",
+      "\\bagile methodology\\b",
+      "\\bagile methodologies\\b",
+      "\\bagile software development\\b",
+      "\\bagile teams\\b",
+      "\\bagile principles\\b",
+      "\\bagile techniques\\b",
+      "\\bagile framework\\b",
+      "\\bagile delivery frameworks\\b",
+      "\\bagile management\\b"
+    ]
+  },
+  {
+    "name": "agile coach",
+    "patterns": [
+      "\\bagile coach\\b"
+    ]
+  },
+  {
+    "name": "agile release train",
+    "patterns": [
+      "\\bagile release train\\b",
+      "\\bagile release trains\\b"
+    ]
+  },
+  {
+    "name": "agilepm",
+    "patterns": [
+      "\\bagilepm\\b",
+      "\\bagile pm\\b"
+    ]
+  },
+  {
+    "name": "angular",
+    "patterns": [
+      "\\bangular\\b",
+      "\\bangular\\s*\\d+(\\.\\d+)?\\b",
+      "\\bangular\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "angularjs",
+    "patterns": [
+      "\\bangularjs\\b",
+      "\\bangular\\.js\\b",
+      "\\bangular\\s*1\\.x\\b"
+    ]
+  },
+  {
+    "name": "ansible",
+    "patterns": [
+      "\\bansible\\b",
+      "\\bansible\\s+automation\\b",
+      "\\bansible\\s+playbooks?\\b"
+    ]
+  },
+  {
+    "name": "artificial intelligence",
+    "patterns": [
+      "\\bai\\b",
+      "\\bartificial intelligence\\b",
+      "\\bai technologies\\b",
+      "\\bai systems?\\b",
+      "\\bai frameworks\\b",
+      "\\bai tools\\b",
+      "\\bai coding\\b",
+      "\\bai coding tools\\b"
+    ]
+  },
+  {
+    "name": "ai architecture",
+    "patterns": [
+      "\\bai architecture\\b",
+      "\\bai architectures\\b",
+      "\\bai system architectures\\b"
+    ]
+  },
+  {
+    "name": "ai development",
+    "patterns": [
+      "\\bai dev\\b",
+      "\\bai engineering\\b"
+    ]
+  },
+  {
+    "name": "analytics",
+    "patterns": [
+      "\\banalitics\\b",
+      "\\banalytics\\b",
+      "\\banalytics workflows\\b",
+      "\\banalytics enablement\\b",
+      "\\banalytics architecture\\b",
+      "\\banalytics understanding\\b"
+    ]
+  },
+  {
+    "name": "analytical skills",
+    "patterns": [
+      "\\banalytical\\b",
+      "\\banalytical mindset\\b",
+      "\\banalytical problem\\b",
+      "\\banalytical skills\\b",
+      "\\banalytical testing\\b",
+      "\\banalytical thinking\\b"
+    ]
+  },
+  {
+    "name": "analysis",
+    "patterns": [
+      "\\banalysis\\b",
+      "\\banalyzing data\\b"
+    ]
+  },
+  {
+    "name": "android",
+    "patterns": [
+      "\\bandroid\\b",
+      "\\bandroid enterprise\\b"
+    ]
+  },
+  {
+    "name": "android development",
+    "patterns": [
+      "\\bandroid development\\b",
+      "\\bandroid design patterns\\b"
+    ]
+  },
+  {
+    "name": "apache chemistry",
+    "patterns": [
+      "\\bapache chemistry\\b",
+      "\\bapache chemistry dotcmis\\b"
+    ]
+  },
+  {
+    "name": "api",
+    "patterns": [
+      "\\bapi\\b",
+      "\\bapis\\b"
+    ]
+  },
+  {
+    "name": "api automation",
+    "patterns": [
+      "\\bapi automation\\b",
+      "\\bapi test automation\\b",
+      "\\bapi testing\\w*\\b"
+    ]
+  },
+  {
+    "name": "api integration",
+    "patterns": [
+      "\\bapi integration\\b",
+      "\\bapi integrations\\b"
+    ]
+  },
+  {
+    "name": "application",
+    "patterns": [
+      "\\bapplication\\b",
+      "\\bapplications\\b",
+      "\\bapplication product\\b"
+    ]
+  },
+  {
+    "name": "application programming interface",
+    "patterns": [
+      "\\bapplication programming interface\\b",
+      "\\bapi\\b"
+    ]
+  },
+  {
+    "name": "archimate",
+    "patterns": [
+      "\\barchimate\\b",
+      "\\barchimate\\s*\\d+(\\.\\d+)?",
+      "\\barchimate\\s+\\d+(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": "astro",
+    "patterns": [
+      "\\bastro\\b",
+      "\\bastro\\s+framework\\b",
+      "\\bastro\\.build\\b"
+    ]
+  },
+  {
+    "name": "assembly",
+    "patterns": [
+      "\\bassembly\\s+language\\b",
+      "\\bassembly\\s+programming\\b",
+      "\\bx86\\s+assembly\\b"
+    ]
+  },
+  {
+    "name": "assembler",
+    "patterns": [
+      "\\bassembler\\b",
+      "\\basembler\\b"
+    ]
+  },
+  {
+    "name": "asp.net core",
+    "patterns": [
+      "\\basp\\.net\\b",
+      "\\baspnet\\b",
+      "\\basp\\.net core\\b",
+      "\\b\\.net core web api\\b",
+      "\\b\\.net core mvc\\b"
+    ]
+  },
+  {
+    "name": "asp.net core web api",
+    "patterns": [
+      "\\basp\\.net core web api\\b",
+      "\\b\\.net core web api\\b"
+    ]
+  },
+  {
+    "name": "asp.net mvc",
+    "patterns": [
+      "\\basp\\.net mvc\\b",
+      "\\b\\.net mvc\\b"
+    ]
+  },
+  {
+    "name": "allen bradley",
+    "patterns": [
+      "\\ballen\\s*-\\s*bradley\\b",
+      "\\ballen\\s*bradley\\b"
+    ]
+  },
+  {
+    "name": "atom",
+    "patterns": [
+      "\\batom\\s+editor\\b",
+      "\\bgithub\\s+atom\\b"
+    ]
+  },
+  {
+    "name": "atlassian",
+    "patterns": [
+      "\\batlassian\\b",
+      "\\batlassian stack\\b"
+    ]
+  },
+  {
+    "name": "automation",
+    "patterns": [
+      "\\bautomation\\b",
+      "\\bautomate\\b",
+      "\\bautomate now\\b",
+      "\\bautomations\\b",
+      "\\bautomation workflows\\b",
+      "\\bautomation strategies\\b",
+      "\\bautomation tools\\b",
+      "\\bautomation frameworksci\\b",
+      "\\bautomation solution architecture\\b",
+      "\\bautomatyka\\b"
+    ]
+  },
+  {
+    "name": "automated testing",
+    "patterns": [
+      "\\bautomated testing\\b",
+      "\\bautomated testing\\w*\\b"
+    ]
+  },
+  {
+    "name": "aws",
+    "patterns": [
+      "\\baws\\b",
+      "\\bamazon web services\\b",
+      "\\bamazon aws\\b"
+    ]
+  },
+  {
+    "name": "aws cloud",
+    "patterns": [
+      "\\baws cloud\\b",
+      "\\baws services\\b",
+      "\\baws cloudformation\\b"
+    ]
+  },
+  {
+    "name": "aws s3",
+    "patterns": [
+      "\\baws s3\\b",
+      "\\baws services s3\\b"
+    ]
+  },
+  {
+    "name": "aws rds",
+    "patterns": [
+      "\\baws rds\\b",
+      "\\bamazon aurora\\b"
+    ]
+  },
+  {
+    "name": "aws eks",
+    "patterns": [
+      "\\baws eks\\b",
+      "\\bamazon eks\\b"
+    ]
+  },
+  {
+    "name": "aws kinesis",
+    "patterns": [
+      "\\baws kinesis\\b",
+      "\\bamazon kinesis\\b"
+    ]
+  },
+  {
+    "name": "aws sagemaker",
+    "patterns": [
+      "\\baws sagemaker\\b",
+      "\\bamazon sagemaker\\b"
+    ]
+  },
+  {
+    "name": "axios",
+    "patterns": [
+      "\\baxios\\b",
+      "\\baxios\\s+http\\b"
+    ]
+  },
+  {
+    "name": "azure",
+    "patterns": [
+      "\\baz\\b",
+      "\\bazure\\b",
+      "\\bazure or gcp\\b",
+      "\\bazure cloud\\b",
+      "\\bazure platform\\b",
+      "\\bazure services\\b"
+    ]
+  },
+  {
+    "name": "azure certification az500",
+    "patterns": [
+      "\\baz500\\b",
+      "\\baz500\\s+\\w+\\b",
+      "\\baz500.*\\b",
+      "\\b\\w*\\s*(certification)?az500(certification)?\\s*\\w*"
+    ]
+  },
+  {
+    "name": "azure active directory",
+    "patterns": [
+      "\\bad\\b",
+      "\\bazure active directory\\b",
+      "\\bazure ad\\b",
+      "\\bazure ad b2c\\b",
+      "\\bazure ad connect\\b",
+      "\\bazure directory\\b"
+    ]
+  },
+  {
+    "name": "azure ai",
+    "patterns": [
+      "\\bazure ai\\b",
+      "\\bazure ai document intelligence\\b",
+      "\\bazure ai ecosystem\\b",
+      "\\bazure ai foundry\\b",
+      "\\bazure ai search\\b",
+      "\\bazure ai services\\b",
+      "\\bazure open ai\\b",
+      "\\bazure openai\\b",
+      "\\bazure openai apis\\b"
+    ]
+  },
+  {
+    "name": "azure cloud services",
+    "patterns": [
+      "\\bazure cloud services\\b",
+      "\\bazure cloud databricks\\b"
+    ]
+  },
+  {
+    "name": "azure data services",
+    "patterns": [
+      "\\bazure data services\\b",
+      "\\bazure data fabric\\b",
+      "\\bazure data factory\\b",
+      "\\bazure data lake\\b",
+      "\\bazure data lake storage\\b"
+    ]
+  },
+  {
+    "name": "azure databricks",
+    "patterns": [
+      "\\bazure databricks\\b",
+      "\\bazure databricks service\\b"
+    ]
+  },
+  {
+    "name": "azure devops",
+    "patterns": [
+      "\\bazure devops\\b",
+      "\\bazure devops classic\\b",
+      "\\bazure devops test plans\\b",
+      "\\bazure pipelines\\b"
+    ]
+  },
+  {
+    "name": "azure fabric",
+    "patterns": [
+      "\\bazure fabric\\b",
+      "\\bazure foundry\\b"
+    ]
+  },
+  {
+    "name": "azure event hub",
+    "patterns": [
+      "\\bazure event hub\\b",
+      "\\bazure event hubs\\b",
+      "\\bazure event grid\\b"
+    ]
+  },
+  {
+    "name": "azure functions",
+    "patterns": [
+      "\\bazure functions\\b",
+      "\\bazure funcions\\b"
+    ]
+  },
+  {
+    "name": "azure kubernetes service",
+    "patterns": [
+      "\\bazure kubernetes service\\b",
+      "\\bazure kubernetes services\\b"
+    ]
+  },
+  {
+    "name": "azure logic apps",
+    "patterns": [
+      "\\bazure logic apps\\b",
+      "\\bazure logic\\b"
+    ]
+  },
+  {
+    "name": "azure machine learning",
+    "patterns": [
+      "\\bazure machine learning\\b",
+      "\\bazure ml\\b",
+      "\\bazure ml studio\\b",
+      "\\bazureml\\b"
+    ]
+  },
+  {
+    "name": "azure monitor",
+    "patterns": [
+      "\\bazure monitor\\b",
+      "\\bazuremonitor\\b"
+    ]
+  },
+  {
+    "name": "azure security",
+    "patterns": [
+      "\\bazure security\\b",
+      "\\bazure security center\\b",
+      "\\bazure security centre\\b"
+    ]
+  },
+  {
+    "name": "azure synapse analytics",
+    "patterns": [
+      "\\bazure synapse\\b",
+      "\\bazure synapse analytics\\b"
+    ]
+  },
+  {
+    "name": "azure adf",
+    "patterns": [
+      "\\bazure adf\\b",
+      "\\bazure adf\\b"
+    ]
+  },
+  {
+    "name": "b2b",
+    "patterns": [
+      "\\bb2b\\b",
+      "\\bb2b marketing\\b",
+      "\\bb2b saas\\b",
+      "\\bb2b saas sales\\b",
+      "\\bb2b sales\\b"
+    ]
+  },
+  {
+    "name": "b2c",
+    "patterns": [
+      "\\bb2c\\b",
+      "\\bb2c marketing\\b",
+      "\\bb2c platforms\\b"
+    ]
+  },
+  {
+    "name": "bash",
+    "patterns": [
+      "\\bbash\\b",
+      "\\bbash\\s+script\\w+\\b"
+    ]
+  },
+  {
+    "name": "bigquery",
+    "patterns": [
+      "\\bbigquery\\b",
+      "\\bgoogle\\s+bigquery\\b",
+      "\\bbigquery\\s*sql\\b"
+    ]
+  },
+  {
+    "name": "big data",
+    "patterns": [
+      "\\bbig\\s*data\\b",
+      "\\bbig data architecture\\b",
+      "\\bbig data platforms\\b"
+    ]
+  },
+  {
+    "name": "blazor",
+    "patterns": [
+      "\\bblazor\\b",
+      "\\bblazor\\s+server\\b",
+      "\\bblazor\\s+webassembly\\b"
+    ]
+  },
+  {
+    "name": "bolt",
+    "patterns": [
+      "\\bbolt\\s+framework\\b",
+      "\\bslack\\s+bolt\\b",
+      "\\bbolt\\s+sdk\\b"
+    ]
+  },
+  {
+    "name": "bpm",
+    "patterns": [
+      "\\bbpm\\b",
+      "\\bbmn\\b",
+      "\\bbmp\\b",
+      "\\bbmpn\\b"
+    ]
+  },
+  {
+    "name": "bpmn",
+    "patterns": [
+      "\\bbpmn\\b",
+      "\\bbpmn2\\b",
+      "\\bbpmn 2\\.0\\b",
+      "\\bbpmn 2\\.0 processes\\b",
+      "\\bbpm2\\b"
+    ]
+  },
+  {
+    "name": "business",
+    "patterns": [
+      "\\bbusiness\\b",
+      "\\bbusiness administration\\b",
+      "\\bbusiness management\\b",
+      "\\bbusiness consulting\\b",
+      "\\bbusiness development\\b",
+      "\\bbusiness owner\\b",
+      "\\bbusiness english\\b",
+      "\\bbusiness central\\b"
+    ]
+  },
+  {
+    "name": "business analysis",
+    "patterns": [
+      "\\bbusiness analysis\\b",
+      "\\bbusiness analyst\\b",
+      "\\bbusiness analytics consulting\\b"
+    ]
+  },
+  {
+    "name": "business architecture",
+    "patterns": [
+      "\\bbusiness architecture\\b",
+      "\\bbusiness case\\b",
+      "\\bbusiness process management\\b",
+      "\\bbusiness process modeling\\b",
+      "\\bbusiness process modeling notation\\b",
+      "\\bbusiness process reengineering\\b",
+      "\\bbusiness process technology\\b",
+      "\\bbusiness processes\\b"
+    ]
+  },
+  {
+    "name": "business intelligence",
+    "patterns": [
+      "\\bbusiness intelligence\\b",
+      "\\bbusiness inteligence\\b"
+    ]
+  },
+  {
+    "name": "business continuity",
+    "patterns": [
+      "\\bbusiness continuity\\b",
+      "\\bbusiness continuity management\\b",
+      "\\bbusiness readiness\\b"
+    ]
+  },
+  {
+    "name": "business collaboration",
+    "patterns": [
+      "\\bbusiness collaboration\\b",
+      "\\bbusiness communication\\b",
+      "\\bbusiness stakeholder collaboration\\b",
+      "\\bbusiness partners using idocs\\b"
+    ]
+  },
+  {
+    "name": "bun",
+    "patterns": [
+      "\\bbun\\s+runtime\\b",
+      "\\bbun\\.js\\b"
+    ]
+  },
+  {
+    "name": "cargo",
+    "patterns": [
+      "\\brust\\s+cargo\\b",
+      "\\bcargo\\s+build\\b",
+      "\\bcargo\\s+package\\s+manager\\b"
+    ]
+  },
+  {
+    "name": "c#",
+    "patterns": [
+      "\\bc#\\s?(\\.net)?",
+      "\\.net\\s+c#",
+      "\\basp\\.net\\s+c#"
+    ]
+  },
+  {
+    "name": "c++",
+    "patterns": [
+      "\\bc\\+\\+",
+      "\\bc\\+\\+\\d+",
+      "\\b\\w+\\s(c\\+\\+)\\d*"
+    ]
+  },
+  {
+    "name": "c",
+    "patterns": [
+      "\\bc\\s+programming\\b",
+      "\\bc\\s+language\\b",
+      "\\bc99\\b",
+      "\\bc11\\b"
+    ]
+  },
+  {
+    "name": "ci",
+    "patterns": [
+      "\\bci\\b",
+      "\\bci cd\\b",
+      "\\bcicd\\b"
+    ]
+  },
+  {
+    "name": "cd",
+    "patterns": [
+      "\\bcd\\b",
+      "\\bcd adaptive soc verification flows\\b",
+      "\\bcd ai applications\\b",
+      "\\bcd automation\\b",
+      "\\bcd integration\\b",
+      "\\bcd jira\\b",
+      "\\bcd ml\\b",
+      "\\bcd pipelines\\b",
+      "\\bcd pipelines git proficiency\\b",
+      "\\bcd security\\b",
+      "\\bcd tools\\b"
+    ]
+  },
+  {
+    "name": "citrix",
+    "patterns": [
+      "\\bcitrix\\b",
+      "\\bcitrix systems\\b"
+    ]
+  },
+  {
+    "name": "citrix vdi",
+    "patterns": [
+      "\\bcitrix vdi\\b",
+      "\\bcitrix cloud vdi\\b"
+    ]
+  },
+  {
+    "name": "cisco",
+    "patterns": [
+      "\\bcisco\\b",
+      "\\bcisco technologies\\b"
+    ]
+  },
+  {
+    "name": "claude ai",
+    "patterns": [
+      "\\anthropic\\b",
+      "\\bclaude ai\\b",
+      "\\bclaude\\b",
+      "\\bclaude code\\b",
+      "\\banthropic claude\\b"
+    ]
+  },
+  {
+    "name": "clickhouse",
+    "patterns": [
+      "\\bclickhouse\\b",
+      "\\bclickhouse\\s+db\\b"
+    ]
+  },
+  {
+    "name": "clickup",
+    "patterns": [
+      "\\bclickup\\b",
+      "\\bclickup\\s+workspace\\b"
+    ]
+  },
+  {
+    "name": "clojure",
+    "patterns": [
+      "\\bclojure\\b",
+      "\\bclojure\\s+language\\b"
+    ]
+  },
+  {
+    "name": "cloud computing",
+    "patterns": [
+      "\\bcloud\\b",
+      "\\bcloud computing\\b"
+    ]
+  },
+  {
+    "name": "cloud platform",
+    "patterns": [
+      "\\bcloud platform\\b",
+      "\\bcloud platforms\\b"
+    ]
+  },
+  {
+    "name": "cloud infrastructure",
+    "patterns": [
+      "\\bcloud infrastructure\\b",
+      "\\bcloud infrastructure administration\\b",
+      "\\bcloud infrastructure solutions\\b"
+    ]
+  },
+  {
+    "name": "cloud networking",
+    "patterns": [
+      "\\bcloud networking\\b",
+      "\\bcloud networks\\b"
+    ]
+  },
+  {
+    "name": "cloud solutions",
+    "patterns": [
+      "\\bcloud solutions\\b",
+      "\\bcloud solution\\b",
+      "\\bcloud solution\\s*\\w*\\b"
+    ]
+  },
+  {
+    "name": "cloud functions",
+    "patterns": [
+      "\\bcloud functions\\b",
+      "\\bcloudfunctions\\b"
+    ]
+  },
+  {
+    "name": "cloudops",
+    "patterns": [
+      "\\bcloudops\\b",
+      "\\bcloud ops\\b"
+    ]
+  },
+  {
+    "name": "data cloud",
+    "patterns": [
+      "\\bdata cloud\\b",
+      "\\bdata platforms clouds basics\\b"
+    ]
+  },
+  {
+    "name": "cloud firestore",
+    "patterns": [
+      "\\bcloud\\s+firestore\\b",
+      "\\bgoogle\\s+cloud\\s+firestore\\b",
+      "\\bfirebase\\s+firestore\\b"
+    ]
+  },
+  {
+    "name": "cloudflare",
+    "patterns": [
+      "\\bcloudflare\\b",
+      "\\bcloudflare\\s+workers\\b"
+    ]
+  },
+  {
+    "name": "composer",
+    "patterns": [
+      "\\bphp\\s+composer\\b",
+      "\\bcomposer\\s+package\\s+manager\\b"
+    ]
+  },
+  {
+    "name": "control-m",
+    "patterns": [
+      "\\bcontrol\\s*-\\s*m\\b",
+      "\\bcontrolm\\b",
+      "\\bbmc\\s*control\\s*-\\s*m\\b"
+    ]
+  },
+  {
+    "name": "confluence",
+    "patterns": [
+      "\\batlassian\\s+confluence\\b",
+      "\\bconfluence\\b"
+    ]
+  },
+  {
+    "name": "css",
+    "patterns": [
+      "\\bcss\\b",
+      "css\\s*\\d+(\\+)?",
+      "\\bcss3\\b"
+    ]
+  },
+  {
+    "name": "coda",
+    "patterns": [
+      "\\bcoda\\s+docs\\b",
+      "\\bcoda\\s+workspace\\b"
+    ]
+  },
+  {
+    "name": "cockroachdb",
+    "patterns": [
+      "\\bcockroachdb\\b",
+      "\\bcockroach\\s*db\\b"
+    ]
+  },
+  {
+    "name": "cosmos db",
+    "patterns": [
+      "cosmo\\s?db",
+      "cosmos\\s?db"
+    ]
+  },
+  {
+    "name": "cucumber",
+    "patterns": [
+      "\\bcucumber\\b",
+      "\\bcucamber\\b"
+    ]
+  },
+  {
+    "name": "cursor",
+    "patterns": [
+      "\\bcursor\\s+editor\\b",
+      "\\bcursor\\s+ai\\b"
+    ]
+  },
+  {
+    "name": "customer journey",
+    "patterns": [
+      "\\bcustomer journey\\b",
+      "\\bcustomer journeys\\b"
+    ]
+  },
+  {
+    "name": "customer relationship management",
+    "patterns": [
+      "\\bcustomer relationship management\\b",
+      "\\bcrm\\b"
+    ]
+  },
+  {
+    "name": "customer service",
+    "patterns": [
+      "\\bcustomer service\\b",
+      "\\bcustomer service management\\b"
+    ]
+  },
+  {
+    "name": "customer support",
+    "patterns": [
+      "\\bcustomer support\\b",
+      "\\bcustomer facing\\b"
+    ]
+  },
+  {
+    "name": "cybersecurity",
+    "patterns": [
+      "\\bcyber security\\b",
+      "\\bcybersecurity\\b"
+    ]
+  },
+  {
+    "name": "data analysis",
+    "patterns": [
+      "\\bdata analysis\\b",
+      "\\bdata analisis\\b"
+    ]
+  },
+  {
+    "name": "data center",
+    "patterns": [
+      "\\bdatacenter\\b",
+      "\\bdata center\\b",
+      "\\bdata centre\\b"
+    ]
+  },
+  {
+    "name": "data lake",
+    "patterns": [
+      "\\bdata lake\\b",
+      "\\bdata lakes\\b"
+    ]
+  },
+  {
+    "name": "data management",
+    "patterns": [
+      "\\bdata management\\b",
+      "\\bdata managemen\\b"
+    ]
+  },
+  {
+    "name": "data modeling",
+    "patterns": [
+      "\\bdata modeling\\b",
+      "\\bdata modelling\\b"
+    ]
+  },
+  {
+    "name": "data pipeline",
+    "patterns": [
+      "\\bdata pipeline\\b",
+      "\\bdata pipelines\\b"
+    ]
+  },
+  {
+    "name": "data platform",
+    "patterns": [
+      "\\bdata platform\\b",
+      "\\bdata platforms\\b",
+      "\\bdata platform expertise\\b",
+      "\\bdata platform implementation\\b"
+    ]
+  },
+  {
+    "name": "data warehouse",
+    "patterns": [
+      "\\bdata warehouse\\b",
+      "\\bdata warehouses\\b",
+      "\\bdata ware house\\b",
+      "\\bdata warehousing\\b",
+      "\\bdata warehousing design\\b"
+    ]
+  },
+  {
+    "name": "data visualization",
+    "patterns": [
+      "\\bdata visualization\\b",
+      "\\bdata visualisation\\b",
+      "\\bdata visualization\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "data quality",
+    "patterns": [
+      "\\bdata quality\\b",
+      "\\bdata quality\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "data governance",
+    "patterns": [
+      "\\bdata governance\\b",
+      "\\bdata governance\\s+\\w+\\b",
+      "\\bdata govetnacne\\b"
+    ]
+  },
+  {
+    "name": "database",
+    "patterns": [
+      "\\bdatabase\\b",
+      "\\bdatabases\\b",
+      "\\bbaza danych\\b",
+      "\\bbazadanych\\b",
+      "\\bbazy danych\\b",
+      "\\bbazydanych\\b"
+    ]
+  },
+  {
+    "name": "database development",
+    "patterns": [
+      "\\bdatabase development\\b",
+      "\\bdatabases development\\b"
+    ]
+  },
+  {
+    "name": "database management system",
+    "patterns": [
+      "\\bdatabase management system\\b",
+      "\\bdbms\\b"
+    ]
+  },
+  {
+    "name": "databricks sql",
+    "patterns": [
+      "\\bdatabricks\\b",
+      "\\bdatabrics\\b",
+      "\\bdata bricks\\b"
+    ]
+  },
+  {
+    "name": "datadog",
+    "patterns": [
+      "\\bdatadog\\b",
+      "\\bdatadog\\s+(monitoring|apm)\\b"
+    ]
+  },
+  {
+    "name": "datomic",
+    "patterns": [
+      "\\bdatomic\\b",
+      "\\bdatomic\\s+database\\b"
+    ]
+  },
+  {
+    "name": "dart",
+    "patterns": [
+      "\\bdart\\b",
+      "\\bdart\\s+language\\b"
+    ]
+  },
+  {
+    "name": "delphi",
+    "patterns": [
+      "\\bdelphi\\b",
+      "\\bobject\\s+pascal\\b"
+    ]
+  },
+  {
+    "name": "devops",
+    "patterns": [
+      "\\bdevops\\b",
+      "\\bdevops practices\\b",
+      "\\bdevops collaboration\\b",
+      "\\bdevops integration\\b",
+      "\\bdevops tools\\b",
+      "\\bdevops quality\\b",
+      "\\bdevops building pipelines\\b"
+    ]
+  },
+  {
+    "name": "devsecops",
+    "patterns": [
+      "\\bdevsecops\\b",
+      "\\bdevsecops practices\\b",
+      "\\bdevsecops principles\\b",
+      "\\bdevsecops solutions\\b"
+    ]
+  },
+  {
+    "name": "django",
+    "patterns": [
+      "\\bdjango\\b",
+      "\\bdjango\\s+framework\\b"
+    ]
+  },
+  {
+    "name": "domain driven design",
+    "patterns": [
+      "\\bdomain\\s*-\\s*driven\\b",
+      "\\bdomaindriven\\b",
+      "\\bdomain\\s*driven\\b"
+    ]
+  },
+  {
+    "name": "docker",
+    "patterns": [
+      "\\bdocker\\b",
+      "\\bdocker\\s+(containers?|compose|image)\\b"
+    ]
+  },
+  {
+    "name": "drupal",
+    "patterns": [
+      "\\bdrupal\\b",
+      "\\bdrupal\\s*\\d+\\b"
+    ]
+  },
+  {
+    "name": "e-commerce",
+    "patterns": [
+      "\\be\\s*-\\s*commerce\\b",
+      "\\becommerce\\b",
+      "\\be\\s*commerce\\b"
+    ]
+  },
+  {
+    "name": "esp idf",
+    "patterns": [
+      "\\besp\\s*-\\s*idf\\b",
+      "\\bespidf\\b"
+    ]
+  },
+  {
+    "name": "elasticsearch",
+    "patterns": [
+      "\\belasticsearch\\b",
+      "\\belastic\\s+search\\b"
+    ]
+  },
+  {
+    "name": "elixir",
+    "patterns": [
+      "\\belixir\\b",
+      "\\belixir\\s+language\\b"
+    ]
+  },
+  {
+    "name": "embedded systems",
+    "patterns": [
+      "\\bembedded system\\b",
+      "\\bembedded systems\\b"
+    ]
+  },
+  {
+    "name": "enterprise architecture",
+    "patterns": [
+      "\\benterprise architecture\\b",
+      "\\benterprise architect\\b",
+      "\\benterprise architekt\\b"
+    ]
+  },
+  {
+    "name": "erlang",
+    "patterns": [
+      "\\berlang\\b",
+      "\\berlang\\s+otp\\b"
+    ]
+  },
+  {
+    "name": "express",
+    "patterns": [
+      "\\bexpress\\.js\\b",
+      "\\bexpressjs\\b",
+      "\\bexpress\\s+node\\b"
+    ]
+  },
+  {
+    "name": "f#",
+    "patterns": [
+      "\\bf#\\b",
+      "\\bfsharp\\b"
+    ]
+  },
+  {
+    "name": "fastapi",
+    "patterns": [
+      "\\bfastapi\\b",
+      "\\bfastapi\\s+framework\\b"
+    ]
+  },
+  {
+    "name": "fastify",
+    "patterns": [
+      "\\bfastify\\b",
+      "\\bfastify\\s+framework\\b"
+    ]
+  },
+  {
+    "name": "fine tuning",
+    "patterns": [
+      "\\bfine\\s*-\\s*tuning\\b",
+      "\\bfinetuning\\b",
+      "\\bfine\\s*tuning\\b"
+    ]
+  },
+  {
+    "name": "frontend",
+    "patterns": [
+      "\\bfront\\s*-\\s*end\\b",
+      "\\bfront\\s*end\\b",
+      "\\bfrontend\\b"
+    ]
+  },
+  {
+    "name": "financial",
+    "patterns": [
+      "\\bfinancial\\b",
+      "\\bfinanse\\b"
+    ]
+  },
+  {
+    "name": "financial accounting",
+    "patterns": [
+      "\\bfinancial accounting\\b"
+    ]
+  },
+  {
+    "name": "financial analysis",
+    "patterns": [
+      "\\bfinancial analysis\\b"
+    ]
+  },
+  {
+    "name": "financial crime",
+    "patterns": [
+      "\\bfinancial crime\\b",
+      "\\bfinancial crime compliance\\b"
+    ]
+  },
+  {
+    "name": "fortran",
+    "patterns": [
+      "\\bfortran\\b",
+      "\\bfortran\\s*\\d+\\b"
+    ]
+  },
+  {
+    "name": "flask",
+    "patterns": [
+      "\\bflask\\b",
+      "\\bflask\\s+framework\\b"
+    ]
+  },
+  {
+    "name": "gdscript",
+    "patterns": [
+      "\\bgdscript\\b",
+      "\\bgodot\\s+gdscript\\b"
+    ]
+  },
+  {
+    "name": "git",
+    "patterns": [
+      "\\bgit\\b",
+      "\\bgit version control\\b"
+    ]
+  },
+  {
+    "name": "gitlab",
+    "patterns": [
+      "\\bgitlab\\b"
+    ]
+  },
+  {
+    "name": "gitlab ci",
+    "patterns": [
+      "\\bgitlab ci\\b",
+      "\\bgitlabci\\b"
+    ]
+  },
+  {
+    "name": "gitlab pipelines",
+    "patterns": [
+      "\\bgitlab pipelines\\b"
+    ]
+  },
+  {
+    "name": "gitops",
+    "patterns": [
+      "\\bgitops\\b",
+      "\\bgitops tools\\b"
+    ]
+  },
+  {
+    "name": "github",
+    "patterns": [
+      "\\bgithub\\b",
+      "\\bgithub\\s+(actions|repos?)\\b"
+    ]
+  },
+  {
+    "name": "github actions",
+    "patterns": [
+      "\\bgithub actions\\b",
+      "\\bgithub action\\b",
+      "\\bgithub acions\\b"
+    ]
+  },
+  {
+    "name": "go",
+    "patterns": [
+      "\\bgolang\\b"
+    ]
+  },
+  {
+    "name": "google cloud platform",
+    "patterns": [
+      "\\bgoogle cloud platform\\b",
+      "\\bgoogle cloud\\b",
+      "\\bgooglecloud\\b"
+    ]
+  },
+  {
+    "name": "google bigquery",
+    "patterns": [
+      "\\bgoogle bigquery\\b",
+      "\\bgoogle bigquerty\\b"
+    ]
+  },
+  {
+    "name": "google workspace",
+    "patterns": [
+      "\\bgoogle workspace\\b",
+      "\\bgoogle suite\\b"
+    ]
+  },
+  {
+    "name": "groovy",
+    "patterns": [
+      "\\bgroovy\\b",
+      "\\bgroovy\\s+language\\b"
+    ]
+  },
+  {
+    "name": "guidewire",
+    "patterns": [
+      "\\bguidewire\\b",
+      "\\bguidwire\\b",
+      "\\bguidewire platform\\b"
+    ]
+  },
+  {
+    "name": "guidewire claimcenter",
+    "patterns": [
+      "\\bguidewire claimcenter\\b",
+      "\\bguidewire claim center\\b",
+      "\\bguidewire claim centre\\b",
+      "\\bguidewire claim.*\\b"
+    ]
+  },
+  {
+    "name": "guidewire cloud platform",
+    "patterns": [
+      "\\bguidewire cloud platform\\b",
+      "\\bguidewire cloud integrations\\b"
+    ]
+  },
+  {
+    "name": "hyper-v",
+    "patterns": [
+      "\\bhyper\\s*-\\s*v\\b",
+      "\\bhyperv\\b"
+    ]
+  },
+  {
+    "name": "html",
+    "patterns": [
+      "\\bhtml\\s*\\d+(\\+)?\\b",
+      "\\bhtml\\s*-?\\s*\\d+\\b",
+      "\\bhtml\\d+\\b",
+      "\\bhtml\\b"
+    ]
+  },
+  {
+    "name": "homebrew",
+    "patterns": [
+      "\\bhomebrew\\b",
+      "\\bbrew\\s+install\\b"
+    ]
+  },
+  {
+    "name": "ibm cloud",
+    "patterns": [
+      "\\bibm\\s+cloud\\b",
+      "\\bibmcloud\\b"
+    ]
+  },
+  {
+    "name": "ibm db2",
+    "patterns": [
+      "\\bibm\\s+db2\\b",
+      "\\bdb2\\s+database\\b"
+    ]
+  },
+  {
+    "name": "intellij idea",
+    "patterns": [
+      "\\bintellij\\s+idea\\b",
+      "\\bintellij\\b"
+    ]
+  },
+  {
+    "name": "java",
+    "patterns": [
+      "\\bjava\\b",
+      "\\bjava core\\b",
+      "\\bjava api\\b",
+      "\\bjava ee\\b",
+      "\\bjava j2ee\\b",
+      "\\bjava mule\\b",
+      "\\bjava\\d+\\b",
+      "\\bjava\\s+\\d+\\b"
+    ]
+  },
+  {
+    "name": "java database connectivity",
+    "patterns": [
+      "\\bjava database connectivity\\b",
+      "\\bjdbc\\b"
+    ]
+  },
+  {
+    "name": "javafx",
+    "patterns": [
+      "\\bjavafx\\b"
+    ]
+  },
+  {
+    "name": "javascript",
+    "patterns": [
+      "\\bjs\\b",
+      "\\bjavascript\\s*\\d+(\\+)?\\b",
+      "\\w*\\s*(javascript)\\b",
+      "\\bjavascript\\b",
+      "\\bjava script\\b",
+      "\\bjavascript es\\d+\\b",
+      "\\bjavascript frameworks\\b",
+      "\\bjavascript rest\\b",
+      "\\bjavascript or(\\s+\\w+)+\\b"
+    ]
+  },
+  {
+    "name": "jupyter",
+    "patterns": [
+      "\\bjupyter\\s+notebook\\b",
+      "\\bjupyterlab\\b",
+      "\\bjupyter\\s+nb\\b"
+    ]
+  },
+  {
+    "name": "jquery",
+    "patterns": [
+      "\\bjquery\\b",
+      "\\bjquery\\s*\\d+(\\.\\d+)?\\b"
+    ]
+  },
+  {
+    "name": "kotlin",
+    "patterns": [
+      "\\bkotlin\\b",
+      "\\bkotlin\\s+language\\b"
+    ]
+  },
+  {
+    "name": "kubectl",
+    "patterns": [
+      "\\bkubectl\\b",
+      "\\bkubectl\\s+apply\\b"
+    ]
+  },
+  {
+    "name": "kubernetes",
+    "patterns": [
+      "\\bkubernetes\\b",
+      "\\bkubernates\\b"
+    ]
+  },
+  {
+    "name": "laravel",
+    "patterns": [
+      "\\blaravel\\b",
+      "\\blaravel\\s+framework\\b"
+    ]
+  },
+  {
+    "name": "low code",
+    "patterns": [
+      "\\blow\\s*-\\s*code\\b",
+      "\\blowcode\\b",
+      "\\blow\\s*code\\b"
+    ]
+  },
+  {
+    "name": "large language models",
+    "patterns": [
+      "\\blarge language models\\b",
+      "\\bllm\\b",
+      "\\bllms\\b",
+      "\\blmm\\b",
+      "\\blarge\\s*language\\s*models\\b"
+    ]
+  },
+  {
+    "name": "llm applications",
+    "patterns": [
+      "\\bllm applications\\b",
+      "\\bllm application patterns\\b",
+      "\\bllm application awareness\\b"
+    ]
+  },
+  {
+    "name": "llm frameworks",
+    "patterns": [
+      "\\bllm frameworks\\b",
+      "\\bllm orchestration frameworks\\b"
+    ]
+  },
+  {
+    "name": "llmops",
+    "patterns": [
+      "\\bllmops\\b",
+      "\\bllm ops\\b",
+      "\\bllops\\b"
+    ]
+  },
+  {
+    "name": "linear",
+    "patterns": [
+      "\\blinear\\s+app\\b",
+      "\\blinear\\s+issue\\s+tracker\\b"
+    ]
+  },
+  {
+    "name": "linux",
+    "patterns": [
+      "\\blinux\\b",
+      "\\blinux admin\\b",
+      "\\blinux administration\\b",
+      "\\blinux kernel\\b",
+      "\\blinux networking\\b",
+      "\\blinux network configuration\\b",
+      "\\blinux operating systems\\b",
+      "\\blinux os\\b",
+      "\\blinux red hat\\b",
+      "\\blinux system programming\\b"
+    ]
+  },
+  {
+    "name": "lisp",
+    "patterns": [
+      "\\blisp\\b",
+      "\\bcommon\\s+lisp\\b",
+      "\\bscheme\\s+lisp\\b"
+    ]
+  },
+  {
+    "name": "lua",
+    "patterns": [
+      "\\blua\\b",
+      "\\blua\\s*\\d+(\\.\\d+)?\\b",
+      "\\blua\\s+scripting\\b"
+    ]
+  },
+  {
+    "name": "make",
+    "patterns": [
+      "\\bgnu\\s+make\\b",
+      "\\bmakefile\\b",
+      "\\bmake\\s+build\\b"
+    ]
+  },
+  {
+    "name": "markdown",
+    "patterns": [
+      "\\bmarkdown\\b",
+      "\\bmarkdown\\s+file(s)?\\b",
+      "\\.md\\b"
+    ]
+  },
+  {
+    "name": "matlab",
+    "patterns": [
+      "\\bmatlab\\b",
+      "\\bmatlab\\s*\\d+(\\.\\d+)?\\b",
+      "\\bmathworks\\s+matlab\\b"
+    ]
+  },
+  {
+    "name": "maven",
+    "patterns": [
+      "\\bapache\\s+maven\\b",
+      "\\bmaven\\b",
+      "\\bmaven\\s+build\\b"
+    ]
+  },
+  {
+    "name": "microsoft 365",
+    "patterns": [
+      "\\bm365\\b",
+      "\\bm365 online\\b",
+      "\\bm365 online services\\b"
+    ]
+  },
+  {
+    "name": "microsoft access",
+    "patterns": [
+      "\\bmicrosoft access\\b",
+      "\\bms access\\b",
+      "\\baccess\\s+\\d+(\\.\\d+)?\\b"
+    ]
+  },
+  {
+    "name": "microsoft azure",
+    "patterns": [
+      "\\bmicrosoft azure\\b",
+      "\\bazure\\b",
+      "\\bazure\\s+\\w+"
+    ]
+  },
+  {
+    "name": "microsoft planner",
+    "patterns": [
+      "\\bmicrosoft planner\\b",
+      "\\bms planner\\b",
+      "\\bplanner\\s+\\(microsoft\\)"
+    ]
+  },
+  {
+    "name": "mongodb",
+    "patterns": [
+      "\\bmongodb\\b",
+      "\\bmongo\\s*db\\b"
+    ]
+  },
+  {
+    "name": "mojo",
+    "patterns": [
+      "\\bmojo\\s+language\\b",
+      "\\bmojo\\s*\\d+(\\.\\d+)?\\b"
+    ]
+  },
+  {
+    "name": "msbuild",
+    "patterns": [
+      "\\bmsbuild\\b",
+      "\\bms build\\b"
+    ]
+  },
+  {
+    "name": "neo4j",
+    "patterns": [
+      "\\bneo4j\\b",
+      "\\bneo4j\\s*\\d+(\\.\\d+)?\\b"
+    ]
+  },
+  {
+    "name": "netlify",
+    "patterns": [
+      "\\bnetlify\\b",
+      "\\bnetlify\\s+hosting\\b"
+    ]
+  },
+  {
+    "name": "node.js",
+    "patterns": [
+      "\\bnode\\.js\\b",
+      "\\bnodejs\\b",
+      "\\bnode\\s+js\\b"
+    ]
+  },
+  {
+    "name": "no code",
+    "patterns": [
+      "\\bno\\s*-\\s*code\\b",
+      "\\bnocode\\b",
+      "\\bno\\s*code\\b"
+    ]
+  },
+  {
+    "name": "nano",
+    "patterns": [
+      "\\bnano\\s+editor\\b",
+      "\\bgnu nano\\b"
+    ]
+  },
+  {
+    "name": "notepad++",
+    "patterns": [
+      "\\bnotepad\\+\\+\\b",
+      "\\bnotepadplusplus\\b"
+    ]
+  },
+  {
+    "name": "notion",
+    "patterns": [
+      "\\bnotion\\b",
+      "\\bnotion\\s+workspace\\b"
+    ]
+  },
+  {
+    "name": "nuget",
+    "patterns": [
+      "\\bnuget\\b",
+      "\\bnuget\\s+packages?\\b"
+    ]
+  },
+  {
+    "name": "nuxt.js",
+    "patterns": [
+      "\\bnuxt\\.js\\b",
+      "\\bnuxtjs\\b",
+      "\\bnuxt\\s+js\\b"
+    ]
+  },
+  {
+    "name": "npm",
+    "patterns": [
+      "\\bnpm\\b",
+      "\\bnpm\\s+(package|packages|install)\\b"
+    ]
+  },
+  {
+    "name": "obsidian",
+    "patterns": [
+      "\\bobsidian\\b",
+      "\\bobsidian\\s+notes\\b"
+    ]
+  },
+  {
+    "name": "objective-c",
+    "patterns": [
+      "\\bobjective\\s*-\\s*c\\b",
+      "\\bobjectivec\\b"
+    ]
+  },
+  {
+    "name": "object oriented programming",
+    "patterns": [
+      "\\bobject\\s*-\\s*oriented\\b",
+      "\\bobject\\s*oriented\\b",
+      "\\bobjectoriented\\b",
+      "\\boop\\b"
+    ]
+  },
+  {
+    "name": "ocaml",
+    "patterns": [
+      "\\bocaml\\b",
+      "\\bocaml\\s+language\\b"
+    ]
+  },
+  {
+    "name": "oracle",
+    "patterns": [
+      "\\boracle\\s+database\\b",
+      "\\boracle\\s+db\\b",
+      "\\boracle\\s+\\d+(g|c)?\\b"
+    ]
+  },
+  {
+    "name": "pocketbase",
+    "patterns": [
+      "\\bpocketbase\\b",
+      "\\bpocket base\\b"
+    ]
+  },
+  {
+    "name": "pacman",
+    "patterns": [
+      "\\bpacman\\s+package\\s+manager\\b",
+      "\\bpacman\\s+-S\\b"
+    ]
+  },
+  {
+    "name": "pci dss",
+    "patterns": [
+      "\\bpci\\s*-\\s*dss\\b",
+      "\\bpcidss\\b",
+      "\\bpci\\s*dss\\b"
+    ]
+  },
+  {
+    "name": "perl",
+    "patterns": [
+      "\\bperl\\b",
+      "\\bperl\\s+\\d+(\\.\\d+)?\\b"
+    ]
+  },
+  {
+    "name": "phpstorm",
+    "patterns": [
+      "\\bphpstorm\\b",
+      "\\bjetbrains phpstorm\\b"
+    ]
+  },
+  {
+    "name": "pip",
+    "patterns": [
+      "\\bpip\\s+install\\b",
+      "\\bpython\\s+pip\\b"
+    ]
+  },
+  {
+    "name": "powershell",
+    "patterns": [
+      "\\bpowershell\\b",
+      "\\bpower\\s+shell\\b",
+      "\\bps\\s+script\\b"
+    ]
+  },
+  {
+    "name": "prometheus",
+    "patterns": [
+      "\\bprometheus\\b",
+      "\\bprometheus\\s+monitoring\\b"
+    ]
+  },
+  {
+    "name": "php",
+    "patterns": [
+      "php\\s*\\d+(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": "product management",
+    "patterns": [
+      "\\bproduct management\\b",
+      "\\bproduct operations\\b",
+      "\\bproduct strategy\\b",
+      "\\bproduct thinking\\b",
+      "\\bproduct planning\\b",
+      "\\bproduct setup\\b",
+      "\\bproduct communications?\\b"
+    ]
+  },
+  {
+    "name": "product owner",
+    "patterns": [
+      "\\bproduct owner\\b",
+      "\\bproduct ownership\\b"
+    ]
+  },
+  {
+    "name": "product design",
+    "patterns": [
+      "\\bproduct design\\b",
+      "\\bproduct designer\\b"
+    ]
+  },
+  {
+    "name": "product development",
+    "patterns": [
+      "\\bproduct development\\b",
+      "\\bproduct discovery\\b"
+    ]
+  },
+  {
+    "name": "product vision",
+    "patterns": [
+      "\\bproduct vision\\b",
+      "\\bproduct vision definition\\b"
+    ]
+  },
+  {
+    "name": "product lifecycle management",
+    "patterns": [
+      "\\bproduct lifecycle management\\b",
+      "\\bproduct maintenance\\b",
+      "\\bproduct families\\b"
+    ]
+  },
+  {
+    "name": "product backlog",
+    "patterns": [
+      "\\bproduct backlog\\b",
+      "\\bproduct backlog\\s+management\\b"
+    ]
+  },
+  {
+    "name": "product marketing",
+    "patterns": [
+      "\\bproduct marketing\\b",
+      "\\bproduct marketing\\s+strategy\\b"
+    ]
+  },
+  {
+    "name": "product safety",
+    "patterns": [
+      "\\bproduct safety\\b",
+      "\\bproduct safety\\s+(management|standards?)\\b"
+    ]
+  },
+  {
+    "name": "product certification",
+    "patterns": [
+      "\\bproduct certification\\b",
+      "\\bproduct certifications?\\b"
+    ]
+  },
+  {
+    "name": "python",
+    "patterns": [
+      "\\bpython\\b",
+      "\\bpyton\\b",
+      "\\bpyhon\\b",
+      "\\bpython developer\\b",
+      "\\bpython development\\b",
+      "\\bpython fundamentals\\b",
+      "\\bpython core\\b",
+      "\\bpython coding\\b",
+      "\\bpython pro\\b"
+    ]
+  },
+  {
+    "name": "python architecture",
+    "patterns": [
+      "\\bpython microservices\\b",
+      "\\bpython plugins?\\b"
+    ]
+  },
+  {
+    "name": "python testing",
+    "patterns": [
+      "\\bpython testing\\b",
+      "\\bpython unit testing\\b",
+      "\\bpython testing frameworks?\\b"
+    ]
+  },
+  {
+    "name": "pytest",
+    "patterns": [
+      "\\bpytest\\b",
+      "\\bpytest\\s+framework\\b"
+    ]
+  },
+  {
+    "name": "pyspark",
+    "patterns": [
+      "\\bpyspark\\b",
+      "\\bpyspark spark programming\\b"
+    ]
+  },
+  {
+    "name": "pymongo",
+    "patterns": [
+      "\\bpymongo\\b",
+      "\\bpymongo\\s+driver\\b"
+    ]
+  },
+  {
+    "name": "pydantic",
+    "patterns": [
+      "\\bpydantic\\b",
+      "\\bpydanticai\\b"
+    ]
+  },
+  {
+    "name": "pycharm",
+    "patterns": [
+      "\\bpycharm\\b",
+      "\\bjetbrains pycharm\\b"
+    ]
+  },
+  {
+    "name": "python abbreviation",
+    "patterns": [
+      "\\bpy\\b",
+      "\\bpy\\s+script\\b"
+    ]
+  },
+  {
+    "name": "quality assurance",
+    "patterns": [
+      "\\bquality assurance\\b",
+      "\\bquality engineering\\b",
+      "\\bquality control\\b",
+      "\\bqa\\b",
+      "\\bqa engineer\\b",
+      "\\bqa delivery manager\\b",
+      "\\bqa processes\\b"
+    ]
+  },
+  {
+    "name": "quality management",
+    "patterns": [
+      "\\bquality management\\b",
+      "\\bquality management systems?\\b"
+    ]
+  },
+  {
+    "name": "quality center",
+    "patterns": [
+      "\\bquality center\\b",
+      "\\bhp quality center\\b"
+    ]
+  },
+  {
+    "name": "react",
+    "patterns": [
+      "\\breactjs\\b",
+      "\\breact\\b",
+      "\\breact\\s+router\\b",
+      "\\breact\\s+query\\b",
+      "\\breact\\s+native\\b",
+      "\\breact\\s+testing\\s+library\\b",
+      "\\breact\\s+native\\s+testing\\s+library\\b",
+      "\\breact\\s+ecosystem\\b"
+    ]
+  },
+  {
+    "name": "real time systems",
+    "patterns": [
+      "\\breal\\s*-\\s*time\\b",
+      "\\brealtime\\b",
+      "\\breal\\s*time\\b"
+    ]
+  },
+  {
+    "name": "retrieval augmented generation",
+    "patterns": [
+      "\\bretrieval\\s*-\\s*augmented\\s*-\\s*generation\\b",
+      "\\bretrieval\\s*augmented\\s*generation\\b",
+      "\\brag\\b"
+    ]
+  },
+  {
+    "name": "reactive programming",
+    "patterns": [
+      "\\breactive\\s+programming\\b",
+      "\\breactive\\s+forms\\b",
+      "\\breactive\\s+architectures?\\b"
+    ]
+  },
+  {
+    "name": "redis",
+    "patterns": [
+      "\\bredis\\b",
+      "\\bredis\\s+cache\\b"
+    ]
+  },
+  {
+    "name": "rest",
+    "patterns": [
+      "\\brest\\b",
+      "\\brestful\\b",
+      "\\brest\\s*api(s)?\\b",
+      "\\brest\\s*services\\b",
+      "\\brestful\\s+(services|integrations)\\b"
+    ]
+  },
+  {
+    "name": "rest assured",
+    "patterns": [
+      "\\brestassured\\b",
+      "\\brest\\s+assured\\b"
+    ]
+  },
+  {
+    "name": "ruby",
+    "patterns": [
+      "\\bruby\\b",
+      "\\bruby\\s+language\\b"
+    ]
+  },
+  {
+    "name": "ruby on rails",
+    "patterns": [
+      "\\bruby\\s+on\\s+rails\\b",
+      "\\bro\\r\\b",
+      "\\brails\\b"
+    ]
+  },
+  {
+    "name": "rust",
+    "patterns": [
+      "\\brust\\b",
+      "\\brust\\s+language\\b"
+    ]
+  },
+  {
+    "name": "rustrover",
+    "patterns": [
+      "\\brustrover\\b",
+      "\\bjetbrains\\s+rustrover\\b"
+    ]
+  },
+  {
+    "name": "risk management",
+    "patterns": [
+      "\\brisk profiling\\b",
+      "\\brisk management\\b",
+      "\\brisk assessment\\b",
+      "\\brisk(\\s+\\w+)?\\b"
+    ]
+  },
+  {
+    "name": "SAP",
+    "patterns": [
+      "\\bsap\\b"
+    ]
+  },
+  {
+    "name": "SAP S/4HANA",
+    "patterns": [
+      "\\bsap s\\/?4hana\\b",
+      "\\bsap s4hana\\b",
+      "\\bsap s4\\b",
+      "\\bsap 4hana\\b"
+    ]
+  },
+  {
+    "name": "SAP ECC",
+    "patterns": [
+      "\\bsap ecc6?\\b",
+      "\\bsap erp central component\\b"
+    ]
+  },
+  {
+    "name": "SAP ERP",
+    "patterns": [
+      "\\bsap erp\\b"
+    ]
+  },
+  {
+    "name": "SAP NetWeaver",
+    "patterns": [
+      "\\bsap netweaver\\b"
+    ]
+  },
+  {
+    "name": "SAP HANA",
+    "patterns": [
+      "\\bsap hana\\b"
+    ]
+  },
+  {
+    "name": "SAP BASIS",
+    "patterns": [
+      "\\bsap basis\\b",
+      "\\bsap basis migration\\b"
+    ]
+  },
+  {
+    "name": "SAP ABAP",
+    "patterns": [
+      "\\bsap abap\\b",
+      "\\bsap object oriented programming\\b"
+    ]
+  },
+  {
+    "name": "SAP FIORI",
+    "patterns": [
+      "\\bsap fiori\\b"
+    ]
+  },
+  {
+    "name": "SAP UI5",
+    "patterns": [
+      "\\bsap ?ui5\\b"
+    ]
+  },
+  {
+    "name": "SAP CAP",
+    "patterns": [
+      "\\bsap cap\\b",
+      "\\bsap cap framework\\b"
+    ]
+  },
+  {
+    "name": "SAP CDS",
+    "patterns": [
+      "\\bsap cds\\b"
+    ]
+  },
+  {
+    "name": "SAP OData",
+    "patterns": [
+      "\\bsap odata\\b"
+    ]
+  },
+  {
+    "name": "SAP BTP",
+    "patterns": [
+      "\\bsap btp\\b"
+    ]
+  },
+  {
+    "name": "SAP Integration Suite",
+    "patterns": [
+      "\\bsap integration suite\\b",
+      "\\bsap integration\\b",
+      "\\bsap integrations\\b"
+    ]
+  },
+  {
+    "name": "SAP PI/CPI",
+    "patterns": [
+      "\\bsap pi\\b",
+      "\\bsap cpi\\b"
+    ]
+  },
+  {
+    "name": "SAP MM",
+    "patterns": [
+      "\\bsap mm\\b"
+    ]
+  },
+  {
+    "name": "SAP SD",
+    "patterns": [
+      "\\bsap sd\\b",
+      "\\bsap sales\\b"
+    ]
+  },
+  {
+    "name": "SAP FI",
+    "patterns": [
+      "\\bsap fi\\b",
+      "\\bsap module fi\\b",
+      "\\bsap fi tax\\b"
+    ]
+  },
+  {
+    "name": "SAP CO",
+    "patterns": [
+      "\\bsap co\\b"
+    ]
+  },
+  {
+    "name": "SAP FICO",
+    "patterns": [
+      "\\bsap fico\\b"
+    ]
+  },
+  {
+    "name": "SAP FICA",
+    "patterns": [
+      "\\bsap fica\\b"
+    ]
+  },
+  {
+    "name": "SAP FSCM",
+    "patterns": [
+      "\\bsap fscm\\b"
+    ]
+  },
+  {
+    "name": "SAP Finance",
+    "patterns": [
+      "\\bsap finance\\b"
+    ]
+  },
+  {
+    "name": "SAP BPC",
+    "patterns": [
+      "\\bsap bpc\\b"
+    ]
+  },
+  {
+    "name": "SAP Billing / BRIM",
+    "patterns": [
+      "\\bsap billing\\b",
+      "\\bsap brim\\b"
+    ]
+  },
+  {
+    "name": "SAP PP",
+    "patterns": [
+      "\\bsap pp\\b",
+      "\\bsap pp.?ds\\b",
+      "\\bsap ppds\\b",
+      "\\bsap erp production planning\\b"
+    ]
+  },
+  {
+    "name": "SAP PM",
+    "patterns": [
+      "\\bsap pm\\b",
+      "\\bsap eam\\b"
+    ]
+  },
+  {
+    "name": "SAP PS",
+    "patterns": [
+      "\\bsap ps\\b"
+    ]
+  },
+  {
+    "name": "SAP PT",
+    "patterns": [
+      "\\bsap pt\\b",
+      "\\bsap time mgmt\\b"
+    ]
+  },
+  {
+    "name": "SAP WM / EWM",
+    "patterns": [
+      "\\bsap wm\\b",
+      "\\bsap ewm\\b",
+      "\\bsap wm configuration\\b",
+      "\\bsap le\\b"
+    ]
+  },
+  {
+    "name": "SAP TM",
+    "patterns": [
+      "\\bsap tm\\b",
+      "\\bsap transportation management\\b"
+    ]
+  },
+  {
+    "name": "SAP GRC",
+    "patterns": [
+      "\\bsap grc\\b",
+      "\\bsap grc access control\\b",
+      "\\bsap iam\\b",
+      "\\bsap iag\\b"
+    ]
+  },
+  {
+    "name": "SAP Security",
+    "patterns": [
+      "\\bsap security\\b",
+      "\\bsap authorization mane?gement\\b"
+    ]
+  },
+  {
+    "name": "SAP HCM",
+    "patterns": [
+      "\\bsap hcm\\b",
+      "\\bsap hr\\b",
+      "\\bsap pa\\b",
+      "\\bsap om\\b",
+      "\\bsap om organizational mgmt\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors",
+    "patterns": [
+      "\\bsap success ?factors\\b",
+      "\\bsap sf\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors Employee Central",
+    "patterns": [
+      "\\bsap successfactors employee central\\b",
+      "\\bsap success factors employee\\b",
+      "\\bsap sf employee central\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors Recruiting",
+    "patterns": [
+      "\\bsap successfactors recruiting\\b",
+      "\\bsap sf recruiting\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors Onboarding",
+    "patterns": [
+      "\\bsap successfactors onboarding\\b",
+      "\\bsap sf onboarding\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors LMS",
+    "patterns": [
+      "\\bsap successfactors lms\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors Compensation",
+    "patterns": [
+      "\\bsap successfactors compensation\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors Payroll",
+    "patterns": [
+      "\\bsap sf payroll\\b"
+    ]
+  },
+  {
+    "name": "SAP SuccessFactors Data Migration",
+    "patterns": [
+      "\\bsap successfactors data migration\\b"
+    ]
+  },
+  {
+    "name": "SAP BW",
+    "patterns": [
+      "\\bsap bw\\b",
+      "\\bsap bw\\/?4hana\\b",
+      "\\bsap bw4hana\\b"
+    ]
+  },
+  {
+    "name": "SAP Analytics Cloud",
+    "patterns": [
+      "\\bsap analytics cloud\\b",
+      "\\bsap bi\\b",
+      "\\bsap bdc\\b"
+    ]
+  },
+  {
+    "name": "SAP Datasphere",
+    "patterns": [
+      "\\bsap datasphere\\b"
+    ]
+  },
+  {
+    "name": "SAP IBP",
+    "patterns": [
+      "\\bsap ibp\\b",
+      "\\bsap planning\\b"
+    ]
+  },
+  {
+    "name": "SAP CPQ",
+    "patterns": [
+      "\\bsap cpq\\b"
+    ]
+  },
+  {
+    "name": "SAP CX",
+    "patterns": [
+      "\\bsap cx\\b",
+      "\\bsap cs\\b"
+    ]
+  },
+  {
+    "name": "SAP Concur",
+    "patterns": [
+      "\\bsap concur\\b"
+    ]
+  },
+  {
+    "name": "SAP Fieldglass",
+    "patterns": [
+      "\\bsap fieldglass\\b"
+    ]
+  },
+  {
+    "name": "SAP Ariba",
+    "patterns": [
+      "\\bsap ariba\\b",
+      "\\bsap ariba slp\\b"
+    ]
+  },
+  {
+    "name": "SAP Treasury / TRM",
+    "patterns": [
+      "\\bsap trm\\b",
+      "\\bsap treasury\\b"
+    ]
+  },
+  {
+    "name": "SAP VMS",
+    "patterns": [
+      "\\bsap vms\\b"
+    ]
+  },
+  {
+    "name": "SAP RAR",
+    "patterns": [
+      "\\bsap rar\\b"
+    ]
+  },
+  {
+    "name": "SAP MDG / MDM",
+    "patterns": [
+      "\\bsap mdg\\b",
+      "\\bsap mdm\\b"
+    ]
+  },
+  {
+    "name": "SAP GTS / GTT",
+    "patterns": [
+      "\\bsap gtt\\b"
+    ]
+  },
+  {
+    "name": "SAP Variant Configuration",
+    "patterns": [
+      "\\bsap variant configuration\\b",
+      "\\bsap vc\\b"
+    ]
+  },
+  {
+    "name": "SAP Solution Manager",
+    "patterns": [
+      "\\bsap solution manager\\b"
+    ]
+  },
+  {
+    "name": "SAP Activate",
+    "patterns": [
+      "\\bsap activate\\b"
+    ]
+  },
+  {
+    "name": "SAP RISE",
+    "patterns": [
+      "\\bsap rise\\b"
+    ]
+  },
+  {
+    "name": "SAP Build",
+    "patterns": [
+      "\\bsap build\\b"
+    ]
+  },
+  {
+    "name": "SAP Joule",
+    "patterns": [
+      "\\bsap joule\\b"
+    ]
+  },
+  {
+    "name": "SAP Retail",
+    "patterns": [
+      "\\bsap retail\\b",
+      "\\bsap is\\b"
+    ]
+  },
+  {
+    "name": "SAP Inhouse Banking",
+    "patterns": [
+      "\\bsap inhouse\\b",
+      "\\bsap ihb\\b"
+    ]
+  },
+  {
+    "name": "SAP OTC",
+    "patterns": [
+      "\\bsap otc\\b"
+    ]
+  },
+  {
+    "name": "SAP Payment Management",
+    "patterns": [
+      "\\bsap payment management\\b"
+    ]
+  },
+  {
+    "name": "SAP DRC",
+    "patterns": [
+      "\\bsap drc\\b"
+    ]
+  },
+  {
+    "name": "SAP APM",
+    "patterns": [
+      "\\bsap apm\\b"
+    ]
+  },
+  {
+    "name": "SAP ASE",
+    "patterns": [
+      "\\bsap ase\\b"
+    ]
+  },
+  {
+    "name": "SAP BN4L",
+    "patterns": [
+      "\\bsap bn4l\\b"
+    ]
+  },
+  {
+    "name": "SAP MBC",
+    "patterns": [
+      "\\bsap mbc\\b"
+    ]
+  },
+  {
+    "name": "SAP ECP",
+    "patterns": [
+      "\\bsap ecp\\b"
+    ]
+  },
+  {
+    "name": "SAP PUR",
+    "patterns": [
+      "\\bsap pur\\b"
+    ]
+  },
+  {
+    "name": "SAP CMIS Interface",
+    "patterns": [
+      "\\bsap cmis\\b"
+    ]
+  },
+  {
+    "name": "SAP Archive",
+    "patterns": [
+      "\\bsap archive\\b"
+    ]
+  },
+  {
+    "name": "SAP Best Practices",
+    "patterns": [
+      "\\bsap best practices\\b"
+    ]
+  },
+  {
+    "name": "SAP Configuration",
+    "patterns": [
+      "\\bsap configuration\\b"
+    ]
+  },
+  {
+    "name": "SAP Technical Architecture",
+    "patterns": [
+      "\\bsap technical architecture\\b"
+    ]
+  },
+  {
+    "name": "SAP Data Processing",
+    "patterns": [
+      "\\bsap data processing\\b",
+      "\\bsap data models\\b"
+    ]
+  },
+  {
+    "name": "single sign on",
+    "patterns": [
+      "\\bsingle\\s*-\\s*sign\\s*-\\s*on\\b",
+      "\\bsingle\\s*sign\\s*on\\b",
+      "\\bsso\\b"
+    ]
+  },
+  {
+    "name": "svelte",
+    "patterns": [
+      "\\bsvelte\\b",
+      "\\bsveltekit\\b"
+    ]
+  },
+  {
+    "name": "test driven development",
+    "patterns": [
+      "\\btest\\s*-\\s*driven\\b",
+      "\\btest\\s*driven\\b",
+      "\\btestdriven\\b"
+    ]
+  },
+  {
+    "name": "microsoft sql server",
+    "patterns": [
+      "ms\\.?\\s*sql\\s*server",
+      "microsoft\\s*sql\\s*server",
+      "\\bmssql\\b",
+      "\\bmssql\\s*server\\b",
+      "\\bms\\s*sql\\b",
+      "sql\\s*server",
+      "mmsql",
+      "azure\\s*sql\\s*server",
+      "azure\\s*sql\\b",
+      "sql\\s*azure",
+      "azure\\s*sql\\s*database",
+      "azure\\s*sql\\s*mi",
+      "sql\\s*dw",
+      "sql\\s*server\\s*management\\s*studio",
+      "sql\\s*management\\s*studio",
+      "sql\\s*server\\s*analysis\\s*services",
+      "sql\\s*server\\s*integration\\s*services",
+      "sql\\s*server\\s*browser"
+    ]
+  },
+  {
+    "name": "postgresql",
+    "patterns": [
+      "postgre?s?q+l?",
+      "postgres\\s*sql",
+      "\\bp[Gg]\\s*sql\\b",
+      "azure\\s*database\\s*for\\s*postgre?s?q+l?",
+      "edb\\s*postgre?s?q+l?"
+    ]
+  },
+  {
+    "name": "mysql",
+    "patterns": [
+      "\\bmysql\\b",
+      "mysql\\s*[Kk]nowledge"
+    ]
+  },
+  {
+    "name": "oracle database",
+    "patterns": [
+      "oracle\\s*sql",
+      "oracle\\s*sql\\s*developer"
+    ]
+  },
+  {
+    "name": "scripting",
+    "patterns": [
+      "\\bscripting\\b",
+      "\\bscripting skills\\b",
+      "\\bscripting language(s)?\\b",
+      "\\bscripting\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "script",
+    "patterns": [
+      "\\bscript\\b",
+      "\\bscript\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "sqlite",
+    "patterns": [
+      "\\bsqlite\\b"
+    ]
+  },
+  {
+    "name": "spark sql",
+    "patterns": [
+      "spark\\s*sql",
+      "sparksql",
+      "sparkql"
+    ]
+  },
+  {
+    "name": "snow / snowflake",
+    "patterns": [
+      "\\bsnow\\b",
+      "\\bsnow cmdb\\b",
+      "\\bsnowflake\\b",
+      "\\bsnowflake architect\\b",
+      "\\bsnow\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "sharepoint",
+    "patterns": [
+      "\\bsharepoint\\b",
+      "\\bsharepoint online\\b",
+      "\\bsharepoint framework\\b",
+      "\\bshare point\\b",
+      "\\bsharepoint\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "social media",
+    "patterns": [
+      "\\bsocial\\b",
+      "\\bsocial media\\b",
+      "\\bsocial media management\\b",
+      "\\bsocial\\s+\\w+\\b",
+      "\\bsmm\\b"
+    ]
+  },
+  {
+    "name": "soap / soapui",
+    "patterns": [
+      "\\bsoap\\b",
+      "\\bsoapui\\b",
+      "\\bsoap ui\\b",
+      "\\bsoap web services\\b",
+      "\\bsoap\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "servicenow",
+    "patterns": [
+      "\\bservicenow\\b",
+      "\\bservicenow scripting\\b",
+      "\\bservicenow hrsd\\b",
+      "\\bservicenow hr service delivery\\b",
+      "\\bservicenow cmdb\\b",
+      "\\bservicenow certification\\b",
+      "\\bservicenow architecture\\b",
+      "\\bservicenow\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "servers",
+    "patterns": [
+      "\\bserver(s)?\\b",
+      "\\bserver architecture\\b",
+      "\\bserver\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "semantic models",
+    "patterns": [
+      "\\bsemantic\\b",
+      "\\bsemantic models\\b",
+      "\\bsemantic layers\\b",
+      "\\bsemantic layer design\\b",
+      "\\bsemantic html\\b",
+      "\\bsemantic\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "selenium",
+    "patterns": [
+      "\\bselenium\\b",
+      "\\bselenium webdriver\\b",
+      "\\bselenium grid\\b",
+      "\\bselenium grind\\b",
+      "\\bselenium\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "sqlalchemy",
+    "patterns": [
+      "sqlalchemy",
+      "async\\s*sqlalchemy",
+      "python\\s*sql"
+    ]
+  },
+  {
+    "name": "pl/sql",
+    "patterns": [
+      "\\bpl/?sql\\b"
+    ]
+  },
+  {
+    "name": "t-sql",
+    "patterns": [
+      "\\bt-?sql\\b",
+      "\\bt\\s*-\\s*sql\\b",
+      "\\btsql\\b",
+      "\\bt\\s*sql\\b"
+    ]
+  },
+  {
+    "name": "sap hana",
+    "patterns": [
+      "hana\\s*sql",
+      "business\\s*application\\s*studio\\s*hana\\s*sql"
+    ]
+  },
+  {
+    "name": "nosql",
+    "patterns": [
+      "no\\s*sql",
+      "nosql",
+      "nosql\\s*databases?"
+    ]
+  },
+  {
+    "name": "sql",
+    "patterns": [
+      "\\bsql\\b",
+      "sql\\s*queries",
+      "sql\\s*mastery",
+      "sql\\s*database",
+      "sql\\s*databases",
+      "strong\\s*sql"
+    ]
+  },
+  {
+    "name": "spring framework",
+    "patterns": [
+      "spring\\s+framework",
+      "spring\\s+framework\\s*\\d+(\\.\\d+)?",
+      "spring\\s+core",
+      "spring\\s+java",
+      "\\bspring\\b(?!\\s+boot|\\s+cloud|\\s+data|\\s+security|\\s+batch|\\s+web|\\s+ai)"
+    ]
+  },
+  {
+    "name": "spring boot",
+    "patterns": [
+      "spring\\s*boot",
+      "springboot",
+      "spring\\s*boot\\s*\\d+(\\.\\d+)?(\\.x)?",
+      "\\d+\\+?\\s*yrs?\\s+of\\s+spring\\s*boot",
+      "spring\\s*boot\\s*v?\\d"
+    ]
+  },
+  {
+    "name": "spring cloud",
+    "patterns": [
+      "spring\\s+cloud",
+      "spring\\s+cloud\\s*\\w+"
+    ]
+  },
+  {
+    "name": "spring data",
+    "patterns": [
+      "spring\\s+data",
+      "spring\\s+data\\s+jpa",
+      "spring\\s+data\\s*\\w+"
+    ]
+  },
+  {
+    "name": "spring security",
+    "patterns": [
+      "spring\\s+security",
+      "spring\\s+security\\s*\\w*"
+    ]
+  },
+  {
+    "name": "spring batch",
+    "patterns": [
+      "spring\\s+batch",
+      "spring\\s+batch\\s*\\w*"
+    ]
+  },
+  {
+    "name": "spring webflux",
+    "patterns": [
+      "spring\\s+web\\s*flux",
+      "spring\\s+webflux"
+    ]
+  },
+  {
+    "name": "spring mvc",
+    "patterns": [
+      "spring\\s+mvc",
+      "spring\\s+web\\s+mvc"
+    ]
+  },
+  {
+    "name": "spring ai",
+    "patterns": [
+      "spring\\s+ai",
+      "spring\\s*ai\\s*\\w*"
+    ]
+  },
+  {
+    "name": "shell",
+    "patterns": [
+      "shell",
+      "(unix\\s+shell(\\s+scripting)?)",
+      "(shell\\s+script).*"
+    ]
+  },
+  {
+    "name": "site reliability engineering",
+    "patterns": [
+      "sre",
+      "site\\s+reliability\\s+engineering"
+    ]
+  },
+  {
+    "name": "system architecture",
+    "patterns": [
+      "\\bsystem\\s+(architecture|design|engineering|configuration)\\b",
+      "\\bsystem\\s+architecture(\\s+\\w+)?\\b",
+      "\\bsystem\\s+design(\\s+\\w+)?\\b"
+    ]
+  },
+  {
+    "name": "system testing",
+    "patterns": [
+      "\\bsystem\\s+(test|integration|integrations|hardening|transformation)\\b",
+      "\\bsystem\\s+integration(\\s+\\w+)?\\b",
+      "\\bsystem\\s+test(\\s+\\w+)?\\b"
+    ]
+  },
+  {
+    "name": "swift",
+    "patterns": [
+      "\\bswift\\b",
+      "\\bswiftui\\b",
+      "\\bswift\\s+package manager\\b",
+      "\\bswift\\s+concurrency\\b",
+      "\\bswift\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "supply chain",
+    "patterns": [
+      "\\bsupply\\b",
+      "\\bsupply planning\\b",
+      "\\bsupply chain\\b",
+      "\\bsupply chain planning\\b",
+      "\\bsupplier management\\b",
+      "\\bsupply\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "suite platforms",
+    "patterns": [
+      "\\bsuite\\b",
+      "\\bsuitetalk\\b",
+      "\\bsuitescript\\b",
+      "\\bsuitecrm\\b",
+      "\\bsuitecloud\\b",
+      "\\bsuite\\s+\\w+\\b",
+      "\\bsuitability\\b"
+    ]
+  },
+  {
+    "name": "strategy",
+    "patterns": [
+      "\\bstrategy\\b",
+      "\\bstrategic\\s+(sourcing|planning|advisory)\\b",
+      "\\bstrategic\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "statistics",
+    "patterns": [
+      "\\bstatistics\\b",
+      "\\bstatistics foundation\\b",
+      "\\bstatistical\\s+(modeling|methods|inference)\\b",
+      "\\bstatic data\\b",
+      "\\bstatistical\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "stakeholder management",
+    "patterns": [
+      "\\bstakeholder\\s+(management|engagement|communication|collaboration)\\b",
+      "\\bstakeholder\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "typescript",
+    "patterns": [
+      "ts",
+      "typescript",
+      "typescrip"
+    ]
+  },
+  {
+    "name": "tailwind",
+    "patterns": [
+      "\\btailwind\\b",
+      "\\btailwindcss\\b",
+      "\\btailwind\\s+css\\b",
+      "\\btailwind\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "tabular",
+    "patterns": [
+      "\\btabular\\b",
+      "\\btabular\\s+models\\b",
+      "\\btabular\\s+editor\\b",
+      "\\btabular\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "tableau",
+    "patterns": [
+      "\\btableau\\b",
+      "\\btableau\\s+server\\b",
+      "\\btableau\\s+prep\\b",
+      "\\btableau\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "terraform",
+    "patterns": [
+      "\\bterraform\\b",
+      "\\bhashicorp\\s+terraform\\b"
+    ]
+  },
+  {
+    "name": "testing",
+    "patterns": [
+      "\\btesting\\b",
+      "\\btesting theory\\b",
+      "\\btesting processes\\b",
+      "\\btesting metrics\\b",
+      "\\btesting mobile app(s)?\\b"
+    ]
+  },
+  {
+    "name": "temenos",
+    "patterns": [
+      "\\btemenos\\b",
+      "\\btemenos\\s+(t24|transact)\\b",
+      "\\btemenos\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "technology",
+    "patterns": [
+      "\\btechnology\\s+(strategy|sourcing|operations)\\b",
+      "\\btechnology\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "technical documentation",
+    "patterns": [
+      "\\btechnical\\s+(writing|documentation|storytelling|specifications)\\b",
+      "\\btechnical documentation(\\s+\\w+)?\\b"
+    ]
+  },
+  {
+    "name": "technical management",
+    "patterns": [
+      "\\btechnical\\s+(manager|management|leadership|advisor)\\b",
+      "\\btechnical management(\\s+\\w+)?\\b"
+    ]
+  },
+  {
+    "name": "technical operations",
+    "patterns": [
+      "\\btechnical\\s+(testing|operations|team communication|skills|aptitude|architecture design)\\b",
+      "\\btechnical operations(\\s+\\w+)?\\b"
+    ]
+  },
+  {
+    "name": "team skills",
+    "patterns": [
+      "\\bteam\\s*(work|player|collaboration|management|leadership|lead|leading|development|s)?\\b",
+      "\\bteams\\b",
+      "\\bteam\\s+\\w+\\b"
+    ]
+  },
+  {
+    "name": "team tools",
+    "patterns": [
+      "\\bteamcity\\b",
+      "\\bteamcenter(\\s+integration)?\\b"
+    ]
+  },
+  {
+    "name": "tdd",
+    "patterns": [
+      "\\btdd\\b",
+      "\\btdd principles\\b"
+    ]
+  },
+  {
+    "name": "test management",
+    "patterns": [
+      "\\btest management\\b",
+      "\\btest management tool(s)?\\b",
+      "\\btest manager(s)?\\b"
+    ]
+  },
+  {
+    "name": "test planning",
+    "patterns": [
+      "\\btest planning\\b",
+      "\\btest plan(s)? creation\\b"
+    ]
+  },
+  {
+    "name": "test design",
+    "patterns": [
+      "\\btest design(s)?\\b",
+      "\\btest development\\b",
+      "\\btest script(s)?\\b"
+    ]
+  },
+  {
+    "name": "test automation tools",
+    "patterns": [
+      "\\btestcomplete\\b",
+      "\\btestcontainers\\b",
+      "\\btestflight\\b",
+      "\\btestflo\\b"
+    ]
+  },
+  {
+    "name": "test case management",
+    "patterns": [
+      "\\btest case(s)?\\b",
+      "\\btest case management\\b"
+    ]
+  },
+  {
+    "name": "test strategy",
+    "patterns": [
+      "\\btest strategy\\b",
+      "\\btest architecture\\b"
+    ]
+  },
+  {
+    "name": "unix",
+    "patterns": [
+      "\\bunix\\b",
+      "\\bunix server\\b"
+    ]
+  },
+  {
+    "name": "unity",
+    "patterns": [
+      "\\bunity\\b",
+      "\\bunity catalog\\b"
+    ]
+  },
+  {
+    "name": "uml",
+    "patterns": [
+      "\\buml\\b",
+      "\\buml\\d+(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": "unreal engine",
+    "patterns": [
+      "\\bunreal engine\\b",
+      "\\bue4\\b",
+      "\\bue5\\b"
+    ]
+  },
+  {
+    "name": "u-boot",
+    "patterns": [
+      "\\bu\\s*-\\s*boot\\b",
+      "\\buboot\\b"
+    ]
+  },
+  {
+    "name": "veeva",
+    "patterns": [
+      "\\bveeva(\\s*\\w*)+"
+    ]
+  },
+  {
+    "name": "vibe coding",
+    "patterns": [
+      "\\bvibecoding\\b",
+      "\\bvibe coding\\b"
+    ]
+  },
+  {
+    "name": "vue.js",
+    "patterns": [
+      "\\bvue\\b",
+      "\\bvue.*js\\b",
+      "\\bvue\\.js\\b",
+      "\\bvue\\s\\\\bd+(\\.\\d+)?",
+      "\\bvue[a-z]+\\b",
+      "\\bvue\\d+(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": "vmware",
+    "patterns": [
+      "\\bvmware\\b",
+      "\\bvmware vsphere\\b",
+      "\\bvmware vcenter\\b",
+      "\\bvmware tanzu\\b",
+      "\\bvms\\b"
+    ]
+  },
+  {
+    "name": "visual studio",
+    "patterns": [
+      "\\bvisual studio\\b",
+      "\\bvs\\b",
+      "\\bvs\\d{4}\\b",
+      "\\bvisual studio \\d{4}\\b"
+    ]
+  },
+  {
+    "name": "visual studio code",
+    "patterns": [
+      "\\bvisual studio code\\b",
+      "\\bvs code\\b",
+      "\\bvsc\\b"
+    ]
+  },
+  {
+    "name": "vitis",
+    "patterns": [
+      "\\bvitis\\b",
+      "\\bvitis python\\b",
+      "\\bvitis matlab\\b"
+    ]
+  },
+  {
+    "name": "vite",
+    "patterns": [
+      "\\bvite\\b",
+      "\\bvitest\\b"
+    ]
+  },
+  {
+    "name": "wifi",
+    "patterns": [
+      "\\bwi\\s*-\\s*fi\\b",
+      "\\bwifi\\b"
+    ]
+  },
+  {
+    "name": "writing",
+    "patterns": [
+      "\\b.*writing.*\\b"
+    ]
+  },
+  {
+    "name": "workflow",
+    "patterns": [
+      "\\bworkflow\\b",
+      "\\bworkflows\\b"
+    ]
+  },
+  {
+    "name": "wcag",
+    "patterns": [
+      "\\bwcag\\s*\\d+(\\.\\d+)?"
+    ]
+  },
+  {
+    "name": "webpack",
+    "patterns": [
+      "\\bwebpack\\b",
+      "\\bwebpack\\s*\\d+(\\.\\d+)?\\b"
+    ]
+  },
+  {
+    "name": "windows",
+    "patterns": [
+      "\\bwindows\\b",
+      "\\bwindows os\\b",
+      "\\bwindows operating systems\\b"
+    ]
+  },
+  {
+    "name": "windows server",
+    "patterns": [
+      "\\bwindows server(s)?\\b",
+      "\\bwindows server administration\\b",
+      "\\bwindows server infrastructure\\b",
+      "\\bwindows server update services\\b"
+    ]
+  },
+  {
+    "name": "windows workflow foundation",
+    "patterns": [
+      "\\bwindows workflow foundation\\b",
+      "\\bwf foundation\\b"
+    ]
+  },
+  {
+    "name": "windows presentation foundation",
+    "patterns": [
+      "\\bwindows presentation foundation(s)?\\b",
+      "\\bwpf\\b"
+    ]
+  },
+  {
+    "name": "windows services",
+    "patterns": [
+      "\\bwindows service(s)?\\b",
+      "\\bwin service(s)?\\b"
+    ]
+  },
+  {
+    "name": "web",
+    "patterns": [
+      "\\bweb\\b",
+      "\\bweb api(s)?\\b",
+      "\\bweb service(s)?\\b",
+      "\\bweb service integration\\b",
+      "\\bweb testing\\b",
+      "\\bweb development\\b",
+      "\\bweb design\\b",
+      "\\bweb fundamental(s)?\\b",
+      "\\bweb portal development\\b",
+      "\\bweb platforms\\b",
+      "\\bweb architectures\\b",
+      "\\bweb app(s)?\\b",
+      "\\bweb app testing\\b",
+      "\\bweb technologies\\b",
+      "\\bweb scraping\\b"
+    ]
+  },
+  {
+    "name": "wcag",
+    "patterns": [
+      "\\bwcag\\b",
+      "\\bwcag accessibility standards\\b"
+    ]
+  },
+  {
+    "name": "waterfall",
+    "patterns": [
+      "\\bwaterfall\\b",
+      "\\bwaterfall methods\\b"
+    ]
+  },
+  {
+    "name": "warehouse management system",
+    "patterns": [
+      "\\bwms\\b",
+      "\\bwarehouse management\\b",
+      "\\bwarehouse management system\\b"
+    ]
+  },
+  {
+    "name": "wan",
+    "patterns": [
+      "\\bwan\\b",
+      "\\bwan architecture\\b"
+    ]
+  },
+  {
+    "name": "wiki",
+    "patterns": [
+      "\\bwiki\\b",
+      "\\bwikis\\b"
+    ]
+  },
+  {
+    "name": "wfm",
+    "patterns": [
+      "\\bwfm\\b",
+      "\\bwf mag\\b",
+      "\\bwf\\b"
+    ]
+  },
+  {
+    "name": "websphere",
+    "patterns": [
+      "\\bwebsphere\\b",
+      "\\bwebsphere mq\\b"
+    ]
+  },
+  {
+    "name": "webrtc",
+    "patterns": [
+      "\\bwebrtc\\b",
+      "\\bwebrtc standard\\b"
+    ]
+  },
+  {
+    "name": "webdriver",
+    "patterns": [
+      "\\bwebdriver\\b",
+      "\\bwebdriverio\\b"
+    ]
+  },
+  {
+    "name": "wordpress",
+    "patterns": [
+      "\\bWordpress\\b"
+    ]
+  },
+  {
+    "name": "xcode",
+    "patterns": [
+      "\\bxcode\\b"
+    ]
+  },
+  {
+    "name": "yaml",
+    "patterns": [
+      "\\byaml\\b"
+    ]
+  },
+  {
+    "name": "yarn",
+    "patterns": [
+      "\\byarn\\b"
+    ]
+  },
+  {
+    "name": "zig",
+    "patterns": [
+      "\\bzig\\b"
+    ]
+  }
+]
