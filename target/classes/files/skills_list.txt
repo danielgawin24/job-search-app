@@ -1,0 +1,606 @@
+.NET
+.Net core
+Active Directory
+ActiveMQ
+Admin
+Adobe
+Adobe Illustrator
+Adobe InDesign
+Adobe Lightroom
+Adobe Photoshop
+Adobe XD
+Affinity Designer
+Affinity Photo
+AI
+Airflow
+AJAX
+Akka
+Algorithms
+Amazon DocumentDB
+Amazon redshit
+Analysis
+Analytics
+Android
+Android SDK
+Android Studio
+Angular
+Angular.js
+Anima App
+Ansible
+Apache ActiveMQ
+Apache Airflow
+Apache Ambari
+Apache Flink
+Apache Hive
+Apache JMeter
+Apache Kafka
+Apache Lucene
+Apache Pig
+Apache Spark
+Apache Storm
+Apache Tomcat
+Apex
+API
+APIS
+Appium
+Archimate
+Architecting
+Architecture
+Arduino
+Artificial Intelligence
+ASP .NET
+ASP.NET Core MVC
+ASP.NET MVC
+ASP.NET Web API
+ASP.NET Web Forms
+Assembly
+Atom
+Atomic
+ATS
+Auth
+Automation
+Avocode
+AWS Lambda
+Axure
+Azure
+Azure Cosmos DB
+Azure data factory
+Azure Databricks
+Azure DevOps
+Azure SQL
+Babel
+Backbone
+Backbone.js
+BackboneJS
+Backlog
+Backlog management
+Bamboo
+Bash
+BDD
+Big data
+BigQuery
+Bitbucket
+Blender
+Blockchain
+Bootstrap
+Bower
+BPMN
+Business
+Business analytics
+C
+C#
+C++
+Cassandra
+CD tools
+Celery
+CentOS
+Chef
+CI
+CI tools
+Cisco
+CISSP
+Clarity Design System
+Clean code
+Clojure
+Cloud
+Cloudflare
+CloudFormation
+CMake
+CMS
+COBOL
+CocoaPods
+Coda
+Code
+Coding
+Composer
+Computer science
+Computing
+Concourse
+Confluence
+Consul
+Continuous Development/CD
+Continuous Integration/CI
+Cordova
+Cosmos
+Cosmos DB
+Couchbase
+CQRS
+CRM
+CryEngine
+CSS
+CSS
+Linux
+Cucumber
+Cucumber.js
+Cybersecurity
+Cypress
+Dagger
+Dart
+Data
+Data analytics
+Data anlysis
+Data engineering
+data modeling
+Data modelling
+Data science
+Data structures
+Databricks
+DB2
+DDD
+Debian
+Deep learning
+Defining business requirements
+Delphi
+Design
+Design Patterns
+DevOps
+Digital marketing
+Dimensions
+Django
+DNS
+Docker
+Domain Name System
+Drupal
+DWH
+Dynamo
+DynamoDB
+E-commerce
+Eclipse
+ECMAScript
+Elasticsearch
+Elastisearch
+Electron
+Elixir
+Emacs
+Embedded
+Ember
+Ember.js
+EmberJS
+Engineering
+Enterprise
+Enterprise Architect
+Entity Framework
+Erlang
+ERP
+ES
+ESLint
+Espresso
+ETL
+Event
+Event Sourcing
+Excel
+Express
+Express.js
+F#
+fastlane
+Figma
+Firebase
+Flask
+Flutter
+Frontify
+Functional programming
+Game
+Garling
+Gatling
+GCP
+Gerrit
+Gherkin
+Git
+GitHub
+GitLab
+GitLab CI
+Go
+Golang
+Google
+Google Analytics
+Google CLoud
+Google Cloud Platform
+Google Tag Manager
+GoogleAnalytics
+Gradle
+Grafana
+GraphQL
+Gravit
+Gremlin
+Groovy
+gRPC
+Grunt
+Gulp
+gulp.js
+Hadoop
+Haiku
+HAProxy
+Haskell
+Helm
+Heroku
+Hibernate
+Hive
+Hotjar
+HP UFT
+HTML
+HTTP
+HTTPS
+Hyper-V
+IaC
+IBM Cloud or Watson
+IBM InfoSphere
+IBM Rational Rose
+IBM WebSphere
+Informatica PowerCenter
+Infrasctructure as a Code
+Inkscape
+integration
+IntelliJ
+IntelliJ IDEA
+InVision
+iOS
+iOS SDK
+IoT
+IPS
+IPython/
+ISTQB
+ITIL
+Jasmine
+Java
+Java EE
+Java Virtual Machine
+JavaScprit
+JavaScript
+JavaServer Pages
+JBoss
+JBoss Application Ser
+JBoss Application Server
+Jenkins
+Jira
+JMeter
+JMS
+JPA
+JQuery
+JSON
+JUnit
+Jupyter
+JVM
+K8s
+Kafka
+Karma
+Keras
+Kibana
+Komodo
+Kotlin
+Kubernetes
+LAN
+Laravel
+Less
+Light Table
+Lighttable
+Linux
+Logstash
+Looker
+Lua
+Lucidpress
+Machine Learning
+macOS
+Magento
+Management
+Maria
+MariaDB
+MarketAnalytics
+marketing
+Marvel
+MATLAB
+Maven
+Microservices
+Microservices architecture
+Microsoft
+Microsoft Azure
+Microsoft Dynamics
+Microsoft Excel
+Microsoft IIS
+Microsoft Office
+Microsoft Power BI
+Microsoft PowerPoint
+Microsoft SQL Server
+Microsoft SSIS
+Microsoft Word
+Miro
+Moblie
+MobX
+Mockito
+modeling
+MongoDB
+Moqups
+MQTT
+MS Office
+MS SQL
+Mule ESB
+Multithreading
+MVC
+MVP
+MVVN
+MySQL
+Nagios
+Nagios Core
+Neo4j
+Nest
+Nest.js
+NestJS
+NetBeans
+Networking
+Networks
+Next
+Next.js
+Nginx
+NgRx
+NHibernate
+NLP
+Node.js
+NoSQL
+Notepad++
+npm
+NumPy
+NUnit
+OAuth
+Object Relationship Management
+Objective-C
+ObjectiveC
+Octopus Deploy
+Office
+OOP
+Open API
+Open Source
+OpenJDK
+OpenShift
+OpenStack
+OpenStack
+DAX
+OpenUI5
+Oracle
+Oracle Data Integration
+Oracle Data Integrato
+Oracle DB
+Oracle Service Bus
+OrientDB
+ORM
+Overflow.io
+PaaS
+Pandas
+Perl
+Photoshop
+PHP
+PHPStorm
+Pixelmator
+PL/SQL
+Play Framework
+PostgreSQL
+Postman
+Power BI
+PowerPoint
+PowerShell
+Product
+Product vision
+Programming
+Progress Chef
+Project management
+Prometheus
+Proto.io
+ProtoPie
+Prototyping
+Protractor
+Pupper
+Puppet
+PyCharm
+PySpark
+pytest
+Python
+PyTorch
+Qlickview
+Qt
+R
+RabbitMQ
+Raspberry Pi
+RDBM
+React
+React Native
+React.js
+Red Hat
+Redis
+Redux
+Relational database
+REST
+Retrofit
+Risk management
+Robot Framework
+Routing
+RSpec
+RStudio
+RTOS
+Ruby
+Ruby on Rails
+RubyMine
+Rust
+Rwd
+RxJava
+RxJS
+RxSwift
+SAAS
+Salesforce
+SAP
+SAP ABAP
+SAP HANA
+SAPIUS
+SAPUI5
+SAS
+Sass
+Scala
+Science
+scikit-learn
+SCOM
+SCSS
+SDK
+SDLC
+Search Engine Optimisation
+Security
+Selenium
+SEO
+Serverless computing
+ServiceNow
+Services
+SharePoint
+Shell
+Sizzy
+Sketch
+Skills list
+Snowflake
+Snowflake Data Cloud
+SOA
+Atlassian
+SOAP
+SoapUI
+Social media
+Solidity
+Solr
+SonarQube
+Spark
+Splunk
+Spock
+Spring
+Spring Boot
+Spring Framework
+SpringBoot
+SQL
+SQL Server
+SQLite
+SSIS
+SSRS
+STL
+Sublime Text
+Support
+Svelte
+SVN
+Swagger
+Swift
+Symfony
+Sympfony
+Sympli
+System analysis
+Systems
+T-SQL
+Tableau
+TCP
+TDD
+Team management
+TeamCity
+TensorFlow
+Terraform
+Test
+Test automation
+Testing
+TestRail
+PWA
+TextMate
+TFS
+Threading
+Tomcat
+Torch
+Travis CI
+Type Script
+TypeScript
+Ubuntu
+UI
+UI Design
+UML
+Unit Testing
+UNITY
+Unity 3D
+Unix
+Unreal Engine
+User Experience
+User Interface
+UX
+Varnish
+VB.NET
+Veeam
+Vim
+Virtual Design
+Virtualization
+Visual Studio
+Visual Studio Code
+VMare
+VMware
+VPN
+Vue.js
+WAN
+WCF
+Web
+Web API
+Web services
+WebAssembly
+webMethods
+Webpack
+WebSocket
+WebStorm
+Wi-Fi
+Windows
+Windows Server
+Wireframing
+Word
+WordPress
+WPF
+Xamarin
+Xcode
+XML
+Xray
+xUnit
+Yarn
+Yii
+Zabbix
+Zend
+Zeplin
+ZeroMQ
+Backend
+Back-end
+Frontend
+Front-end
+Full-stack
+Fullstack
+Mobile
+Game dev
+Game development
+QA
+Quality Assurance
+Helpdesk
+Help desk
+Product management
+Agile
+IT 
+IT admin
+AI/ML
+ML
+JS
+Other
+Tester
+Architect
+Designer
+Manager
+Recruiter
+System Administrator
