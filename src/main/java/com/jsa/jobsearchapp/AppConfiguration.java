@@ -7,6 +7,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 import tools.jackson.databind.ObjectMapper;
 
@@ -31,7 +33,6 @@ public class AppConfiguration {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
-    //* 21:21
 
     @Bean
     public JavaMailSender getMailSender() {

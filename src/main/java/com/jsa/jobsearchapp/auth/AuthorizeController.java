@@ -2,6 +2,7 @@ package com.jsa.jobsearchapp.auth;
 
 import com.jsa.jobsearchapp.request.RegisterRequest;
 import com.jsa.jobsearchapp.user.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ public class AuthorizeController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        return userService.registerUser(request);
+        return new ResponseEntity<>(userService.registerUser(request), HttpStatus.OK);
     }
 
 }

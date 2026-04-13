@@ -234,7 +234,6 @@ public class BulldogJobsServiceJSON {
         return map;
     }
 
-    @SuppressWarnings("SpellCheckingInspection")
     private String translateLabelIfPolish(String text) {
         if (text == null || text.isEmpty()) return text;
 
