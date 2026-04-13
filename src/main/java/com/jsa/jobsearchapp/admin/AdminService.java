@@ -15,6 +15,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,51 +71,56 @@ public class AdminService {
 
     @Scheduled(cron = "00 00 03 * * *")
     public String forceSendOffers() {
-//        List<User> allUsers = userRepository.findAll();
-//        for (User user : allUsers) {
-        User user = userRepository.findByEmail("noreply.jobsearch@op.pl").orElseThrow(() -> new EntityNotFoundException("User not found"));
-        UserPref userPref = userPrefRepository.findByUser(user)
-                .orElseThrow(() -> new EntityNotFoundException("User pref not found: " + user.getUsername()));
+        List<User> allUsers = userRepository.findAll();
+        for (User user : allUsers) {
+            UserPref userPref = userPrefRepository.findByUser(user)
+                    .orElseThrow(() -> new EntityNotFoundException("User pref not found: " + user.getUsername()));
 
-        Integer maxScore = userPrefRepository.calculateMaxScoreByUserPref(userPref.getId());
-        if (maxScore == null) {
-            throw new EntityNotFoundException("User pref not found");
+            Integer maxScore = userPrefRepository.calculateMaxScoreByUserPref(userPref.getId());
+            if (maxScore == null) {
+                throw new EntityNotFoundException("User pref not found");
+            }
+
+            WorkModes userPrefWorkModes = userPref.getWorkModes();
+            List<String> allOffersByUserPref = jobOfferRepository.findAllUrlsByUserPref(
+                            userPref.getId(),
+                            userPref.getIsNoLocationPref(),
+                            userPref.getCity(),
+                            userPref.getSeniority().name(),
+                            userPref.getSalaryFrom(),
+                            userPrefWorkModes.getIsRemote(),
+                            userPrefWorkModes.getIsHybrid(),
+                            userPrefWorkModes.getIsOnSite(),
+                            user.getId(),
+                            maxScore
+                    ).stream()
+                    .map(OfferMatchProjection::getUrl)
+                    .toList();
+
+            List<History> historyList = new ArrayList<>();
+            StringBuilder sb = new StringBuilder();
+            sb.append("Hello,\nHere are some offers we found for you:\n");
+            for (
+                    String url : allOffersByUserPref) {
+                History history = new History();
+                history.setUserId(user);
+                history.setUrl(url);
+
+                historyList.add(history);
+                sb.append(url).append("\n");
+            }
+            sb.append("Thank you for using job search app!");
+
+            HttpResponse<String> response = mailService.sendSimpleMailAPI(
+                    "Job offers for " + user.getUsername(),
+                    sb.toString()
+            );
+
+            if (response.statusCode() == 200) {
+                historyRepository.saveAll(historyList);
+            }
         }
-        WorkModes userPrefWorkModes = userPref.getWorkModes();
-        List<String> allOffersByUserPref = jobOfferRepository.findAllUrlsByUserPref(
-                        userPref.getId(),
-                        userPref.getIsNoLocationPref(),
-                        userPref.getCity(),
-                        userPref.getSeniority().name(),
-                        userPref.getSalaryFrom(),
-                        userPrefWorkModes.getIsRemote(),
-                        userPrefWorkModes.getIsHybrid(),
-                        userPrefWorkModes.getIsOnSite(),
-                        user.getId(),
-                        maxScore
-                ).stream()
-                .map(OfferMatchProjection::getUrl)
-                .toList();
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Hello,\nHere are some offers we found for you:\n");
-        for (String url : allOffersByUserPref) {
-            History history = new History();
-            history.setUserId(user);
-            history.setUrl(url);
-
-            historyRepository.save(history);
-            sb.append(url).append("\n");
-        }
-        sb.append("Thank you for using job search app!");
-
-        mailService.sendSimpleMail(
-                user.getEmail(),
-                "Testing sending 5 offers and collecting to history",
-                sb.toString()
-        );
-
-        return "To be implemented";
+        return "All emails sent correctly.";
     }
 
     public Map<String, Integer> findAllByUserPrefOld(UserPref userPref) {
@@ -150,17 +157,17 @@ public class AdminService {
         }
         WorkModes userPrefWorkModes = userPref.getWorkModes();
         return jobOfferRepository.findAllUrlsByUserPref(
-                userPref.getId(),
-                userPref.getIsNoLocationPref(),
-                userPref.getCity(),
-                userPref.getSeniority().name(),
-                userPref.getSalaryFrom(),
-                userPrefWorkModes.getIsRemote(),
-                userPrefWorkModes.getIsHybrid(),
-                userPrefWorkModes.getIsOnSite(),
-                user.getId(),
-                maxScore
-        ).stream()
+                        userPref.getId(),
+                        userPref.getIsNoLocationPref(),
+                        userPref.getCity(),
+                        userPref.getSeniority().name(),
+                        userPref.getSalaryFrom(),
+                        userPrefWorkModes.getIsRemote(),
+                        userPrefWorkModes.getIsHybrid(),
+                        userPrefWorkModes.getIsOnSite(),
+                        user.getId(),
+                        maxScore
+                ).stream()
                 .map(OfferMatchProjection::getUrl)
                 .toList();
     }
