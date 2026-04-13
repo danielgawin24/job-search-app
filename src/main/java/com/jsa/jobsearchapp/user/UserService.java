@@ -37,7 +37,7 @@ public class UserService {
         this.skillRepository = skillRepository;
     }
 
-    public ResponseEntity<String> registerUser(RegisterRequest request) {
+    public String registerUser(RegisterRequest request) {
         Optional<User> user = userRepository.findByEmail(request.getEmail());
         if (user.isPresent()) {
             throw new UserAlreadyRegisteredException("User already registered with email: " + user.get().getEmail());
@@ -48,7 +48,7 @@ public class UserService {
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         newUser.setRole(UserRole.USER);
         userRepository.save(newUser);
-        return new ResponseEntity<>("User created with email " + newUser.getEmail(), HttpStatus.CREATED);
+        return "User created with email " + newUser.getEmail();
     }
 
     public String deleteAllUsersExceptAdmin() {

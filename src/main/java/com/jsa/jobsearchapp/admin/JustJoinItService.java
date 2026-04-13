@@ -51,7 +51,7 @@ public class JustJoinItService {
                 continue;
             }
             ObjectNode objectNode = (ObjectNode) mapper.readTree(response.body());
-            ArrayNode postings = (ArrayNode) objectNode.get("data");
+            ArrayNode postings = (ArrayNode) objectNode.path("data");
             List<JobOffer> tempJobOffers = new ArrayList<>();
             for (int i = 0; i < postings.size(); i++) {
                 JobOffer jobOffer = scrapeOffer(postings.get(i));
@@ -64,7 +64,7 @@ public class JustJoinItService {
             } catch (Exception e) {
                 System.err.println("Failed to save jobOffers list at cursor: " + currentCursor + " in JustJoinItService. Error: " + e.getMessage());
             }
-            Object nextCursor = objectNode.get("meta").get("next").get("cursor");
+            Object nextCursor = objectNode.path("meta").path("next").path("cursor");
             if (nextCursor == null) {
                 break;
             }
@@ -78,8 +78,8 @@ public class JustJoinItService {
     }
 
     private JobOffer scrapeOffer(JsonNode offerJson) {
-        offerJson.get("requiredSkills").getNodeType();
-        String url = "https://www.justjoin.it/job-offer/" + offerJson.get("slug").asString();
+        offerJson.path("requiredSkills").getNodeType();
+        String url = "https://www.justjoin.it/job-offer/" + offerJson.path("slug").asString();
         System.out.println("Scraping URL: " + url);
         Optional<JobOffer> jobOffer = jobOfferRepository.findByUrl(url);
         if (jobOffer.isPresent()) {
@@ -88,16 +88,16 @@ public class JustJoinItService {
         JobOffer newJobOffer = new JobOffer();
         newJobOffer.setDateAdded(LocalDateTime.now());
         newJobOffer.setUrl(url);
-        newJobOffer.setCategory(convertCategoryIdToCategoryName(offerJson.get("categoryId").asInt()));
-        newJobOffer.setLocations(convertToLocations(offerJson.get("workplaceType").asString(), offerJson));
+        newJobOffer.setCategory(convertCategoryIdToCategoryName(offerJson.path("categoryId").asInt()));
+        newJobOffer.setLocations(convertToLocations(offerJson.path("workplaceType").asString(), offerJson));
         newJobOffer.setSkills(convertToSkills(offerJson));
-        newJobOffer.setEmployerName(offerJson.get("companyName").asString());
-        newJobOffer.setSeniority(convertToSeniority(offerJson.get("experienceLevel").asString()));
-        ArrayNode employmentTypesArray = (ArrayNode) offerJson.get("employmentTypes");
+        newJobOffer.setEmployerName(offerJson.path("companyName").asString());
+        newJobOffer.setSeniority(convertToSeniority(offerJson.path("experienceLevel").asString()));
+        ArrayNode employmentTypesArray = (ArrayNode) offerJson.path("employmentTypes");
         newJobOffer.setSalary(convertToSalary(employmentTypesArray));
-        newJobOffer.setEmploymentType(convertToEmploymentType(offerJson.get("workingTime").asString()));
+        newJobOffer.setEmploymentType(convertToEmploymentType(offerJson.path("workingTime").asString()));
         newJobOffer.setTypeOfContract(convertToTypeOfContract(employmentTypesArray));
-        newJobOffer.setWorkModes(convertToWorkModes(offerJson.get("workplaceType").asString()));
+        newJobOffer.setWorkModes(convertToWorkModes(offerJson.path("workplaceType").asString()));
         return newJobOffer;
     }
 
@@ -113,10 +113,10 @@ public class JustJoinItService {
                     new EntityNotFoundException("Location 'Full-Remote' not found."));
             locations.add(location);
         } else {
-            ArrayNode multilocationArray = (ArrayNode) ObjectNode.get("multilocation");
+            ArrayNode multilocationArray = (ArrayNode) ObjectNode.path("multilocation");
             List<String> cities = new ArrayList<>();
             for (int i = 0; i < multilocationArray.size(); i++) {
-                cities.add(multilocationArray.get(i).get("city").asString());
+                cities.add(multilocationArray.get(i).path("city").asString());
             }
             for (String city : cities) {
                 if (Objects.equals(city, "")) {
@@ -130,7 +130,7 @@ public class JustJoinItService {
 
     private Set<Skill> convertToSkills(JsonNode offerJson) {
         Set<Skill> skills = new HashSet<>();
-        JsonNode node = offerJson.get("requiredSkills");
+        JsonNode node = offerJson.path("requiredSkills");
         ArrayNode skillsArray = (node != null && node.isArray())
                 ? (ArrayNode) node
                 : mapper.createArrayNode();
@@ -159,12 +159,12 @@ public class JustJoinItService {
         List<Boolean> isGrossValues = new ArrayList<>();
         List<Double> salaryValues = new ArrayList<>();
         for (int i = 0; i < ArrayNode.size(); i++) {
-            ObjectNode ObjectNode = (ObjectNode) ArrayNode.get(i);
-            String salaryPeriodFirstLetter = String.valueOf(ObjectNode.get("unit").asString().toUpperCase().charAt(0));
+            ObjectNode ObjectNode = (ObjectNode) ArrayNode.path(i);
+            String salaryPeriodFirstLetter = String.valueOf(ObjectNode.path("unit").asString().toUpperCase().charAt(0));
             List<Double> tempValues;
             try {
-                double doubleFrom = ObjectNode.get("fromPln").asInt();
-                double doubleTo = ObjectNode.get("toPln").asInt();
+                double doubleFrom = ObjectNode.path("fromPln").asInt();
+                double doubleTo = ObjectNode.path("toPln").asInt();
                 tempValues = new ArrayList<>(List.of(doubleFrom, doubleTo));
             } catch (Exception e) {
                 break;
@@ -178,7 +178,7 @@ public class JustJoinItService {
                 default ->
                         throw new IllegalArgumentException("Unexpected salary period value: " + salaryPeriodFirstLetter);
             }
-            isGrossValues.add(ObjectNode.get("gross").asBoolean());
+            isGrossValues.add(ObjectNode.path("gross").asBoolean());
             salaryValues.addAll(tempValues);
         }
         if (!salaryValues.isEmpty()) {
@@ -203,7 +203,7 @@ public class JustJoinItService {
         if (ArrayNode.size() > 1) {
             return TypeOfContract.MULTIPLE;
         }
-        String text = ArrayNode.get(0).get("type").asString();
+        String text = ArrayNode.path(0).path("type").asString();
         if (text == null || text.isEmpty()) {
             return TypeOfContract.UNSPECIFIED;
         }

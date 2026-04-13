@@ -51,7 +51,7 @@ public class BulldogJobsServiceJSON {
                         data.lastIndexOf("</script>")
                 );
                 ObjectNode node = (ObjectNode) mapper.readTree(jsonString);
-                ArrayNode jobs = (ArrayNode) node.get("props").get("pageProps").get("jobs");
+                ArrayNode jobs = (ArrayNode) node.path("props").path("pageProps").path("jobs");
                 if (jobs.isEmpty()) {
                     break;
                 }
@@ -69,7 +69,7 @@ public class BulldogJobsServiceJSON {
     }
 
     private JobOffer scrapeOffer(ObjectNode offerJson) {
-        String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.get("id").asString();
+        String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString();
         System.out.println("Scraping URL: " + url);
         Optional<JobOffer> jobOffer = jobOfferRepository.findByUrl(url);
         if (jobOffer.isPresent()) {
@@ -87,12 +87,12 @@ public class BulldogJobsServiceJSON {
         newJobOffer.setSkills(convertToSkills(offerJson));
 
 
-        newJobOffer.setEmployerName(offerJson.get("company").get("name").asString());
-        newJobOffer.setSeniority(scrapingService.convertTextToSeniority(offerJson.get("experienceLevel").asString()));
-        newJobOffer.setEmploymentType(scrapingService.convertTextToEmploymentType(offerJson.get("employmentType").asString()));
+        newJobOffer.setEmployerName(offerJson.path("company").path("name").asString());
+        newJobOffer.setSeniority(scrapingService.convertTextToSeniority(offerJson.path("experienceLevel").asString()));
+        newJobOffer.setEmploymentType(scrapingService.convertTextToEmploymentType(offerJson.path("employmentType").asString()));
 
 
-        newJobOffer.setSalary(convertInputToSalary(offerJson.get("denominatedSalaryLong")));
+        newJobOffer.setSalary(convertInputToSalary(offerJson.path("denominatedSalaryLong")));
 
 
         newJobOffer.setTypeOfContract(convertInputToTypeOfContract(offerJson));
@@ -103,13 +103,13 @@ public class BulldogJobsServiceJSON {
 
     private Set<Location> convertToLocations(ObjectNode offerJson) {
         Set<Location> locations = new HashSet<>();
-        if (offerJson.get("remote").asBoolean()) {
+        if (offerJson.path("remote").asBoolean()) {
             Optional<Location> locationOpt = locationRepository.findByAliasName("fullremote");
             Location location = locationOpt.orElseThrow(() ->
                     new EntityNotFoundException("Location 'Full-Remote' not found."));
             locations.add(location);
         } else {
-            String cityJsonString = offerJson.get("city").asString();
+            String cityJsonString = offerJson.path("city").asString();
             List<String> citiesList = Arrays.stream(cityJsonString.split(","))
                     .map(String::trim)
                     .toList();
@@ -124,7 +124,7 @@ public class BulldogJobsServiceJSON {
     }
 
     private Set<Skill> convertToSkills(ObjectNode offerJson) {
-        JsonNode technologyTags = offerJson.get("technologyTags");
+        JsonNode technologyTags = offerJson.path("technologyTags");
         if (technologyTags.getNodeType().toString().equalsIgnoreCase("null")) {
             return Collections.emptySet();
         }
@@ -132,7 +132,7 @@ public class BulldogJobsServiceJSON {
         ArrayNode skillsArray = (ArrayNode) technologyTags;
         List<String> skillNames = new ArrayList<>();
         for (int i = 0; i < skillsArray.size(); i++) {
-            skillNames.add(skillsArray.get(i).asString());
+            skillNames.add(skillsArray.path(i).asString());
         }
         for (String skill : skillNames) {
             if (Objects.equals(skill, "") || scrapingService.isSkillInPolish(skill)) {
@@ -144,8 +144,8 @@ public class BulldogJobsServiceJSON {
     }
 
     private Salary convertInputToSalary(JsonNode salaryJson) {
-        String money = salaryJson.get("money").asString();
-        String salaryCurrency = salaryJson.get("currency").asString();
+        String money = salaryJson.path("money").asString();
+        String salaryCurrency = salaryJson.path("currency").asString();
         Salary salary = new Salary();
         if (money == null || salaryCurrency == null || salaryCurrency.isEmpty()) {
             return salary;
@@ -180,8 +180,8 @@ public class BulldogJobsServiceJSON {
     }
 
     private TypeOfContract convertInputToTypeOfContract(ObjectNode offerJson) {
-        boolean isContractB2b = offerJson.get("contractB2b").asBoolean();
-        boolean isContractPermanent = offerJson.get("contractEmployment").asBoolean();
+        boolean isContractB2b = offerJson.path("contractB2b").asBoolean();
+        boolean isContractPermanent = offerJson.path("contractEmployment").asBoolean();
         if (isContractB2b) {
             return TypeOfContract.B2B;
         } else if (isContractPermanent) {
@@ -191,50 +191,11 @@ public class BulldogJobsServiceJSON {
         }
     }
 
-    private WorkModes convertInputToWorkModes(String url) {
-        Document document1 = requestService.requestConnection(url);
-        Elements select1 = document1.select("aside > div > div > div").not(":has(svg)");
-        Map<String, Set<String>> scrapedSideDetails = getScrapedSideDetails(select1);
-        Set<String> offerWorkModes = scrapedSideDetails.get("Work mode");
-        if (offerWorkModes == null) {
-            return new WorkModes(false, false, false);
-        }
-        WorkModes workModes = new WorkModes();
-        for (String text : offerWorkModes) {
-            if (text == null || text.isEmpty()) {
-                continue;
-            }
-            switch (text.toLowerCase()) {
-                case "hybrid", "hybrydowy" -> workModes.setIsHybrid(true);
-                case "full-remote", "zdalny" -> workModes.setIsRemote(true);
-                case "on-site", "stacjonarny" -> workModes.setIsOnSite(true);
-            }
-        }
-        return workModes;
+    private WorkModes convertInputToWorkModes(JsonNode offerJson) {
+        return new WorkModes();
     }
 
-    private Map<String, Set<String>> getScrapedSideDetails(Elements select) {
-        Map<String, Set<String>> map = new HashMap<>();
-        for (Element element : select) {
-            element.select("span").remove();
-            Elements paragraphs = element.select("div > p");
-            String label = translateLabelIfPolish(paragraphs.get(0).text());
 
-            Elements values = new Elements(paragraphs.subList(1, paragraphs.size()));
-            if (values.size() == 1) {
-                map.put(label, Set.of(values.get(0).text()));
-            } else {
-                Set<String> valuesList = new HashSet<>();
-                for (Element value : values) {
-                    valuesList.add(value.text());
-                }
-                map.put(label, valuesList);
-            }
-        }
-        return map;
-    }
-
-    @SuppressWarnings("SpellCheckingInspection")
     private String translateLabelIfPolish(String text) {
         if (text == null || text.isEmpty()) return text;
 
