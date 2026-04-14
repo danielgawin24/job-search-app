@@ -1,5 +1,6 @@
 package com.jsa.jobsearchapp.user;
 
+import com.jsa.jobsearchapp.exception.InvalidRequestBodyException;
 import com.jsa.jobsearchapp.exception.UserAlreadyRegisteredException;
 import com.jsa.jobsearchapp.jobOffer.EmploymentType;
 import com.jsa.jobsearchapp.jobOffer.Seniority;
@@ -13,12 +14,13 @@ import com.jsa.jobsearchapp.userPref.UserPrefDTO;
 import com.jsa.jobsearchapp.userPref.UserPrefRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -45,7 +47,8 @@ public class UserService {
         User newUser = new User();
         newUser.setEmail(request.getEmail());
         newUser.setUsername(request.getUsername());
-        newUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        String passwordHash = passwordEncoder.encode(request.getPassword());
+        newUser.setPassword(passwordHash);
         newUser.setRole(UserRole.USER);
         userRepository.save(newUser);
         return "User created with email " + newUser.getEmail();
@@ -71,43 +74,75 @@ public class UserService {
         return modelMapper.map(user.getUserPref(), UserPrefDTO.class);
     }
 
-    public String updateAllPreferences(String username, UserPrefRequest request) {
+    public UserPrefDTO putPreferences(String username, UserPrefRequest request) {
+        if (request.isAnyFieldNull()) {
+            throw new InvalidRequestBodyException("");
+        }
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
         UserPref userPref = userPrefRepository.findByUser(user).orElse(new UserPref());
         userPref.setCity(request.getCity());
         userPref.setSeniority(Seniority.valueOf(request.getSeniority().toString().toUpperCase()));
-        userPref.setSalaryFrom(Objects.equals(request.getSalaryFrom(), "") ? -1 : Double.parseDouble(request.getSalaryFrom()));
-        userPref.setSalaryTo(Objects.equals(request.getSalaryTo(), "") ? -1 : Double.parseDouble(request.getSalaryTo()));
+        userPref.setSalaryFrom(request.getSalaryFrom());
+        userPref.setSalaryTo(request.getSalaryTo());
         userPref.setEmploymentType(EmploymentType.valueOf(request.getEmploymentType().toString().toUpperCase()));
         userPref.setTypeOfContract(TypeOfContract.valueOf(request.getTypeOfContract().toString().toUpperCase()));
         userPref.setWorkModes(request.getWorkModes());
-        userPref.setIsNoLocationPref(request.getIsNoLocationPref());
-        userPref.setEmailFrequency(request.getEmailFrequency());
-        userPref.setEmailStartDate(request.getEmailStartDate());
-
         Set<Skill> userPrefSkillsSet = new HashSet<>();
         for (String skillName : request.getSkills()) {
             skillRepository.findByAliasName(skillName).ifPresent(userPrefSkillsSet::add);
         }
         userPref.setUserPrefSkills(userPrefSkillsSet);
-        userPref.setPriorityColumn("");
+        userPref.setPriorityColumn(request.getPriorityColumn());
+        userPref.setIsNoLocationPref(request.getIsNoLocationPref());
 
         userPrefRepository.save(userPref);
         user.setUserPref(userPref);
         userRepository.save(user);
-        return "Successfully updated \"" + username + "\" user preferences.";
+        return modelMapper.map(user.getUserPref(), UserPrefDTO.class);
     }
 
-    /*
-    return repository.findById(id)
-      .map(employee -> {
-        employee.setName(newEmployee.getName());
-        employee.setRole(newEmployee.getRole());
-        return repository.save(employee);
-      })
-      .orElseGet(() -> {
-        return repository.save(newEmployee);
-      });
-     */
+    public UserPrefDTO patchPreferences(String username, UserPrefRequest request) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+        UserPref userPref = userPrefRepository.findByUser(user)
+                .orElseThrow(() -> new EntityNotFoundException("UserPref not found: " + username + ". Please create one first."));
+
+        if (request.getCity() != null) {
+            userPref.setCity(request.getCity());
+        }
+        if (request.getSeniority() != null) {
+            userPref.setSeniority(request.getSeniority());
+        }
+        if (request.getSalaryFrom() != null) {
+            userPref.setSalaryFrom(request.getSalaryFrom());
+        }
+        if (request.getSalaryTo() != null) {
+            userPref.setSalaryTo(request.getSalaryTo());
+        }
+        if (request.getEmploymentType() != null) {
+            userPref.setEmploymentType(EmploymentType.valueOf(request.getEmploymentType().toString().toUpperCase()));
+        }
+        if (request.getTypeOfContract() != null) {
+            userPref.setTypeOfContract(TypeOfContract.valueOf(request.getTypeOfContract().toString().toUpperCase()));
+        }
+        if (request.getWorkModes() != null) {
+            userPref.setWorkModes(request.getWorkModes());
+        }
+        if (request.getSkills() != null) {
+            Set<Skill> userPrefSkillsSet = new HashSet<>();
+            for (String skillName : request.getSkills()) {
+                skillRepository.findByAliasName(skillName).ifPresent(userPrefSkillsSet::add);
+            }
+            userPref.setUserPrefSkills(userPrefSkillsSet);
+        }
+        if (request.getPriorityColumn() != null) {
+            userPref.setPriorityColumn(request.getPriorityColumn());
+        }
+        if (request.getIsNoLocationPref() != null) {
+            userPref.setIsNoLocationPref(request.getIsNoLocationPref());
+        }
+        userPrefRepository.save(userPref);
+        return modelMapper.map(user.getUserPref(), UserPrefDTO.class);
+    }
 }

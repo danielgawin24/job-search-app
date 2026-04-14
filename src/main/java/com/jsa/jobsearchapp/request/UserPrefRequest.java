@@ -1,31 +1,38 @@
 package com.jsa.jobsearchapp.request;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jsa.jobsearchapp.jobOffer.EmploymentType;
 import com.jsa.jobsearchapp.jobOffer.Seniority;
 import com.jsa.jobsearchapp.jobOffer.TypeOfContract;
 import com.jsa.jobsearchapp.jobOffer.WorkModes;
-import com.jsa.jobsearchapp.userPref.EmailFrequency;
+import com.jsa.jobsearchapp.userPref.PriorityColumn;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 public class UserPrefRequest {
 
-    private String country;
     private String city;
     private Seniority seniority;
-    private String salaryFrom;
-    private String salaryTo;
+    private Double salaryFrom;
+    private Double salaryTo;
     private EmploymentType employmentType;
     private TypeOfContract typeOfContract;
     private WorkModes workModes;
     private List<String> skills;
-    private String priorityColumn;
+    private PriorityColumn priorityColumn;
     private Boolean isNoLocationPref;
-    private EmailFrequency emailFrequency;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime emailStartDate;
+
+    public boolean isAnyFieldNull() {
+        return this.city == null
+                || this.seniority == null
+                || this.salaryFrom == null
+                || this.salaryTo == null
+                || this.employmentType == null
+                || this.typeOfContract == null
+                || this.workModes == null
+                || this.skills == null
+                || this.priorityColumn == null
+                || this.isNoLocationPref == null;
+    }
 }

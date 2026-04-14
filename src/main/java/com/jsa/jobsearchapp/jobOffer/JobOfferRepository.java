@@ -96,7 +96,7 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
             )
               AND
                 (?2 IS NULL OR CASE ?2
-                                    WHEN 'city' THEN EXISTS (
+                                    WHEN 'CITY' THEN EXISTS (
                                         SELECT 1
                                         FROM offer_location OL
                                                  JOIN location L
@@ -104,11 +104,11 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                         WHERE ol.offer_id = O.id
                                           AND L.alias_name = ?3
                                     )
-                                    WHEN 'seniority' THEN O.seniority = ?4
-                                    WHEN 'salaryFrom' THEN O.salaryFrom >= ?5 AND O.salaryFrom > 0
-                                    WHEN 'isRemote' THEN O.isRemote = ?6
-                                    WHEN 'isHybrid' THEN O.isHybrid = ?7
-                                    WHEN 'isOnSite' THEN O.isOnSite = ?8
+                                    WHEN 'SENIORITY' THEN O.seniority = ?4
+                                    WHEN 'SALARY_FROM' THEN O.salaryFrom >= ?5 AND O.salaryFrom > 0
+                                    WHEN 'IS_REMOTE' THEN O.isRemote = ?6
+                                    WHEN 'IS_HYBRID' THEN O.isHybrid = ?7
+                                    WHEN 'IS_ONSITE' THEN O.isOnSite = ?8
                     END);""",
             nativeQuery = true)
     List<OfferMatchProjection> findAllUrlsByUserPref(
@@ -123,6 +123,4 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
             int userId,
             int maxScore
     );
-
-    List<JobOffer> findTop5By();
 }

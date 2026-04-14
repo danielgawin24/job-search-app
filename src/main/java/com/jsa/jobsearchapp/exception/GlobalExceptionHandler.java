@@ -1,77 +1,102 @@
 package com.jsa.jobsearchapp.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.Instant;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserAlreadyRegisteredException.class)
-    public ResponseEntity<ErrorResponse> handleUserAlreadyRegisteredException(UserAlreadyRegisteredException e) {
+    public ResponseEntity<ErrorResponse> handleUserAlreadyRegistered(UserAlreadyRegisteredException e) {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(new ErrorResponse(
-                        e.getMessage(),
+                        Instant.now().toString(),
                         409,
-                        System.currentTimeMillis()
+                        e.getMessage()
                 ));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUsernameNotFoundException(UsernameNotFoundException e) {
+    public ResponseEntity<ErrorResponse> handleUsernameNotFound(UsernameNotFoundException e) {
         return ResponseEntity
                 .badRequest()
                 .body(new ErrorResponse(
-                        e.getMessage(),
+                        Instant.now().toString(),
                         400,
-                        System.currentTimeMillis()
+                        e.getMessage()
                 ));
     }
 
     @ExceptionHandler(NullDocumentException.class)
-    public ResponseEntity<ErrorResponse> handleNullDocumentException(NullDocumentException e) {
+    public ResponseEntity<ErrorResponse> handleNullDocument(NullDocumentException e) {
         return ResponseEntity
                 .badRequest()
                 .body(new ErrorResponse(
-                        e.getMessage(),
+                        Instant.now().toString(),
                         400,
-                        System.currentTimeMillis()
+                        e.getMessage()
                 ));
     }
 
     @ExceptionHandler(UnknownEnumValueException.class)
-    public ResponseEntity<ErrorResponse> handleUnknownEnumValueException(UnknownEnumValueException e) {
+    public ResponseEntity<ErrorResponse> handleUnknownEnumValue(UnknownEnumValueException e) {
         return ResponseEntity
                 .badRequest()
                 .body(new ErrorResponse(
-                        e.getMessage(),
+                        Instant.now().toString(),
                         400,
-                        System.currentTimeMillis()
+                        e.getMessage()
                 ));
     }
 
     @ExceptionHandler(NullSideDetailsSetException.class)
-    public ResponseEntity<ErrorResponse> handleNullSideDetailsSetException(NullSideDetailsSetException e) {
+    public ResponseEntity<ErrorResponse> handleNullSideDetailsSet(NullSideDetailsSetException e) {
         return ResponseEntity
                 .badRequest()
                 .body(new ErrorResponse(
-                        e.getMessage(),
+                        Instant.now().toString(),
                         400,
-                        System.currentTimeMillis()
+                        e.getMessage()
                 ));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorResponse> handleMissingBody(HttpMessageNotReadableException e) {
+    public ResponseEntity<ErrorResponse> handleMissingBody(HttpMessageNotReadableException ignored) {
         return ResponseEntity
                 .badRequest()
                 .body(new ErrorResponse(
-                        "Request body is missing or invalid",
+                        Instant.now().toString(),
                         400,
-                        System.currentTimeMillis()
+                        "Request body is missing or invalid"
+                ));
+    }
+
+    @ExceptionHandler(InvalidRequestBodyException.class)
+    public ResponseEntity<ErrorResponse> handleMissingBody(InvalidRequestBodyException ignored) {
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorResponse(
+                        Instant.now().toString(),
+                        400,
+                        "Request body is missing or invalid"
+                ));
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleEntityNotFound(EntityNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(
+                        Instant.now().toString(),
+                        404,
+                        e.getMessage()
                 ));
     }
 }

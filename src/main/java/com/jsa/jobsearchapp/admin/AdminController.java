@@ -20,13 +20,11 @@ import java.util.concurrent.CompletableFuture;
 public class AdminController {
 
     private final AdminService adminService;
-    private final NoFluffJobsService noFluffJobsService;
     private final JustJoinItService justJoinItService;
     private final UserRepository userRepository;
 
-    public AdminController(AdminService adminService, NoFluffJobsService noFluffJobsService, JustJoinItService justJoinItService, UserRepository userRepository) {
+    public AdminController(AdminService adminService, JustJoinItService justJoinItService, UserRepository userRepository) {
         this.adminService = adminService;
-        this.noFluffJobsService = noFluffJobsService;
         this.justJoinItService = justJoinItService;
         this.userRepository = userRepository;
     }
@@ -38,7 +36,7 @@ public class AdminController {
 
     @GetMapping("/force-send")
     public ResponseEntity<String> forceSend() {
-        return new ResponseEntity<>(adminService.forceSendOffers(), HttpStatus.OK);
+        return new ResponseEntity<>(adminService.forceSendOffers2(), HttpStatus.OK);
     }
 
     @GetMapping("/test-justjoinit")
@@ -46,8 +44,6 @@ public class AdminController {
         CompletableFuture<List<JobOffer>> urls = justJoinItService.getJobOffers();
         return new ResponseEntity<>("Just joined " + urls.join().size() + " jobs in the db", HttpStatus.OK);
     }
-    // 11:37
-
 
     @GetMapping("/testGrandQuery/{username}")
     public ResponseEntity<String> testGrandQuery(@PathVariable String username) {
@@ -64,16 +60,4 @@ public class AdminController {
         List<String> allUrlsByUserPref = adminService.findAllUrlsByUserPref(username);
         return new ResponseEntity<>(allUrlsByUserPref.toString(), HttpStatus.OK);
     }
-
-//    @GetMapping("/test-nofluff-json")
-//    public ResponseEntity<String> testNofluffJson() {
-//        Set<String> offers = noFluffJobsService.getOffers();
-//        return ResponseEntity.ok("In theory correctly implemented " + offers.size() + " jobs to DB");
-//    }
-//
-//    @GetMapping("/get-unsaved-skills-justjoinit")
-//    public ResponseEntity<Set<String>> getUnsavedSkillsJustJoinIt() {
-//        Set<String> unsavedSkills = adminService.getJustJoinItUnsavedSKills();
-//        return new ResponseEntity<>(unsavedSkills, HttpStatus.OK);
-//    }
 }

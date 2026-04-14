@@ -6,7 +6,6 @@ import com.jsa.jobsearchapp.location.LocationRepository;
 import com.jsa.jobsearchapp.request.RequestService;
 import com.jsa.jobsearchapp.scraping.ScrapingService;
 import com.jsa.jobsearchapp.skill.Skill;
-import com.jsa.jobsearchapp.skill.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -27,18 +26,17 @@ public class JustJoinItService {
     private final LocationRepository locationRepository;
     private final RequestService requestService;
     private final ScrapingService scrapingService;
-    private final SkillRepository skillRepository;
     private final ObjectMapper mapper;
 
-    public JustJoinItService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, SkillRepository skillRepository, RequestService requestService, ScrapingService scrapingService, ObjectMapper mapper) {
+    public JustJoinItService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, RequestService requestService, ScrapingService scrapingService, ObjectMapper mapper) {
         this.jobOfferRepository = jobOfferRepository;
         this.locationRepository = locationRepository;
         this.requestService = requestService;
         this.scrapingService = scrapingService;
-        this.skillRepository = skillRepository;
         this.mapper = mapper;
     }
 
+    @SuppressWarnings("D")
     @Async
     public CompletableFuture<List<JobOffer>> getJobOffers() {
         List<JobOffer> jobOffers = new ArrayList<>();
@@ -54,8 +52,17 @@ public class JustJoinItService {
             ArrayNode postings = (ArrayNode) objectNode.path("data");
             List<JobOffer> tempJobOffers = new ArrayList<>();
             for (int i = 0; i < postings.size(); i++) {
-                JobOffer jobOffer = scrapeOffer(postings.get(i));
-                tempJobOffers.add(jobOffer);
+                JsonNode offerJson = postings.get(i);
+                String url = "https://www.justjoin.it/job-offer/" + offerJson.path("slug").asString();
+                Optional<JobOffer> offerByUrl = jobOfferRepository.findByUrl(url);
+                if (offerByUrl.isPresent()) {
+                    JobOffer jobOffer = offerByUrl.get();
+                    jobOffer.setDateLastSeen(Instant.now());
+                    jobOfferRepository.save(jobOffer);
+                } else {
+                    JobOffer jobOffer = scrapeOffer(offerJson);
+                    tempJobOffers.add(jobOffer);
+                }
             }
             jobOffers.addAll(tempJobOffers);
             try {
@@ -81,12 +88,9 @@ public class JustJoinItService {
         offerJson.path("requiredSkills").getNodeType();
         String url = "https://www.justjoin.it/job-offer/" + offerJson.path("slug").asString();
         System.out.println("Scraping URL: " + url);
-        Optional<JobOffer> jobOffer = jobOfferRepository.findByUrl(url);
-        if (jobOffer.isPresent()) {
-            return jobOffer.get();
-        }
+        Instant instant = Instant.now();
         JobOffer newJobOffer = new JobOffer();
-        newJobOffer.setDateAdded(LocalDateTime.now());
+        newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
         newJobOffer.setCategory(convertCategoryIdToCategoryName(offerJson.path("categoryId").asInt()));
         newJobOffer.setLocations(convertToLocations(offerJson.path("workplaceType").asString(), offerJson));
@@ -98,6 +102,7 @@ public class JustJoinItService {
         newJobOffer.setEmploymentType(convertToEmploymentType(offerJson.path("workingTime").asString()));
         newJobOffer.setTypeOfContract(convertToTypeOfContract(employmentTypesArray));
         newJobOffer.setWorkModes(convertToWorkModes(offerJson.path("workplaceType").asString()));
+        newJobOffer.setDateLastSeen(instant);
         return newJobOffer;
     }
 

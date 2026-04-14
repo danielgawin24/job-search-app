@@ -8,7 +8,6 @@ import com.jsa.jobsearchapp.scraping.ScrapingService;
 import com.jsa.jobsearchapp.skill.Skill;
 import jakarta.persistence.EntityNotFoundException;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -56,9 +55,17 @@ public class BulldogJobsServiceJSON {
                     break;
                 }
                 for (JsonNode offerJson : jobs) {
-                    JobOffer jobOffer = scrapeOffer((ObjectNode) offerJson);
-                    jobOfferRepository.save(jobOffer);
-                    jobOffers.add(jobOffer);
+                    String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString();
+                    Optional<JobOffer> offerByUrl = jobOfferRepository.findByUrl(url);
+                    if (offerByUrl.isPresent()) {
+                        JobOffer jobOffer = offerByUrl.get();
+                        jobOffer.setDateLastSeen(Instant.now());
+                        jobOfferRepository.save(jobOffer);
+                    } else {
+                        JobOffer jobOffer = scrapeOffer((ObjectNode) offerJson);
+                        jobOfferRepository.save(jobOffer);
+                        jobOffers.add(jobOffer);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -69,35 +76,23 @@ public class BulldogJobsServiceJSON {
     }
 
     private JobOffer scrapeOffer(ObjectNode offerJson) {
+        JobOffer newJobOffer = new JobOffer();
         String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString();
         System.out.println("Scraping URL: " + url);
-        Optional<JobOffer> jobOffer = jobOfferRepository.findByUrl(url);
-        if (jobOffer.isPresent()) {
-            return jobOffer.get();
-        }
-        JobOffer newJobOffer = new JobOffer();
-        newJobOffer.setDateAdded(LocalDateTime.now());
+        Instant instant = Instant.now();
+        newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
         newJobOffer.setCategory("");
-
-
         newJobOffer.setLocations(convertToLocations(offerJson));
-
-
         newJobOffer.setSkills(convertToSkills(offerJson));
-
-
         newJobOffer.setEmployerName(offerJson.path("company").path("name").asString());
         newJobOffer.setSeniority(scrapingService.convertTextToSeniority(offerJson.path("experienceLevel").asString()));
         newJobOffer.setEmploymentType(scrapingService.convertTextToEmploymentType(offerJson.path("employmentType").asString()));
-
-
         newJobOffer.setSalary(convertInputToSalary(offerJson.path("denominatedSalaryLong")));
-
-
         newJobOffer.setTypeOfContract(convertInputToTypeOfContract(offerJson));
 //        newJobOffer.setWorkModes(convertInputToWorkModes(url));
         newJobOffer.setWorkModes(new WorkModes());
+        newJobOffer.setDateLastSeen(instant);
         return newJobOffer;
     }
 

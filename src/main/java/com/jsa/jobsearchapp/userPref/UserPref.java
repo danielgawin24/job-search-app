@@ -10,7 +10,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
@@ -55,13 +54,6 @@ public class UserPref {
     @Column(name = "is_no_location_pref")
     private Boolean isNoLocationPref;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "email_frequency", columnDefinition = "ENUM('DAILY','WEEKLY','MONTHLY')")
-    private EmailFrequency emailFrequency;
-
-    @Column(name = "email_start_date")
-    private LocalDateTime emailStartDate;
-
     @ManyToMany
     @JoinTable(
             name = "user_pref_skill",
@@ -70,7 +62,9 @@ public class UserPref {
     )
     Set<Skill> userPrefSkills;
 
-    private String priorityColumn;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "priority_column", columnDefinition = "ENUM('CITY', 'SENIORITY', 'SALARY_FROM', 'SALARY_TO', 'IS_REMOTE', 'IS_HYBRID', 'IS_ONSITE')")
+    private PriorityColumn priorityColumn;
 
     @Override
     public int hashCode() {

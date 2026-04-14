@@ -7,7 +7,6 @@ import com.jsa.jobsearchapp.location.LocationService;
 import com.jsa.jobsearchapp.request.RequestService;
 import com.jsa.jobsearchapp.scraping.ScrapingService;
 import com.jsa.jobsearchapp.skill.Skill;
-import com.jsa.jobsearchapp.skill.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -29,16 +28,14 @@ public class NoFluffJobsService {
     private final LocationService locationService;
     private final RequestService requestService;
     private final ScrapingService scrapingService;
-    private final SkillRepository skillRepository;
     private final ObjectMapper mapper;
 
-    public NoFluffJobsService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, LocationService locationService, RequestService requestService, ScrapingService scrapingService, SkillRepository skillRepository, ObjectMapper mapper) {
+    public NoFluffJobsService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, LocationService locationService, RequestService requestService, ScrapingService scrapingService, ObjectMapper mapper) {
         this.jobOfferRepository = jobOfferRepository;
         this.locationRepository = locationRepository;
         this.locationService = locationService;
         this.requestService = requestService;
         this.scrapingService = scrapingService;
-        this.skillRepository = skillRepository;
         this.mapper = mapper;
     }
 
@@ -57,11 +54,18 @@ public class NoFluffJobsService {
         }
         for (ObjectNode offerJson : postingsByReferenceMap.values()) {
             String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
+            Optional<JobOffer> offerByUrl = jobOfferRepository.findByUrl(url);
             if (url.contains("zabke")) {
                 continue;
             }
-            JobOffer jobOffer = scrapeOffer(offerJson);
-            jobOffers.add(jobOffer);
+            if (offerByUrl.isPresent()) {
+                JobOffer jobOffer = offerByUrl.get();
+                jobOffer.setDateLastSeen(Instant.now());
+                jobOfferRepository.save(jobOffer);
+            } else {
+                JobOffer jobOffer = scrapeOffer(offerJson);
+                jobOffers.add(jobOffer);
+            }
         }
         try {
             jobOfferRepository.saveAll(jobOffers);
@@ -72,14 +76,11 @@ public class NoFluffJobsService {
     }
 
     private JobOffer scrapeOffer(ObjectNode offerJson) {
+        JobOffer newJobOffer = new JobOffer();
         String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
         System.out.println("Scraping URL: " + url);
-        Optional<JobOffer> jobOffer = jobOfferRepository.findByUrl(url);
-        if (jobOffer.isPresent()) {
-            return jobOffer.get();
-        }
-        JobOffer newJobOffer = new JobOffer();
-        newJobOffer.setDateAdded(LocalDateTime.now());
+        Instant instant = Instant.now();
+        newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
         newJobOffer.setCategory(offerJson.path("category").asString());
         newJobOffer.setLocations(convertToLocations((ObjectNode) offerJson.path("location")));
@@ -91,6 +92,7 @@ public class NoFluffJobsService {
         newJobOffer.setEmploymentType(EmploymentType.UNSPECIFIED);
         newJobOffer.setTypeOfContract(convertToTypeOfContract(offerJson.path("salary").path("type").asString()));
         newJobOffer.setWorkModes(convertToWorkModes(offerJson, url));
+        newJobOffer.setDateLastSeen(instant);
         return newJobOffer;
     }
 

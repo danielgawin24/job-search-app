@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -34,6 +36,10 @@ public class Main3 {
     public static void main(String[] args) throws IOException {
 //        System.out.println("bankowość".matches(".*[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ].*"));
 //        mailService.sendSimpleMail("daniel.gawin.2003@gmail.com", "Dupa Daniel Gawin", "Hej Daniel Gawin");
+        Timestamp ts = Timestamp.from(Instant.now());
+        System.out.println(ts);
+        System.out.println(Instant.now());
+        System.out.println(Instant.now().toEpochMilli());
     }
 //
 //    public static void main(String[] args) {

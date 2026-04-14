@@ -22,8 +22,13 @@ public class UserPrefController {
     }
 
     @PutMapping("/put/{username}")
-    public ResponseEntity<String> replacePreferences(@RequestBody UserPrefRequest request, @PathVariable String username) {
-        return new ResponseEntity<>(userService.updateAllPreferences(username, request), HttpStatus.OK);
+    public ResponseEntity<UserPrefDTO> replacePreferences(@RequestBody UserPrefRequest request, @PathVariable String username) {
+        return new ResponseEntity<>(userService.putPreferences(username, request), HttpStatus.OK);
+    }
+
+    @PatchMapping("/patch/{username}")
+    public ResponseEntity<UserPrefDTO> patchPreferences(@RequestBody UserPrefRequest request, @PathVariable String username) {
+        return new ResponseEntity<>(userService.patchPreferences(username, request), HttpStatus.OK);
     }
 
     /*
