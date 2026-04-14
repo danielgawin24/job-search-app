@@ -6,5 +6,6 @@ public enum PriorityColumn {
     SALARY_FROM,
     IS_REMOTE,
     IS_HYBRID,
-    IS_ONSITE
+    IS_ONSITE,
+    NONE
 }

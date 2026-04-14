@@ -145,6 +145,7 @@ public class JustJoinItService {
         }
         for (String skill : skillNames) {
             if (Objects.equals(skill, "") || scrapingService.isSkillInPolish(skill)) {
+                System.err.println("SKIPPING SKILL?");
                 continue;
             }
             scrapingService.createNewSkillIfNotFoundElseGet(skill, skills);

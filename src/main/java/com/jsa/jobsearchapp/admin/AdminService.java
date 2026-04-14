@@ -77,7 +77,7 @@ public class AdminService {
          TASK E: if email is sent, add offers to history
          input: statusCode of email response
          output: saved history list
-         if save is error i don't know
+         if save is error I don't know
 
          */
         List<User> allUsers = userRepository.findAll();

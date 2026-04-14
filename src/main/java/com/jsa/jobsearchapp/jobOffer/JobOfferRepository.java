@@ -59,7 +59,6 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                             ) THEN 1
                                             ELSE 0
                                             END
-                                            + IF(O.seniority = ?4, 1, 0)
                                             + IF(O.salary_from >= ?5 AND O.salary_from > 0, 1, 0)
                                             + IF(O.is_remote = ?6, 1, 0)
                                             + IF(O.is_hybrid = ?7, 1, 0)
@@ -72,8 +71,9 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                  WHERE OH.url = O.url
                                    AND user_id = ?9
                              )
+                             AND O.seniority = ?4
                          ) t
-                    WHERE t.Offer_Gate_One_Score / ?10 >= 0.4
+                    WHERE t.Offer_Gate_One_Score / ?10 >= 0.1
                 )
             
             SELECT
@@ -95,7 +95,7 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                 WHERE OS.offer_id = O.id AND UPS.user_pref_id = ?1
             )
               AND
-                (?2 IS NULL OR CASE ?2
+                (?2 = 'NONE' OR CASE ?2
                                     WHEN 'CITY' THEN EXISTS (
                                         SELECT 1
                                         FROM offer_location OL
