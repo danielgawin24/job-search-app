@@ -4,25 +4,20 @@ import com.jsa.jobsearchapp.mail.MailService;
 import com.jsa.jobsearchapp.request.RequestService;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.net.http.HttpResponse;
+import java.util.*;
 
 @SuppressWarnings("All")
 public class Main3 {
 
     private static final RequestService requestService = new RequestService();
     private static final ObjectMapper mapper = new ObjectMapper();
-    private static final MailService mailService = new MailService(new JavaMailSenderImpl());
+    private static final MailService mailService = new MailService();
 
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
 //        String justJoinItAPILink = "https://api.justjoin.it/v2/user-panel/offers/by-cursor?currency=pln&from=" + 0 + "&itemsCount=100&orderBy=DESC&sortBy=published";
 //        HttpResponse<String> response = requestService.fetchResponseBody(justJoinItAPILink);
 //        ObjectNode node = (ObjectNode) mapper.readTree(response.body());
@@ -34,12 +29,16 @@ public class Main3 {
 //    }
 
     public static void main(String[] args) throws IOException {
-//        System.out.println("bankowość".matches(".*[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ].*"));
-//        mailService.sendSimpleMail("daniel.gawin.2003@gmail.com", "Dupa Daniel Gawin", "Hej Daniel Gawin");
-        Timestamp ts = Timestamp.from(Instant.now());
-        System.out.println(ts);
-        System.out.println(Instant.now());
-        System.out.println(Instant.now().toEpochMilli());
+        List<String> allOfferUrlsByUserPref = List.of("dupa1", "dupa2", "dupa3", "dupa4", "dupa5", "dupa6");
+        String contents = "";
+        contents += ("Hello,\\nHere are some offers we found for you:\\n");
+        for (String url : allOfferUrlsByUserPref) {
+            contents += url + "\\n";
+        }
+        contents += ("\\nThank you for using JSA (JobSearchApp).");
+
+        HttpResponse<String> stringHttpResponse = mailService.sendSimpleMailAPI("dupa prodTest2", contents);
+        System.out.println(stringHttpResponse.body());
     }
 //
 //    public static void main(String[] args) {

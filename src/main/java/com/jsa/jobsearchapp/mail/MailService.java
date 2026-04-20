@@ -1,6 +1,5 @@
 package com.jsa.jobsearchapp.mail;
 
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -11,10 +10,7 @@ import java.net.http.HttpResponse;
 @Service
 public class MailService {
 
-    private final JavaMailSender mailSender;
-
-    public MailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
+    public MailService() {
     }
 
     public HttpResponse<String> sendSimpleMailAPI(String subject, String contents) {
