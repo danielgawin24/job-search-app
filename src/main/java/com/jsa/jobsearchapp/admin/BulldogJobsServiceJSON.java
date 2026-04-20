@@ -78,7 +78,7 @@ public class BulldogJobsServiceJSON {
     private JobOffer scrapeOffer(ObjectNode offerJson) {
         JobOffer newJobOffer = new JobOffer();
         String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString();
-        System.out.println("Scraping URL: " + url);
+//        System.out.println("Scraping URL: " + url);
         Instant instant = Instant.now();
         newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
@@ -188,25 +188,5 @@ public class BulldogJobsServiceJSON {
 
     private WorkModes convertInputToWorkModes(JsonNode offerJson) {
         return new WorkModes();
-    }
-
-
-    private String translateLabelIfPolish(String text) {
-        if (text == null || text.isEmpty()) return text;
-
-        Map<String, String> translations = new HashMap<>();
-        translations.put("Ważna jeszcze", "Valid for");
-        translations.put("Doświadczenie", "Experience");
-        translations.put("Typ współpracy", "Employment Type");
-        translations.put("Rodzaj umowy", "Contract type");
-        translations.put("Płatny urlop", "Paid holidays");
-        translations.put("Tryb pracy", "Work mode");
-        translations.put("Lokalizacja", "Location");
-        for (Map.Entry<String, String> entry : translations.entrySet()) {
-            if (text.startsWith(entry.getKey())) {
-                return text.replaceFirst(entry.getKey(), entry.getValue());
-            }
-        }
-        return text;
     }
 }

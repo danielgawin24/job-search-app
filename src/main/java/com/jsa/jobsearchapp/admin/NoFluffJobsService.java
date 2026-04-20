@@ -78,14 +78,13 @@ public class NoFluffJobsService {
     private JobOffer scrapeOffer(ObjectNode offerJson) {
         JobOffer newJobOffer = new JobOffer();
         String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
-        System.out.println("Scraping URL: " + url);
+//        System.out.println("Scraping URL: " + url);
         Instant instant = Instant.now();
         newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
         newJobOffer.setCategory(offerJson.path("category").asString());
         newJobOffer.setLocations(convertToLocations((ObjectNode) offerJson.path("location")));
         newJobOffer.setSkills(convertToSkills(offerJson.path("tiles")));
-        newJobOffer.setSkills(new HashSet<>());
         newJobOffer.setSeniority(convertToSeniority((ArrayNode) offerJson.path("seniority")));
         newJobOffer.setSalary(convertToSalary((ObjectNode) offerJson.path("salary")));
         newJobOffer.setEmployerName(offerJson.path("name").asString());

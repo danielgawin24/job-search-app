@@ -7,8 +7,6 @@ import com.jsa.jobsearchapp.jobOffer.Seniority;
 import com.jsa.jobsearchapp.jobOffer.TypeOfContract;
 import com.jsa.jobsearchapp.location.Location;
 import com.jsa.jobsearchapp.location.LocationRepository;
-import com.jsa.jobsearchapp.location.LocationService;
-import com.jsa.jobsearchapp.request.RequestService;
 import com.jsa.jobsearchapp.skill.Skill;
 import com.jsa.jobsearchapp.skill.SkillRepository;
 import org.springframework.stereotype.Service;
@@ -26,15 +24,11 @@ import java.util.regex.Pattern;
 public class ScrapingService {
 
     private final LocationRepository locationRepository;
-    private final LocationService locationService;
-    private final RequestService requestService;
     private final SkillRepository skillRepository;
     private final ObjectMapper mapper;
 
-    public ScrapingService(LocationRepository locationRepository, LocationService locationService, RequestService requestService, SkillRepository skillRepository, ObjectMapper mapper) {
+    public ScrapingService(LocationRepository locationRepository, SkillRepository skillRepository, ObjectMapper mapper) {
         this.locationRepository = locationRepository;
-        this.locationService = locationService;
-        this.requestService = requestService;
         this.skillRepository = skillRepository;
         this.mapper = mapper;
     }
@@ -91,14 +85,13 @@ public class ScrapingService {
     }
 
     public void createNewSkillIfNotFoundElseGet(String skillName, Set<Skill> skills) {
-        if (skillName == null || skillName.isEmpty() || skills.isEmpty()) {
+        if (skillName == null || skillName.isEmpty()) {
             return;
         }
         skillName = skillName.replaceAll("[&,/)(\\[\\]↔]|( or )|( and )|( lub )|(?<!\\+)\\+(?!\\+)", "|");
         String[] split = skillName.split("\\|");
 
         for (String s : split) {
-
             try {
                 String jsonContents = Files.readString(Paths.get("src/main/resources/files/canonical_skills_patterns.json"));
                 JsonNode canonicalSkillsPatterns = mapper.readTree(jsonContents);
@@ -115,7 +108,8 @@ public class ScrapingService {
                     try {
                         skillRepository.save(newSkill);
                         skills.add(newSkill);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             } catch (Exception e) {
@@ -178,7 +172,7 @@ public class ScrapingService {
 
     public String normalizeSkillAliasName(String displayName) {
         if (displayName.isEmpty()) {
-            return null;
+            return "";
         }
         String aliasKey = displayName.toLowerCase();
         aliasKey = aliasKey
@@ -200,7 +194,7 @@ public class ScrapingService {
             sb.append(s).append(" ");
         }
         if (sb.toString().isEmpty() || sb.toString().matches("[^a-zA-Z]+")) {
-            return null;
+            return "";
         }
         return sb.toString().replaceAll("\\s+", " ").trim();
     }
@@ -243,10 +237,7 @@ public class ScrapingService {
             }
         }
         List<String> polishSkillEndings = getTypicalPolishSkillNameEndings();
-        if (polishSkillEndings.stream().anyMatch(s -> cleanedSkill.endsWith(s.toLowerCase()))) {
-            return true;
-        }
-        return false;
+        return polishSkillEndings.stream().anyMatch(s -> cleanedSkill.endsWith(s.toLowerCase()));
     }
 
     private List<String> getTypicalPolishSkillNames() {

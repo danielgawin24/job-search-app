@@ -87,7 +87,7 @@ public class JustJoinItService {
     private JobOffer scrapeOffer(JsonNode offerJson) {
         offerJson.path("requiredSkills").getNodeType();
         String url = "https://www.justjoin.it/job-offer/" + offerJson.path("slug").asString();
-        System.out.println("Scraping URL: " + url);
+//        System.out.println("Scraping URL: " + url);
         Instant instant = Instant.now();
         JobOffer newJobOffer = new JobOffer();
         newJobOffer.setDateAdded(instant);
@@ -145,7 +145,6 @@ public class JustJoinItService {
         }
         for (String skill : skillNames) {
             if (Objects.equals(skill, "") || scrapingService.isSkillInPolish(skill)) {
-                System.err.println("SKIPPING SKILL?");
                 continue;
             }
             scrapingService.createNewSkillIfNotFoundElseGet(skill, skills);
