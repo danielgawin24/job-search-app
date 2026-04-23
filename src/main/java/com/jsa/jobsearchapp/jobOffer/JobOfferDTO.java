@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class JobOfferDTO {
     private EmploymentType employmentType;
     private TypeOfContract typeOfContract;
     private WorkModes workModes;
+    private Instant dateLastSeen;
 
     public JobOfferDTO(JobOffer jobOffer) {
         this.url = jobOffer.getUrl();
@@ -35,5 +37,6 @@ public class JobOfferDTO {
         this.employmentType = jobOffer.getEmploymentType();
         this.typeOfContract = jobOffer.getTypeOfContract();
         this.workModes = jobOffer.getWorkModes();
+        this.dateLastSeen = jobOffer.getDateLastSeen();
     }
 }

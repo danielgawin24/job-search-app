@@ -1,192 +1,129 @@
 package com.jsa.jobsearchapp.admin;
 
 import com.jsa.jobsearchapp.jobOffer.*;
-import com.jsa.jobsearchapp.location.LocationRepository;
 import com.jsa.jobsearchapp.mail.MailService;
 import com.jsa.jobsearchapp.offer_history.History;
 import com.jsa.jobsearchapp.offer_history.HistoryRepository;
-import com.jsa.jobsearchapp.request.RequestService;
-import com.jsa.jobsearchapp.skill.SkillRepository;
 import com.jsa.jobsearchapp.user.User;
 import com.jsa.jobsearchapp.user.UserRepository;
 import com.jsa.jobsearchapp.userPref.UserPref;
 import com.jsa.jobsearchapp.userPref.UserPrefRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
 public class AdminService {
-
     private final BulldogJobsServiceJSON bulldogJobsServiceJSON;
     private final HistoryRepository historyRepository;
+    private final JobOfferCleanupService jobOfferCleanupService;
     private final JobOfferRepository jobOfferRepository;
     private final JustJoinItService justJoinItService;
-    private final LocationRepository locationRepository;
     private final MailService mailService;
     private final NoFluffJobsService noFluffJobsService;
-    private final RequestService requestService;
-    private final SkillRepository skillRepository;
     private final UserPrefRepository userPrefRepository;
     private final UserRepository userRepository;
 
-    public AdminService(BulldogJobsServiceJSON bulldogJobsServiceJSON, HistoryRepository historyRepository, JobOfferRepository jobOfferRepository, JustJoinItService justJoinItService, LocationRepository locationRepository, MailService mailService, NoFluffJobsService noFluffJobsService, RequestService requestService, SkillRepository skillRepository, UserPrefRepository userPrefRepository, UserRepository userRepository) {
+    public AdminService(BulldogJobsServiceJSON bulldogJobsServiceJSON, HistoryRepository historyRepository, JobOfferCleanupService jobOfferCleanupService, JobOfferRepository jobOfferRepository, JustJoinItService justJoinItService, MailService mailService, NoFluffJobsService noFluffJobsService, UserPrefRepository userPrefRepository, UserRepository userRepository) {
         this.bulldogJobsServiceJSON = bulldogJobsServiceJSON;
         this.historyRepository = historyRepository;
+        this.jobOfferCleanupService = jobOfferCleanupService;
         this.jobOfferRepository = jobOfferRepository;
         this.justJoinItService = justJoinItService;
-        this.locationRepository = locationRepository;
         this.mailService = mailService;
         this.noFluffJobsService = noFluffJobsService;
-        this.requestService = requestService;
-        this.skillRepository = skillRepository;
         this.userPrefRepository = userPrefRepository;
         this.userRepository = userRepository;
     }
 
-    @Scheduled(cron = "00 30 01 * * *")
+    @Scheduled(cron = "0 0 4 * * *")
     public String forceImportOffers() {
-        //* 20:38:02
-
-        // delete all offers every single time, set AUTO_INCREMENT default 1? (SQL query in the console_1)
-
-        //TODO
-
-        CompletableFuture<List<JobOffer>> noFluffJobs = noFluffJobsService.getJobOffers();
         CompletableFuture<List<JobOffer>> bulldogJobs = bulldogJobsServiceJSON.getJobOffers();
         CompletableFuture<List<JobOffer>> justJoinIt = justJoinItService.getJobOffers();
-
-        return "Succesfully imported: "
+        CompletableFuture<List<JobOffer>> noFluffJobs = noFluffJobsService.getJobOffers();
+        jobOfferCleanupService.cleanUpOldOffers();
+        return "Successfully imported: "
                 + "JustJoinIT: " + justJoinIt.join().size()
                 + ". NoFluffJobs: " + noFluffJobs.join().size()
                 + ". BulldogJobs: " + bulldogJobs.join().size();
     }
 
-    @Scheduled(cron = "00 00 03 * * *")
+    @Scheduled(cron = "0 15 4 * * *")
     public String forceSendOffers() {
         List<User> allUsers = userRepository.findAll();
+        List<String> usernamesEmailSent = new ArrayList<>();
+        List<String> usernamesEmailNotSent = new ArrayList<>();
         for (User user : allUsers) {
-            UserPref userPref = userPrefRepository.findByUser(user)
-                    .orElseThrow(() -> new EntityNotFoundException("User pref not found: " + user.getUsername()));
-
+            Integer userId = user.getId();
+            Optional<UserPref> userPrefOptional = userPrefRepository.findByUser(user);
+            if (userPrefOptional.isEmpty()) {
+                continue;
+            }
+            UserPref userPref = userPrefOptional.get();
             Integer maxScore = userPrefRepository.calculateMaxScoreByUserPref(userPref.getId());
-            if (maxScore == null) {
-                throw new EntityNotFoundException("User pref not found");
+            if (maxScore == null || maxScore == 0) {
+                continue;
             }
-
-            WorkModes userPrefWorkModes = userPref.getWorkModes();
-            List<String> allOffersByUserPref = jobOfferRepository.findAllUrlsByUserPref(
-                            userPref.getId(),
-                            userPref.getIsNoLocationPref(),
-                            userPref.getCity(),
-                            userPref.getSeniority().name(),
-                            userPref.getSalaryFrom(),
-                            userPrefWorkModes.getIsRemote(),
-                            userPrefWorkModes.getIsHybrid(),
-                            userPrefWorkModes.getIsOnSite(),
-                            user.getId(),
-                            maxScore
-                    ).stream()
-                    .map(OfferMatchProjection::getUrl)
-                    .toList();
-
-            List<History> historyList = new ArrayList<>();
-            StringBuilder sb = new StringBuilder();
-            sb.append("Hello,\nHere are some offers we found for you:\n");
-            for (
-                    String url : allOffersByUserPref) {
-                History history = new History();
-                history.setUserId(user);
-                history.setUrl(url);
-
-                historyList.add(history);
-                sb.append(url).append("\n");
+            WorkModes workModes = userPref.getWorkModes();
+            List<String> allOfferUrlsByUserPref = fetchOffersByUserPref(userPref, workModes, userId, maxScore);
+            if (allOfferUrlsByUserPref.isEmpty()) {
+                continue;
             }
-            sb.append("Thank you for using job search app!");
-
+            String emailContents = generateEmailContents(allOfferUrlsByUserPref, user.getUsername());
             HttpResponse<String> response = mailService.sendSimpleMailAPI(
                     "Job offers for " + user.getUsername(),
-                    sb.toString()
+                    emailContents
             );
-
             if (response.statusCode() == 200) {
+                usernamesEmailSent.add(user.getUsername());
+                List<History> historyList = generateHistoryList(allOfferUrlsByUserPref, user);
                 historyRepository.saveAll(historyList);
+            } else {
+                usernamesEmailNotSent.add(user.getUsername());
             }
         }
-        return "All emails sent correctly.";
+        return "Offers sent for users: " + usernamesEmailSent + " and not sent for: " + usernamesEmailNotSent;
     }
 
-    public Map<String, Integer> findAllByUserPrefOld(UserPref userPref) {
-        WorkModes workModes = userPref.getWorkModes();
-        List<OfferMatchProjectionOld> allByUserPref = jobOfferRepository.findAllByUserPrefOld(
-                userPref.getSeniority().name(),
-                userPref.getSalaryFrom(),
-                userPref.getSalaryTo(),
-                userPref.getEmploymentType().name(),
-                userPref.getTypeOfContract().name(),
-                workModes.getIsRemote(),
-                workModes.getIsHybrid(),
-                workModes.getIsOnSite(),
-                userPref.getCity()
-        );
-        Map<String, Integer> offerUrlToMatchingCountMap = new HashMap<>();
-        for (OfferMatchProjectionOld matchProjection : allByUserPref) {
-            Integer matchCount = matchProjection.getMatchCount();
-            if (matchCount >= 3) {
-                offerUrlToMatchingCountMap.put(matchProjection.getUrl(), matchCount);
-            }
-        }
-        return offerUrlToMatchingCountMap;
-    }
-
-    public List<String> findAllUrlsByUserPref(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        UserPref userPref = userPrefRepository.findByUser(user)
-                .orElseThrow(() -> new EntityNotFoundException("User pref not found: " + user.getUsername()));
-        Integer maxScore = userPrefRepository.calculateMaxScoreByUserPref(userPref.getId());
-        if (maxScore == null) {
-            throw new EntityNotFoundException("User pref not found");
-        }
-        WorkModes userPrefWorkModes = userPref.getWorkModes();
+    private List<String> fetchOffersByUserPref(UserPref userPref, WorkModes workModes, Integer userId, Integer maxScore) {
         return jobOfferRepository.findAllUrlsByUserPref(
                         userPref.getId(),
                         userPref.getIsNoLocationPref(),
                         userPref.getCity(),
                         userPref.getSeniority().name(),
                         userPref.getSalaryFrom(),
-                        userPrefWorkModes.getIsRemote(),
-                        userPrefWorkModes.getIsHybrid(),
-                        userPrefWorkModes.getIsOnSite(),
-                        user.getId(),
+                        workModes.getIsRemote(),
+                        workModes.getIsHybrid(),
+                        workModes.getIsOnSite(),
+                        userId,
                         maxScore
                 ).stream()
                 .map(OfferMatchProjection::getUrl)
                 .toList();
     }
 
-//    public Set<String> getNoFluffUnsavedSKills() {
-//        Set<String> unsavedSkills = new LinkedHashSet<>();
-//        Map<String, JSONObject> postingsByReferenceMap = noFluffJobsService.getReferencePostingMap();
-//        int count = 1;
-//        for (Map.Entry<String, JSONObject> stringJSONObjectEntry : postingsByReferenceMap.entrySet()) {
-//            JSONObject offerJson = stringJSONObjectEntry.getValue();
-//            String url = "https://nofluffjobs.com/pl/job/" + offerJson.getString("url");
-//            unsavedSkills.addAll(scrapingService.noFluffGetUnsavedSkills(url));
-//            count++;
-//        }
-//        return unsavedSkills;
+    private String generateEmailContents(List<String> allOfferUrlsByUserPref, String username) {
+        String contents = "Hello, " + username + "\\nHere are some offers we found for you:\\n";
+        for (String url : allOfferUrlsByUserPref) {
+            contents += url + "\\n";
+        }
+        contents += ("\\nThank you for using JSA (JobSearchApp).");
+        return contents;
+    }
 
-//    }
-//
-//    public Set<String> getJustJoinItUnsavedSKills() {
-//        return new LinkedHashSet<>(justJoinItService.getOfferUrls());
-//    }
+    private List<History> generateHistoryList(List<String> urls, User user) {
+        List<History> historyList = new ArrayList<>();
+        for (String url : urls) {
+            History history = new History();
+            history.setUserId(user);
+            history.setUrl(url);
+            historyList.add(history);
+        }
+        return historyList;
+    }
 }

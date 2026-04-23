@@ -19,7 +19,6 @@ public interface UserPrefRepository extends JpaRepository<UserPref, Integer> {
                        WHEN UP.city IS NULL OR UP.city = '' THEN 0
                        ELSE 1
                        END +
-                   IF(UP.seniority IS NULL, 0, 1) +
                    IF(UP.salary_from IS NULL OR UP.salary_from <= 0, 0, 1) +
                    IF(UP.is_remote IS NULL OR UP.is_remote = 0, 0, 1) +
                    IF(UP.is_hybrid IS NULL OR UP.is_hybrid = 0, 0, 1) +

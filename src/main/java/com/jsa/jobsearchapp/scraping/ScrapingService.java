@@ -2,39 +2,30 @@ package com.jsa.jobsearchapp.scraping;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jsa.jobsearchapp.jobOffer.EmploymentType;
-import com.jsa.jobsearchapp.jobOffer.Seniority;
-import com.jsa.jobsearchapp.jobOffer.TypeOfContract;
+import com.jsa.jobsearchapp.jobOffer.*;
 import com.jsa.jobsearchapp.location.Location;
 import com.jsa.jobsearchapp.location.LocationRepository;
-import com.jsa.jobsearchapp.location.LocationService;
-import com.jsa.jobsearchapp.request.RequestService;
 import com.jsa.jobsearchapp.skill.Skill;
 import com.jsa.jobsearchapp.skill.SkillRepository;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class ScrapingService {
 
+    private final JobOfferRepository jobOfferRepository;
     private final LocationRepository locationRepository;
-    private final LocationService locationService;
-    private final RequestService requestService;
     private final SkillRepository skillRepository;
     private final ObjectMapper mapper;
 
-    public ScrapingService(LocationRepository locationRepository, LocationService locationService, RequestService requestService, SkillRepository skillRepository, ObjectMapper mapper) {
+    public ScrapingService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, SkillRepository skillRepository, ObjectMapper mapper) {
+        this.jobOfferRepository = jobOfferRepository;
         this.locationRepository = locationRepository;
-        this.locationService = locationService;
-        this.requestService = requestService;
         this.skillRepository = skillRepository;
         this.mapper = mapper;
     }
@@ -73,6 +64,20 @@ public class ScrapingService {
         };
     }
 
+    public List<JobOffer> sendJobOffersInSmallerBatches(List<JobOffer> jobOffers) {
+        List<JobOffer> sentJobOffers = new ArrayList<>();
+        for (int i = 0; i < jobOffers.size(); i += 100) {
+            List<JobOffer> batchSubList = jobOffers.subList(i, Math.min(i + 100, jobOffers.size()));
+            try {
+                jobOfferRepository.saveAll(batchSubList);
+                sentJobOffers.addAll(batchSubList);
+            } catch (Exception e) {
+                System.err.println("Failed to send NoFluff job offers at batch " + i);
+            }
+        }
+        return sentJobOffers;
+    }
+
     public void createNewLocationIfNotFoundElseGet(String city, Set<Location> locations) {
         String aliasKey = normalizeCityAliasName(city);
         Optional<Location> location = locationRepository.findByAliasName(aliasKey);
@@ -91,14 +96,13 @@ public class ScrapingService {
     }
 
     public void createNewSkillIfNotFoundElseGet(String skillName, Set<Skill> skills) {
-        if (skillName == null || skillName.isEmpty() || skills.isEmpty()) {
+        if (skillName == null || skillName.isEmpty()) {
             return;
         }
         skillName = skillName.replaceAll("[&,/)(\\[\\]↔]|( or )|( and )|( lub )|(?<!\\+)\\+(?!\\+)", "|");
         String[] split = skillName.split("\\|");
 
         for (String s : split) {
-
             try {
                 String jsonContents = Files.readString(Paths.get("src/main/resources/files/canonical_skills_patterns.json"));
                 JsonNode canonicalSkillsPatterns = mapper.readTree(jsonContents);
@@ -115,7 +119,8 @@ public class ScrapingService {
                     try {
                         skillRepository.save(newSkill);
                         skills.add(newSkill);
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             } catch (Exception e) {
@@ -178,7 +183,7 @@ public class ScrapingService {
 
     public String normalizeSkillAliasName(String displayName) {
         if (displayName.isEmpty()) {
-            return null;
+            return "";
         }
         String aliasKey = displayName.toLowerCase();
         aliasKey = aliasKey
@@ -200,7 +205,7 @@ public class ScrapingService {
             sb.append(s).append(" ");
         }
         if (sb.toString().isEmpty() || sb.toString().matches("[^a-zA-Z]+")) {
-            return null;
+            return "";
         }
         return sb.toString().replaceAll("\\s+", " ").trim();
     }
@@ -243,10 +248,7 @@ public class ScrapingService {
             }
         }
         List<String> polishSkillEndings = getTypicalPolishSkillNameEndings();
-        if (polishSkillEndings.stream().anyMatch(s -> cleanedSkill.endsWith(s.toLowerCase()))) {
-            return true;
-        }
-        return false;
+        return polishSkillEndings.stream().anyMatch(s -> cleanedSkill.endsWith(s.toLowerCase()));
     }
 
     private List<String> getTypicalPolishSkillNames() {

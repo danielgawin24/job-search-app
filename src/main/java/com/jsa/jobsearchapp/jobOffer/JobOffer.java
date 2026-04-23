@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Objects;
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class JobOffer {
     private Integer id;
 
     @Column(nullable = false, name = "date_added")
-    private LocalDateTime dateAdded;
+    private Instant dateAdded;
 
     @Column(nullable = false)
     private String url;
@@ -84,6 +84,9 @@ public class JobOffer {
             @AttributeOverride(name = "isOnSite", column = @Column(name = "is_on_site"))
     })
     private WorkModes workModes;
+
+    @Column(nullable = false, name = "date_last_seen")
+    private Instant dateLastSeen;
 
     @Override
     public int hashCode() {

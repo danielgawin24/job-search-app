@@ -7,7 +7,6 @@ import com.jsa.jobsearchapp.location.LocationService;
 import com.jsa.jobsearchapp.request.RequestService;
 import com.jsa.jobsearchapp.scraping.ScrapingService;
 import com.jsa.jobsearchapp.skill.Skill;
-import com.jsa.jobsearchapp.skill.SkillRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import tools.jackson.databind.node.ArrayNode;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -29,16 +28,14 @@ public class NoFluffJobsService {
     private final LocationService locationService;
     private final RequestService requestService;
     private final ScrapingService scrapingService;
-    private final SkillRepository skillRepository;
     private final ObjectMapper mapper;
 
-    public NoFluffJobsService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, LocationService locationService, RequestService requestService, ScrapingService scrapingService, SkillRepository skillRepository, ObjectMapper mapper) {
+    public NoFluffJobsService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, LocationService locationService, RequestService requestService, ScrapingService scrapingService, ObjectMapper mapper) {
         this.jobOfferRepository = jobOfferRepository;
         this.locationRepository = locationRepository;
         this.locationService = locationService;
         this.requestService = requestService;
         this.scrapingService = scrapingService;
-        this.skillRepository = skillRepository;
         this.mapper = mapper;
     }
 
@@ -52,51 +49,51 @@ public class NoFluffJobsService {
         Map<String, ObjectNode> postingsByReferenceMap = new LinkedHashMap<>();
         for (int i = 0; i < postings.size(); i++) {
             ObjectNode postingOffer = (ObjectNode) postings.get(i);
-            String reference = postingOffer.path("reference").asString();
+            String reference = postingOffer.path("reference").asString("");
             postingsByReferenceMap.putIfAbsent(reference, postingOffer);
         }
         for (ObjectNode offerJson : postingsByReferenceMap.values()) {
-            String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
+            String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString("");
+            Optional<JobOffer> offerByUrl = jobOfferRepository.findByUrl(url);
             if (url.contains("zabke")) {
                 continue;
             }
-            JobOffer jobOffer = scrapeOffer(offerJson);
-            jobOffers.add(jobOffer);
+            if (offerByUrl.isPresent()) {
+                JobOffer jobOffer = offerByUrl.get();
+                jobOffer.setDateLastSeen(Instant.now());
+                jobOfferRepository.save(jobOffer);
+            } else {
+                JobOffer jobOffer = scrapeOffer(offerJson);
+                jobOffers.add(jobOffer);
+            }
         }
-        try {
-            jobOfferRepository.saveAll(jobOffers);
-        } catch (Exception e) {
-            System.err.println("Failed to save jobOffers list in NoFluffJobsService. Error: " + e.getMessage());
-        }
-        return CompletableFuture.completedFuture(jobOffers);
+        List<JobOffer> sentJobOffers = scrapingService.sendJobOffersInSmallerBatches(jobOffers);
+        return CompletableFuture.completedFuture(sentJobOffers);
     }
 
     private JobOffer scrapeOffer(ObjectNode offerJson) {
-        String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
-        System.out.println("Scraping URL: " + url);
-        Optional<JobOffer> jobOffer = jobOfferRepository.findByUrl(url);
-        if (jobOffer.isPresent()) {
-            return jobOffer.get();
-        }
         JobOffer newJobOffer = new JobOffer();
-        newJobOffer.setDateAdded(LocalDateTime.now());
+        String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString("");
+//        System.out.println("Scraping URL: " + url);
+        Instant instant = Instant.now();
+        newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
-        newJobOffer.setCategory(offerJson.path("category").asString());
+        newJobOffer.setCategory(offerJson.path("category").asString(""));
         newJobOffer.setLocations(convertToLocations((ObjectNode) offerJson.path("location")));
         newJobOffer.setSkills(convertToSkills(offerJson.path("tiles")));
-        newJobOffer.setSkills(new HashSet<>());
         newJobOffer.setSeniority(convertToSeniority((ArrayNode) offerJson.path("seniority")));
         newJobOffer.setSalary(convertToSalary((ObjectNode) offerJson.path("salary")));
-        newJobOffer.setEmployerName(offerJson.path("name").asString());
+        newJobOffer.setEmployerName(offerJson.path("name").asString(""));
         newJobOffer.setEmploymentType(EmploymentType.UNSPECIFIED);
-        newJobOffer.setTypeOfContract(convertToTypeOfContract(offerJson.path("salary").path("type").asString()));
+        newJobOffer.setTypeOfContract(convertToTypeOfContract(offerJson.path("salary").path("type").asString("")));
         newJobOffer.setWorkModes(convertToWorkModes(offerJson, url));
+        newJobOffer.setDateLastSeen(instant);
         return newJobOffer;
     }
 
     private Set<Location> convertToLocations(ObjectNode locationJson) {
         Set<Location> locations = new HashSet<>();
-        if (locationJson.path("fullyRemote").asBoolean()) {
+        if (locationJson.path("fullyRemote").asBoolean(false)) {
             Optional<Location> locationOpt = locationRepository.findByAliasName("fullremote");
             Location location = locationOpt.orElseThrow(() ->
                     new EntityNotFoundException("Location 'Full-Remote' not found."));
@@ -105,7 +102,7 @@ public class NoFluffJobsService {
             ArrayNode locationPlaces = (ArrayNode) locationJson.path("places");
             for (int i = 0; i < locationPlaces.size(); i++) {
                 List<String> voivodeships = locationService.getAllPolishVoivodeships();
-                String city = locationPlaces.get(i).path("city").asString();
+                String city = locationPlaces.get(i).path("city").asString("");
                 if (voivodeships.contains(city) || Objects.equals(city, "")) {
                     continue;
                 }
@@ -120,8 +117,8 @@ public class NoFluffJobsService {
         ArrayNode valuesArray = (ArrayNode) tiles.path("values");
         List<String> skillNames = new ArrayList<>();
         for (JsonNode pair : valuesArray) {
-            String value = pair.path("value").asString();
-            String type = pair.path("type").asString();
+            String value = pair.path("value").asString("");
+            String type = pair.path("type").asString("");
             if (type.equalsIgnoreCase("requirement")) {
                 skillNames.add(value);
             }
@@ -136,24 +133,24 @@ public class NoFluffJobsService {
     }
 
     private Seniority convertToSeniority(ArrayNode seniorityArray) {
-        return scrapingService.convertTextToSeniority(seniorityArray.get(0).asString());
+        return scrapingService.convertTextToSeniority(seniorityArray.get(0).asString(""));
     }
 
     private Salary convertToSalary(ObjectNode salaryObject) {
         Salary salary = new Salary();
         salary.setType(SalaryType.SPECIFIED);
         try {
-            salary.setFrom(salaryObject.path("from").asDouble());
+            salary.setFrom(salaryObject.path("from").asDouble(0.0d));
         } catch (Exception e) {
             salary.setFrom(null);
         }
         try {
-            salary.setTo(salaryObject.path("to").asDouble());
+            salary.setTo(salaryObject.path("to").asDouble(0.0d));
         } catch (Exception e) {
             salary.setTo(null);
         }
-        salary.setCurrency(salaryObject.path("currency").asString());
-        salary.setIsGross(!salaryObject.path("type").asString().equalsIgnoreCase("b2b"));
+        salary.setCurrency(salaryObject.path("currency").asString(""));
+        salary.setIsGross(!salaryObject.path("type").asString("").equalsIgnoreCase("b2b"));
         return salary;
     }
 

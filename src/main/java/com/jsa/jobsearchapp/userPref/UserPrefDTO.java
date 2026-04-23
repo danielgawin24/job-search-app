@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +22,8 @@ public class UserPrefDTO {
     private EmploymentType employmentType;
     private TypeOfContract typeOfContract;
     private WorkModes workModes;
-    private String emailFrequency;
-    private LocalDateTime emailStartDate;
+    private List<String> skills;
+    private PriorityColumn priorityColumn;
+    private Boolean isNoLocationPref;
 
 }

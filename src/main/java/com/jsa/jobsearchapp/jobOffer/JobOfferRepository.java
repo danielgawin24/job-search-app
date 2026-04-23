@@ -1,38 +1,16 @@
 package com.jsa.jobsearchapp.jobOffer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.NativeQuery;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
 
     Optional<JobOffer> findByUrl(String url);
-
-    @NativeQuery(value = """
-            SELECT o.url,
-                   (
-                       IF(o.seniority = :seniority, 1, 0) +
-                       IF(o.salary_from >= :salaryFrom && o.salary_to <= :salaryTo, 1, 0) +
-                       IF(o.employment_type = :employmentType, 1, 0) +
-                       IF(o.type_of_contract = :typeOfContract, 1, 0) +
-                       IF(o.is_remote = :isRemote && o.is_hybrid = :isHybrid && o.is_on_site = :isOnSite, 1, 0)
-                       ) AS 'match_count'
-            FROM offer o;
-            """)
-    List<OfferMatchProjectionOld> findAllByUserPrefOld(
-            String seniority,
-            Double salaryFrom,
-            Double salaryTo,
-            String employmentType,
-            String typeOfContract,
-            boolean isRemote,
-            boolean isHybrid,
-            boolean isOnSite,
-            String locationsString
-    );
 
     @Query(value = """
             WITH gateOneOffers
@@ -59,7 +37,6 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                             ) THEN 1
                                             ELSE 0
                                             END
-                                            + IF(O.seniority = ?4, 1, 0)
                                             + IF(O.salary_from >= ?5 AND O.salary_from > 0, 1, 0)
                                             + IF(O.is_remote = ?6, 1, 0)
                                             + IF(O.is_hybrid = ?7, 1, 0)
@@ -67,13 +44,14 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                         ) AS Offer_Gate_One_Score
                              FROM offer O
                              WHERE NOT EXISTS (
-                                 SELECT 1
-                                 FROM offer_history OH
-                                 WHERE OH.url = O.url
-                                   AND user_id = ?9
-                             )
+                                     SELECT 1
+                                     FROM offer_history OH
+                                     WHERE OH.url = O.url
+                                       AND user_id = ?9
+                                 )
+                                 AND O.seniority = ?4
                          ) t
-                    WHERE t.Offer_Gate_One_Score / ?10 >= 0.4
+                    WHERE t.Offer_Gate_One_Score / ?10 >= 0.1
                 )
             
             SELECT
@@ -95,8 +73,8 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                 WHERE OS.offer_id = O.id AND UPS.user_pref_id = ?1
             )
               AND
-                (?2 IS NULL OR CASE ?2
-                                    WHEN 'city' THEN EXISTS (
+                (?2 = 'NONE' OR CASE ?2
+                                    WHEN 'CITY' THEN EXISTS (
                                         SELECT 1
                                         FROM offer_location OL
                                                  JOIN location L
@@ -104,11 +82,11 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                         WHERE ol.offer_id = O.id
                                           AND L.alias_name = ?3
                                     )
-                                    WHEN 'seniority' THEN O.seniority = ?4
-                                    WHEN 'salaryFrom' THEN O.salaryFrom >= ?5 AND O.salaryFrom > 0
-                                    WHEN 'isRemote' THEN O.isRemote = ?6
-                                    WHEN 'isHybrid' THEN O.isHybrid = ?7
-                                    WHEN 'isOnSite' THEN O.isOnSite = ?8
+                                    WHEN 'SENIORITY' THEN O.seniority = ?4
+                                    WHEN 'SALARY_FROM' THEN O.salaryFrom >= ?5 AND O.salaryFrom > 0
+                                    WHEN 'IS_REMOTE' THEN O.isRemote = ?6
+                                    WHEN 'IS_HYBRID' THEN O.isHybrid = ?7
+                                    WHEN 'IS_ONSITE' THEN O.isOnSite = ?8
                     END);""",
             nativeQuery = true)
     List<OfferMatchProjection> findAllUrlsByUserPref(
@@ -124,5 +102,6 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
             int maxScore
     );
 
-    List<JobOffer> findTop5By();
+    @Modifying
+    void deleteInBulkByDateLastSeenBefore(Instant dateLastSeen);
 }
