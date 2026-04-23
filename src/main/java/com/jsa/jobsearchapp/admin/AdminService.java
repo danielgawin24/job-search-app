@@ -1,13 +1,9 @@
 package com.jsa.jobsearchapp.admin;
 
-import com.jsa.jobsearchapp.jobOffer.JobOffer;
-import com.jsa.jobsearchapp.jobOffer.JobOfferRepository;
-import com.jsa.jobsearchapp.jobOffer.OfferMatchProjection;
-import com.jsa.jobsearchapp.jobOffer.WorkModes;
+import com.jsa.jobsearchapp.jobOffer.*;
 import com.jsa.jobsearchapp.mail.MailService;
 import com.jsa.jobsearchapp.offer_history.History;
 import com.jsa.jobsearchapp.offer_history.HistoryRepository;
-import com.jsa.jobsearchapp.scraping.ScrapingService;
 import com.jsa.jobsearchapp.user.User;
 import com.jsa.jobsearchapp.user.UserRepository;
 import com.jsa.jobsearchapp.userPref.UserPref;
@@ -25,35 +21,32 @@ import java.util.concurrent.CompletableFuture;
 public class AdminService {
     private final BulldogJobsServiceJSON bulldogJobsServiceJSON;
     private final HistoryRepository historyRepository;
+    private final JobOfferCleanupService jobOfferCleanupService;
     private final JobOfferRepository jobOfferRepository;
     private final JustJoinItService justJoinItService;
     private final MailService mailService;
     private final NoFluffJobsService noFluffJobsService;
     private final UserPrefRepository userPrefRepository;
     private final UserRepository userRepository;
-    private final ScrapingService scrapingService;
 
-    public AdminService(BulldogJobsServiceJSON bulldogJobsServiceJSON, HistoryRepository historyRepository, JobOfferRepository jobOfferRepository, JustJoinItService justJoinItService, MailService mailService, NoFluffJobsService noFluffJobsService, UserPrefRepository userPrefRepository, UserRepository userRepository, ScrapingService scrapingService) {
+    public AdminService(BulldogJobsServiceJSON bulldogJobsServiceJSON, HistoryRepository historyRepository, JobOfferCleanupService jobOfferCleanupService, JobOfferRepository jobOfferRepository, JustJoinItService justJoinItService, MailService mailService, NoFluffJobsService noFluffJobsService, UserPrefRepository userPrefRepository, UserRepository userRepository) {
         this.bulldogJobsServiceJSON = bulldogJobsServiceJSON;
         this.historyRepository = historyRepository;
+        this.jobOfferCleanupService = jobOfferCleanupService;
         this.jobOfferRepository = jobOfferRepository;
         this.justJoinItService = justJoinItService;
         this.mailService = mailService;
         this.noFluffJobsService = noFluffJobsService;
         this.userPrefRepository = userPrefRepository;
         this.userRepository = userRepository;
-        this.scrapingService = scrapingService;
     }
 
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 0 4 * * *")
     public String forceImportOffers() {
         CompletableFuture<List<JobOffer>> bulldogJobs = bulldogJobsServiceJSON.getJobOffers();
         CompletableFuture<List<JobOffer>> justJoinIt = justJoinItService.getJobOffers();
         CompletableFuture<List<JobOffer>> noFluffJobs = noFluffJobsService.getJobOffers();
-        List<JobOffer> allOffers = jobOfferRepository.findAll();
-        for (JobOffer offer : allOffers) {
-            scrapingService.validateShouldOfferBeMarkedAsInactive(offer);
-        }
+        jobOfferCleanupService.cleanUpOldOffers();
         return "Successfully imported: "
                 + "JustJoinIT: " + justJoinIt.join().size()
                 + ". NoFluffJobs: " + noFluffJobs.join().size()
@@ -64,6 +57,7 @@ public class AdminService {
     public String forceSendOffers() {
         List<User> allUsers = userRepository.findAll();
         List<String> usernamesEmailSent = new ArrayList<>();
+        List<String> usernamesEmailNotSent = new ArrayList<>();
         for (User user : allUsers) {
             Integer userId = user.getId();
             Optional<UserPref> userPrefOptional = userPrefRepository.findByUser(user);
@@ -80,7 +74,7 @@ public class AdminService {
             if (allOfferUrlsByUserPref.isEmpty()) {
                 continue;
             }
-            String emailContents = generateEmailContents(allOfferUrlsByUserPref);
+            String emailContents = generateEmailContents(allOfferUrlsByUserPref, user.getUsername());
             HttpResponse<String> response = mailService.sendSimpleMailAPI(
                     "Job offers for " + user.getUsername(),
                     emailContents
@@ -90,10 +84,10 @@ public class AdminService {
                 List<History> historyList = generateHistoryList(allOfferUrlsByUserPref, user);
                 historyRepository.saveAll(historyList);
             } else {
-                return response.body();
+                usernamesEmailNotSent.add(user.getUsername());
             }
         }
-        return "Offers sent for users: " + usernamesEmailSent;
+        return "Offers sent for users: " + usernamesEmailSent + " and not sent for: " + usernamesEmailNotSent;
     }
 
     private List<String> fetchOffersByUserPref(UserPref userPref, WorkModes workModes, Integer userId, Integer maxScore) {
@@ -113,8 +107,8 @@ public class AdminService {
                 .toList();
     }
 
-    private String generateEmailContents(List<String> allOfferUrlsByUserPref) {
-        String contents = "Hello,\\nHere are some offers we found for you:\\n";
+    private String generateEmailContents(List<String> allOfferUrlsByUserPref, String username) {
+        String contents = "Hello, " + username + "\\nHere are some offers we found for you:\\n";
         for (String url : allOfferUrlsByUserPref) {
             contents += url + "\\n";
         }

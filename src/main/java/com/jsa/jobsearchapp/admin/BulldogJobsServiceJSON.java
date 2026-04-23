@@ -55,15 +55,14 @@ public class BulldogJobsServiceJSON {
                     break;
                 }
                 for (JsonNode offerJson : jobs) {
-                    String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString();
+                    String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString("");
                     Optional<JobOffer> offerByUrl = jobOfferRepository.findByUrl(url);
                     if (offerByUrl.isPresent()) {
                         JobOffer jobOffer = offerByUrl.get();
                         jobOffer.setDateLastSeen(Instant.now());
                         jobOfferRepository.save(jobOffer);
                     } else {
-                        JobOffer jobOffer = scrapeOffer((ObjectNode) offerJson);
-                        jobOfferRepository.save(jobOffer);
+                        JobOffer jobOffer = scrapeOffer(offerJson);
                         jobOffers.add(jobOffer);
                     }
                 }
@@ -72,12 +71,14 @@ public class BulldogJobsServiceJSON {
                 break;
             }
         }
-        return CompletableFuture.completedFuture(jobOffers);
+        List<JobOffer> sentJobOffers = scrapingService.sendJobOffersInSmallerBatches(jobOffers);
+        return CompletableFuture.completedFuture(sentJobOffers);
     }
 
-    private JobOffer scrapeOffer(ObjectNode offerJson) {
+    private JobOffer scrapeOffer(JsonNode offerJson) {
         JobOffer newJobOffer = new JobOffer();
-        String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString();
+        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(offerJson));
+        String url = "https://bulldogjob.pl/companies/jobs/" + offerJson.path("id").asString("");
 //        System.out.println("Scraping URL: " + url);
         Instant instant = Instant.now();
         newJobOffer.setDateAdded(instant);
@@ -85,26 +86,25 @@ public class BulldogJobsServiceJSON {
         newJobOffer.setCategory("");
         newJobOffer.setLocations(convertToLocations(offerJson));
         newJobOffer.setSkills(convertToSkills(offerJson));
-        newJobOffer.setEmployerName(offerJson.path("company").path("name").asString());
-        newJobOffer.setSeniority(scrapingService.convertTextToSeniority(offerJson.path("experienceLevel").asString()));
-        newJobOffer.setEmploymentType(scrapingService.convertTextToEmploymentType(offerJson.path("employmentType").asString()));
+        newJobOffer.setEmployerName(offerJson.path("company").path("name").asString(""));
+        newJobOffer.setSeniority(scrapingService.convertTextToSeniority(offerJson.path("experienceLevel").asString("")));
+        newJobOffer.setEmploymentType(scrapingService.convertTextToEmploymentType(offerJson.path("employmentType").asString("")));
         newJobOffer.setSalary(convertInputToSalary(offerJson.path("denominatedSalaryLong")));
         newJobOffer.setTypeOfContract(convertInputToTypeOfContract(offerJson));
-//        newJobOffer.setWorkModes(convertInputToWorkModes(url));
-        newJobOffer.setWorkModes(new WorkModes());
+        newJobOffer.setWorkModes(convertInputToWorkModes(offerJson));
         newJobOffer.setDateLastSeen(instant);
         return newJobOffer;
     }
 
-    private Set<Location> convertToLocations(ObjectNode offerJson) {
+    private Set<Location> convertToLocations(JsonNode offerJson) {
         Set<Location> locations = new HashSet<>();
-        if (offerJson.path("remote").asBoolean()) {
+        if (offerJson.path("remote").asBoolean(false)) {
             Optional<Location> locationOpt = locationRepository.findByAliasName("fullremote");
             Location location = locationOpt.orElseThrow(() ->
                     new EntityNotFoundException("Location 'Full-Remote' not found."));
             locations.add(location);
         } else {
-            String cityJsonString = offerJson.path("city").asString();
+            String cityJsonString = offerJson.path("city").asString("");
             List<String> citiesList = Arrays.stream(cityJsonString.split(","))
                     .map(String::trim)
                     .toList();
@@ -118,7 +118,7 @@ public class BulldogJobsServiceJSON {
         return locations;
     }
 
-    private Set<Skill> convertToSkills(ObjectNode offerJson) {
+    private Set<Skill> convertToSkills(JsonNode offerJson) {
         JsonNode technologyTags = offerJson.path("technologyTags");
         if (technologyTags.getNodeType().toString().equalsIgnoreCase("null")) {
             return Collections.emptySet();
@@ -127,7 +127,7 @@ public class BulldogJobsServiceJSON {
         ArrayNode skillsArray = (ArrayNode) technologyTags;
         List<String> skillNames = new ArrayList<>();
         for (int i = 0; i < skillsArray.size(); i++) {
-            skillNames.add(skillsArray.path(i).asString());
+            skillNames.add(skillsArray.path(i).asString(""));
         }
         for (String skill : skillNames) {
             if (Objects.equals(skill, "") || scrapingService.isSkillInPolish(skill)) {
@@ -139,8 +139,8 @@ public class BulldogJobsServiceJSON {
     }
 
     private Salary convertInputToSalary(JsonNode salaryJson) {
-        String money = salaryJson.path("money").asString();
-        String salaryCurrency = salaryJson.path("currency").asString();
+        String money = salaryJson.path("money").asString("");
+        String salaryCurrency = salaryJson.path("currency").asString("");
         Salary salary = new Salary();
         if (money == null || salaryCurrency == null || salaryCurrency.isEmpty()) {
             return salary;
@@ -174,9 +174,9 @@ public class BulldogJobsServiceJSON {
         return salary;
     }
 
-    private TypeOfContract convertInputToTypeOfContract(ObjectNode offerJson) {
-        boolean isContractB2b = offerJson.path("contractB2b").asBoolean();
-        boolean isContractPermanent = offerJson.path("contractEmployment").asBoolean();
+    private TypeOfContract convertInputToTypeOfContract(JsonNode offerJson) {
+        boolean isContractB2b = offerJson.path("contractB2b").asBoolean(false);
+        boolean isContractPermanent = offerJson.path("contractEmployment").asBoolean(false);
         if (isContractB2b) {
             return TypeOfContract.B2B;
         } else if (isContractPermanent) {
@@ -187,6 +187,25 @@ public class BulldogJobsServiceJSON {
     }
 
     private WorkModes convertInputToWorkModes(JsonNode offerJson) {
-        return new WorkModes();
+        boolean remote = offerJson.path("remote").asBoolean(false);
+        String city = offerJson.path("city").asString("");
+        boolean remotePossible = offerJson.path("environment")
+                .path("remotePossible")
+                .asBoolean(false);
+        WorkModes wm = new WorkModes();
+        if (remote) {
+            return wm.setExclusiveMode("remote");
+        }
+        if (remotePossible) {
+            wm.setIsRemote(true);
+            wm.setIsHybrid(true);
+        }
+        if (!city.isBlank()) {
+            wm.setIsOnSite(true);
+        }
+        if (!remotePossible && city.isBlank()) {
+            wm.setIsOnSite(true);
+        }
+        return wm;
     }
 }

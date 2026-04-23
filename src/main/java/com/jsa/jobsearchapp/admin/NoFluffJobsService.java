@@ -49,11 +49,11 @@ public class NoFluffJobsService {
         Map<String, ObjectNode> postingsByReferenceMap = new LinkedHashMap<>();
         for (int i = 0; i < postings.size(); i++) {
             ObjectNode postingOffer = (ObjectNode) postings.get(i);
-            String reference = postingOffer.path("reference").asString();
+            String reference = postingOffer.path("reference").asString("");
             postingsByReferenceMap.putIfAbsent(reference, postingOffer);
         }
         for (ObjectNode offerJson : postingsByReferenceMap.values()) {
-            String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
+            String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString("");
             Optional<JobOffer> offerByUrl = jobOfferRepository.findByUrl(url);
             if (url.contains("zabke")) {
                 continue;
@@ -67,29 +67,25 @@ public class NoFluffJobsService {
                 jobOffers.add(jobOffer);
             }
         }
-        try {
-            jobOfferRepository.saveAll(jobOffers);
-        } catch (Exception e) {
-            System.err.println("Failed to save jobOffers list in NoFluffJobsService. Error: " + e.getMessage());
-        }
-        return CompletableFuture.completedFuture(jobOffers);
+        List<JobOffer> sentJobOffers = scrapingService.sendJobOffersInSmallerBatches(jobOffers);
+        return CompletableFuture.completedFuture(sentJobOffers);
     }
 
     private JobOffer scrapeOffer(ObjectNode offerJson) {
         JobOffer newJobOffer = new JobOffer();
-        String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString();
+        String url = "https://nofluffjobs.com/pl/job/" + offerJson.path("url").asString("");
 //        System.out.println("Scraping URL: " + url);
         Instant instant = Instant.now();
         newJobOffer.setDateAdded(instant);
         newJobOffer.setUrl(url);
-        newJobOffer.setCategory(offerJson.path("category").asString());
+        newJobOffer.setCategory(offerJson.path("category").asString(""));
         newJobOffer.setLocations(convertToLocations((ObjectNode) offerJson.path("location")));
         newJobOffer.setSkills(convertToSkills(offerJson.path("tiles")));
         newJobOffer.setSeniority(convertToSeniority((ArrayNode) offerJson.path("seniority")));
         newJobOffer.setSalary(convertToSalary((ObjectNode) offerJson.path("salary")));
-        newJobOffer.setEmployerName(offerJson.path("name").asString());
+        newJobOffer.setEmployerName(offerJson.path("name").asString(""));
         newJobOffer.setEmploymentType(EmploymentType.UNSPECIFIED);
-        newJobOffer.setTypeOfContract(convertToTypeOfContract(offerJson.path("salary").path("type").asString()));
+        newJobOffer.setTypeOfContract(convertToTypeOfContract(offerJson.path("salary").path("type").asString("")));
         newJobOffer.setWorkModes(convertToWorkModes(offerJson, url));
         newJobOffer.setDateLastSeen(instant);
         return newJobOffer;
@@ -97,7 +93,7 @@ public class NoFluffJobsService {
 
     private Set<Location> convertToLocations(ObjectNode locationJson) {
         Set<Location> locations = new HashSet<>();
-        if (locationJson.path("fullyRemote").asBoolean()) {
+        if (locationJson.path("fullyRemote").asBoolean(false)) {
             Optional<Location> locationOpt = locationRepository.findByAliasName("fullremote");
             Location location = locationOpt.orElseThrow(() ->
                     new EntityNotFoundException("Location 'Full-Remote' not found."));
@@ -106,7 +102,7 @@ public class NoFluffJobsService {
             ArrayNode locationPlaces = (ArrayNode) locationJson.path("places");
             for (int i = 0; i < locationPlaces.size(); i++) {
                 List<String> voivodeships = locationService.getAllPolishVoivodeships();
-                String city = locationPlaces.get(i).path("city").asString();
+                String city = locationPlaces.get(i).path("city").asString("");
                 if (voivodeships.contains(city) || Objects.equals(city, "")) {
                     continue;
                 }
@@ -121,8 +117,8 @@ public class NoFluffJobsService {
         ArrayNode valuesArray = (ArrayNode) tiles.path("values");
         List<String> skillNames = new ArrayList<>();
         for (JsonNode pair : valuesArray) {
-            String value = pair.path("value").asString();
-            String type = pair.path("type").asString();
+            String value = pair.path("value").asString("");
+            String type = pair.path("type").asString("");
             if (type.equalsIgnoreCase("requirement")) {
                 skillNames.add(value);
             }
@@ -137,24 +133,24 @@ public class NoFluffJobsService {
     }
 
     private Seniority convertToSeniority(ArrayNode seniorityArray) {
-        return scrapingService.convertTextToSeniority(seniorityArray.get(0).asString());
+        return scrapingService.convertTextToSeniority(seniorityArray.get(0).asString(""));
     }
 
     private Salary convertToSalary(ObjectNode salaryObject) {
         Salary salary = new Salary();
         salary.setType(SalaryType.SPECIFIED);
         try {
-            salary.setFrom(salaryObject.path("from").asDouble());
+            salary.setFrom(salaryObject.path("from").asDouble(0.0d));
         } catch (Exception e) {
             salary.setFrom(null);
         }
         try {
-            salary.setTo(salaryObject.path("to").asDouble());
+            salary.setTo(salaryObject.path("to").asDouble(0.0d));
         } catch (Exception e) {
             salary.setTo(null);
         }
-        salary.setCurrency(salaryObject.path("currency").asString());
-        salary.setIsGross(!salaryObject.path("type").asString().equalsIgnoreCase("b2b"));
+        salary.setCurrency(salaryObject.path("currency").asString(""));
+        salary.setIsGross(!salaryObject.path("type").asString("").equalsIgnoreCase("b2b"));
         return salary;
     }
 

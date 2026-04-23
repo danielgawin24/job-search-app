@@ -1,38 +1,16 @@
 package com.jsa.jobsearchapp.jobOffer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.NativeQuery;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
 
     Optional<JobOffer> findByUrl(String url);
-
-    @NativeQuery(value = """
-            SELECT o.url,
-                   (
-                       IF(o.seniority = :seniority, 1, 0) +
-                       IF(o.salary_from >= :salaryFrom && o.salary_to <= :salaryTo, 1, 0) +
-                       IF(o.employment_type = :employmentType, 1, 0) +
-                       IF(o.type_of_contract = :typeOfContract, 1, 0) +
-                       IF(o.is_remote = :isRemote && o.is_hybrid = :isHybrid && o.is_on_site = :isOnSite, 1, 0)
-                       ) AS 'match_count'
-            FROM offer o;
-            """)
-    List<OfferMatchProjectionOld> findAllByUserPrefOld(
-            String seniority,
-            Double salaryFrom,
-            Double salaryTo,
-            String employmentType,
-            String typeOfContract,
-            boolean isRemote,
-            boolean isHybrid,
-            boolean isOnSite,
-            String locationsString
-    );
 
     @Query(value = """
             WITH gateOneOffers
@@ -66,12 +44,12 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
                                         ) AS Offer_Gate_One_Score
                              FROM offer O
                              WHERE NOT EXISTS (
-                                 SELECT 1
-                                 FROM offer_history OH
-                                 WHERE OH.url = O.url
-                                   AND user_id = ?9
-                             )
-                             AND O.seniority = ?4
+                                     SELECT 1
+                                     FROM offer_history OH
+                                     WHERE OH.url = O.url
+                                       AND user_id = ?9
+                                 )
+                                 AND O.seniority = ?4
                          ) t
                     WHERE t.Offer_Gate_One_Score / ?10 >= 0.1
                 )
@@ -123,4 +101,7 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Integer> {
             int userId,
             int maxScore
     );
+
+    @Modifying
+    void deleteInBulkByDateLastSeenBefore(Instant dateLastSeen);
 }

@@ -2,9 +2,7 @@ package com.jsa.jobsearchapp.scraping;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jsa.jobsearchapp.jobOffer.EmploymentType;
-import com.jsa.jobsearchapp.jobOffer.Seniority;
-import com.jsa.jobsearchapp.jobOffer.TypeOfContract;
+import com.jsa.jobsearchapp.jobOffer.*;
 import com.jsa.jobsearchapp.location.Location;
 import com.jsa.jobsearchapp.location.LocationRepository;
 import com.jsa.jobsearchapp.skill.Skill;
@@ -13,21 +11,20 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
 public class ScrapingService {
 
+    private final JobOfferRepository jobOfferRepository;
     private final LocationRepository locationRepository;
     private final SkillRepository skillRepository;
     private final ObjectMapper mapper;
 
-    public ScrapingService(LocationRepository locationRepository, SkillRepository skillRepository, ObjectMapper mapper) {
+    public ScrapingService(JobOfferRepository jobOfferRepository, LocationRepository locationRepository, SkillRepository skillRepository, ObjectMapper mapper) {
+        this.jobOfferRepository = jobOfferRepository;
         this.locationRepository = locationRepository;
         this.skillRepository = skillRepository;
         this.mapper = mapper;
@@ -65,6 +62,20 @@ public class ScrapingService {
             case "specific-task contract" -> TypeOfContract.FREELANCE;
             default -> TypeOfContract.OTHER;
         };
+    }
+
+    public List<JobOffer> sendJobOffersInSmallerBatches(List<JobOffer> jobOffers) {
+        List<JobOffer> sentJobOffers = new ArrayList<>();
+        for (int i = 0; i < jobOffers.size(); i += 100) {
+            List<JobOffer> batchSubList = jobOffers.subList(i, Math.min(i + 100, jobOffers.size()));
+            try {
+                jobOfferRepository.saveAll(batchSubList);
+                sentJobOffers.addAll(batchSubList);
+            } catch (Exception e) {
+                System.err.println("Failed to send NoFluff job offers at batch " + i);
+            }
+        }
+        return sentJobOffers;
     }
 
     public void createNewLocationIfNotFoundElseGet(String city, Set<Location> locations) {
